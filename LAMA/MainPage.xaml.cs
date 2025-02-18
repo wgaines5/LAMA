@@ -2,19 +2,25 @@
 {
     public partial class MainPage : ContentPage
     {
-        public double ScreenWidth => DeviceDisplay.MainDisplayInfo.Width / DeviceDisplay.MainDisplayInfo.Density;
-        public double ScreenHeight => DeviceDisplay.MainDisplayInfo.Height / DeviceDisplay.MainDisplayInfo.Density;
-        
+        int count = 0;
+
         public double AppIconSize { get; set; }
 
         public MainPage()
         {
             InitializeComponent();
-            BindingContext = this;
+        }
 
-            AppIconSize = ScreenWidth * .3;
+        private void OnCounterClicked(object sender, EventArgs e)
+        {
+            count++;
 
+            if (count == 1)
+                CounterBtn.Text = $"Clicked {count} time";
+            else
+                CounterBtn.Text = $"Clicked {count} times";
 
+            SemanticScreenReader.Announce(CounterBtn.Text);
         }
 
       

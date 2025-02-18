@@ -14,23 +14,11 @@
                 Aspect="AspectFit"
                 SemanticProperties.Description="dot net bot in a race car number eight" />
 
-            <Entry
-              Placeholder="Email Address..."
-                
-              ></Entry>
 
-            <Entry
-                Placeholder="Username"
-                ></Entry>
-
-            <Entry
-       Placeholder="Password"
-       ></Entry>
 
             <Button
-                x:Name="SignUpButton"
-                Text="Sign Up" 
                 SemanticProperties.Hint="Counts the number of times you click"
+                Clicked="OnCounterClicked"
                 HorizontalOptions="Fill" />
 
 
