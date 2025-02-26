@@ -9,7 +9,7 @@
         {
             InitializeComponent();
         }
-
+         
         private async void OnSignUpTapped(object sender, EventArgs e)
         {
             await Shell.Current.GoToAsync("//SignUpPage");  // Navigate to SignUpPage
