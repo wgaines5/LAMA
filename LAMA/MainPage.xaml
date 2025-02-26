@@ -23,7 +23,7 @@
             <Entry
        Placeholder="Password"
        ></Entry>
-
+ 
             <Button
                 x:Name="SignInButton"
                 Text="Sign In" 
