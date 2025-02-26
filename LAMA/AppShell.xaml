@@ -9,14 +9,46 @@
     Shell.FlyoutBehavior="Disabled"
     Title="LAMA">
 
+   <!--Authentication Pages-->
+    
     <ShellContent
         Title="LAMA"
         ContentTemplate="{DataTemplate local:MainPage}"
         Route="MainPage" />
 
+
     <ShellContent
-        Title="Sign In"
-        ContentTemplate="{DataTemplate auth:SignInPage}"
-        Route="SignInPage" />
+        Title="LAMA"
+        ContentTemplate="{DataTemplate auth:SignUpPage}"
+        Route="SignUpPage" />
+
+    <!--Core Pages-->
+    
+    <ShellContent
+     Title="LAMA"
+     ContentTemplate="{DataTemplate core:ProfilePage}"
+     Route="ProfilePage" />
+
+
+    <ShellContent
+  Title="LAMA"
+  ContentTemplate="{DataTemplate core:MedFactsPage}"
+  Route="MedFactsPage" />
+
+
+    <ShellContent
+  Title="LAMA"
+  ContentTemplate="{DataTemplate core:MessagesPage}"
+  Route="MessagesPage" />
+
+    <ShellContent
+  Title="LAMA"
+  ContentTemplate="{DataTemplate core:CategoryPage}"
+  Route="CategoryPage" />
+
+
+
+
+
 
 </Shell>

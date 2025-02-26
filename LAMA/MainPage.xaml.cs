@@ -10,9 +10,14 @@
             InitializeComponent();
         }
 
+        private async void OnSignUpTapped(object sender, EventArgs e)
+        {
+            await Shell.Current.GoToAsync("//SignUpPage");  // Navigate to SignUpPage
+        }
+
         private async void OnSignInTapped(object sender, EventArgs e)
         {
-            await Shell.Current.GoToAsync("//SignInPage");  // Navigate to SignInPage
+            await Shell.Current.GoToAsync("//ProfilePage");  // Navigate to SignUpPage
         }
 
     }

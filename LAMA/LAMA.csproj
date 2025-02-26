@@ -57,16 +57,43 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Remove="Auth\NewPage1.cs" />
+	  <Compile Remove="Auth\NewPage1.xaml.cs" />
+	  <Compile Remove="Auth\NewPage2.xaml.cs" />
+	  <Compile Remove="Auth\SignInPage.xaml.cs" />
+	  <Compile Remove="SignUpPage.xaml.cs" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiXaml Remove="Auth\NewPage1.xaml" />
+	  <MauiXaml Remove="Auth\NewPage2.xaml" />
+	  <MauiXaml Remove="Auth\SignInPage.xaml" />
+	  <MauiXaml Remove="SignUpPage.xaml" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
 		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="$(MauiVersion)" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.1" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiXaml Update="Auth\SignInPage.xaml">
+	  <MauiXaml Update="Auth\SignUpPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Core\CategoryPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Core\MedFactsPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Core\MessagesPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Core\ProfilePage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Core\SettingsPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>

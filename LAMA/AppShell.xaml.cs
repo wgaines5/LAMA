@@ -4,7 +4,10 @@
     {
         public AppShell()
         {
+        
             InitializeComponent();
+
+            //Routing.RegisterRoute("auth/signup", typeof(LAMA.Auth.SignUpPage));
         }
     }
 }
