@@ -17,7 +17,7 @@
 
         private async void OnSignInTapped(object sender, EventArgs e)
         {
-            await Shell.Current.GoToAsync("//ProfilePage");  // Navigate to SignUpPage
+            await Shell.Current.GoToAsync("//ProfilePage");  // Navigate to ProfilePage
         }
 
     }
