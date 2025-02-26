@@ -19,7 +19,7 @@
             <Entry
                 Placeholder="Email or username"
                 ></Entry>
-
+ 
             <Entry
        Placeholder="Password"
        ></Entry>
