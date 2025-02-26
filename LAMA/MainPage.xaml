@@ -28,7 +28,7 @@
                 x:Name="SignInButton"
                 Text="Sign In" 
                 SemanticProperties.Hint="Counts the number of times you click"
-                HorizontalOptions="Fill" 
+                HorizontalOptions="Fill"  
                 Clicked="OnSignInTapped"
                 />
 
