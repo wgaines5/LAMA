@@ -14,9 +14,9 @@ namespace LAMA.Core
         {
             new() { Name = "General Health", Icon = "general_health.png"},
             new() { Name = "Mental Health", Icon = "mental_health.png"},
-            new() { Name = "Sexual & Reproductive Health", Icon = "sexualNRep_health.png"},
-            new() { Name = "Chronic Conditions & Autoimmune", Icon = "chronicNAuto.png"},
-            new() { Name = "Medication & Drug Interactions", Icon = "medNDrug.png"},
+            new() { Name = "Sexual & Reproductive Health", Icon = "sexualnrep_health.png"},
+            new() { Name = "Chronic Conditions & Autoimmune", Icon = "chronicnauto.png"},
+            new() { Name = "Medication & Drug Interactions", Icon = "medndrug.png"},
             new() { Name = "Alternative & Holistic Medicine", Icon = "holistic_meds.png"}
 
         };
