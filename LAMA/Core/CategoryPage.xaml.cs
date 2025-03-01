@@ -44,7 +44,7 @@ namespace LAMA.Core
         }
         private async void OnMessagesClicked(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new MessagesPage());
+            await Navigation.PushAsync(new Messages.InboxPage());
 
         }
         private async void OnSettingsClicked(object sender, EventArgs e)

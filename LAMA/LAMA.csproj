@@ -79,6 +79,12 @@
 	  <Compile Update="Auth\SignInPage.xaml.cs">
 	    <DependentUpon>SignInPage.xaml</DependentUpon>
 	  </Compile>
+	  <Compile Update="Core\Messages\DirectMessagePage.xaml.cs">
+	    <DependentUpon>DirectMessagePage.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Core\Messages\InboxPage.xaml.cs">
+	    <DependentUpon>InboxPage.xaml</DependentUpon>
+	  </Compile>
 	</ItemGroup>
 
 	<ItemGroup>
@@ -94,7 +100,10 @@
 	  <MauiXaml Update="Core\MedFactsPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Core\MessagesPage.xaml">
+	  <MauiXaml Update="Core\Messages\InboxPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Core\Messages\DirectMessagePage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Core\ProfilePage.xaml">

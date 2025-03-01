@@ -6,6 +6,7 @@
     xmlns:local="clr-namespace:LAMA"
      xmlns:auth="clr-namespace:LAMA.Auth"
      xmlns:core="clr-namespace:LAMA.Core"
+      xmlns:messages="clr-namespace:LAMA.Core.Messages"
     Title="LAMA">
 
     <!--Authentication Pages-->
@@ -59,8 +60,8 @@ Route="ProfilePage" />
         <ShellSection Title="Messages">
             <ShellContent
 Title="Messages"
-ContentTemplate="{DataTemplate core:MessagesPage}"
-Route="MessagesPage" />
+ContentTemplate="{DataTemplate messages:InboxPage}"
+Route="InboxPage" />
 
         </ShellSection>
 
