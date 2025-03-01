@@ -6,51 +6,82 @@
     xmlns:local="clr-namespace:LAMA"
      xmlns:auth="clr-namespace:LAMA.Auth"
      xmlns:core="clr-namespace:LAMA.Core"
-    Shell.FlyoutBehavior="Flyout"
     Title="LAMA">
 
-   <!--Authentication Pages-->
-    
-    <ShellContent
-        Title="LAMA"
-        ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />
+    <!--Authentication Pages-->
 
 
     <ShellContent
-        Title="LAMA"
+    Title="Home"
+    ContentTemplate="{DataTemplate auth:MainPage}"
+    Route="MainPage"
+
+    />
+
+    <ShellContent
+      Title="Sign In"
+      ContentTemplate="{DataTemplate auth:SignInPage}"
+      Route="SignInPage" 
+        FlyoutItemIsVisible="False"
+        />
+
+
+    <ShellContent
+        Title="Sign Up"
         ContentTemplate="{DataTemplate auth:SignUpPage}"
-        Route="SignUpPage" />
+        Route="SignUpPage" 
+        FlyoutItemIsVisible="False"
+        />
+   
 
     <!--Core Pages-->
-    
-    <ShellContent
-     Title="LAMA"
-     ContentTemplate="{DataTemplate core:ProfilePage}"
-     Route="ProfilePage" />
+
+    <FlyoutItem Title="Main Menu">
+
+        <ShellSection Title="Profile">
+
+            <ShellContent
+Title="Profile"
+ContentTemplate="{DataTemplate core:ProfilePage}"
+Route="ProfilePage" />
+        </ShellSection>
+
+        <ShellSection Title="Facts">
+
+            <ShellContent
+ Title="Facts"
+ ContentTemplate="{DataTemplate core:MedFactsPage}"
+ Route="MedFactsPage" />
+
+        </ShellSection>
 
 
-    <ShellContent
-  Title="Facts"
-  ContentTemplate="{DataTemplate core:MedFactsPage}"
-  Route="MedFactsPage" />
+        <ShellSection Title="Messages">
+            <ShellContent
+Title="Messages"
+ContentTemplate="{DataTemplate core:MessagesPage}"
+Route="MessagesPage" />
+
+        </ShellSection>
 
 
-    <ShellContent
-  Title="LAMA"
-  ContentTemplate="{DataTemplate core:MessagesPage}"
-  Route="MessagesPage" />
+        <ShellSection Title="Categories" >
+            <ShellContent
+Title="Categories"
+ContentTemplate="{DataTemplate core:CategoryPage}"
+Route="CategoryPage" />
 
-    <ShellContent
-  Title="LAMA"
-  ContentTemplate="{DataTemplate core:CategoryPage}"
-  Route="CategoryPage" />
-    
-    <ShellContent
-Title="LAMA"
-ContentTemplate="{DataTemplate core:Signup}"
-Route="SignUp" />
+        </ShellSection>
 
 
+        <ShellSection Title="Settings" >
+
+            <ShellContent
+Title="Settings"
+ContentTemplate="{DataTemplate core:SettingsPage}"
+Route="SettingsPage" />
+        </ShellSection>
+ 
+    </FlyoutItem>
 
 </Shell>
