@@ -34,24 +34,6 @@
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
-             
-        <!--bottom navigation-->
-        <Grid BackgroundColor="White" Padding="10">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="Auto" />
-            </Grid.ColumnDefinitions>
-
-            <Button Grid.Column="0" Text="Profile" Clicked="OnProfileClicked"/>
-            <Button Grid.Column="1" Text="Med Facts" Clicked="OnMedFactsClicked"/>
-            <Button Grid.Column="2" Text="Category" FontAttributes="Bold" Clicked="OnCategoryClicked"/>
-            <Button Grid.Column="3" Text="Messages" Clicked="OnMessagesClicked"/>
-            <Button Grid.Column="4" Text="Settings" Clicked="OnSettingsClicked"/>
-        </Grid>
-
-
+  
     </VerticalStackLayout>
 </ContentPage>
