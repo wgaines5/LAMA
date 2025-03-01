@@ -1,4 +1,4 @@
-﻿namespace LAMA
+﻿
 {
     public partial class AppShell : Shell
     {
