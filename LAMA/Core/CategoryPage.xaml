@@ -7,7 +7,7 @@
         <Button
             Text="Back"
             FontSize="16"
-            BackgroundColor="Transparent"
+            BackgroundColor="#34485a"
             HorizontalOptions="Start"
             Clicked="OnBackButtonClicked"/>
 

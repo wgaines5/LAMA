@@ -45,6 +45,12 @@
   Title="LAMA"
   ContentTemplate="{DataTemplate core:CategoryPage}"
   Route="CategoryPage" />
+    
+    <ShellContent
+Title="LAMA"
+ContentTemplate="{DataTemplate core:Signup}"
+Route="SignUp" />
+
 
 
 
