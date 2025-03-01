@@ -1,14 +1,16 @@
 using Microsoft.Maui.Controls;
 using System.Collections.ObjectModel;
 
-namespace LAMA.Core { 
-      public partial class CategoryPage : ContentPage
+namespace LAMA.Core
 {
-    public ObservableCollection<Category> Categories { get; set; }
-    public CategoryPage()
+
+    public partial class CategoryPage : ContentPage
     {
-        InitializeComponent();
-        Categories = new ObservableCollection<Category>
+        public ObservableCollection<Category> Categories { get; set; }
+        public CategoryPage()
+        {
+            InitializeComponent();
+            Categories = new ObservableCollection<Category>
         {
             new() { Name = "General Health", Icon = "general_health.png"},
             new() { Name = "Mental Health", Icon = "mental_health.png"},
@@ -18,43 +20,43 @@ namespace LAMA.Core {
             new() { Name = "Alternative & Holistic Medicine", Icon = "holistic_meds.png"}
 
         };
-        BindingContext = this;
+            BindingContext = this;
+        }
+
+        private async void OnBackButtonClicked(object sender, EventArgs e)
+        {
+            await Navigation.PopAsync();
+        }
+        private async void OnProfileClicked(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new ProfilePage());
+
+        }
+        private async void OnMedFactsClicked(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new MedFactsPage());
+
+        }
+        private async void OnCategoryClicked(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new CategoryPage());
+
+        }
+        private async void OnMessagesClicked(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new MessagesPage());
+
+        }
+        private async void OnSettingsClicked(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new SettingsPage());
+
+        }
     }
 
-    private async void OnBackButtonClicked(object sender, EventArgs e)
+    public class Category
     {
-        await Navigation.PopAsync();
+        public required string Name { get; set; }
+        public required string Icon { get; set; }
     }
-    private async void OnProfileClicked(object sender, EventArgs e)
-    {
-        await Navigation.PushAsync(new ProfilePage());
-
-    }
-    private async void OnMedFactsClicked(object sender, EventArgs e)
-    {
-        await Navigation.PushAsync(new MedFactsPage());
-
-    }
-    private async void OnCategoryClicked(object sender, EventArgs e)
-    {
-        await Navigation.PushAsync(new CategoryPage());
-
-    }
-    private async void OnMessagesClicked(object sender, EventArgs e)
-    {
-        await Navigation.PushAsync(new MessagesPage());
-
-    }
-    private async void OnSettingsClicked(object sender, EventArgs e)
-    {
-        await Navigation.PushAsync(new SettingsPage());
-
-    }
-}
-
-public class Category
-{
-    public required string Name { get; set; }
-    public required string Icon { get; set; }
-}
 }
