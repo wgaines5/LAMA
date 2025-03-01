@@ -34,14 +34,18 @@ namespace LAMA
             await Shell.Current.GoToAsync(nameof(MedFactsPage));
         }
 
+
         private async void OnCategoryClicked(object sender, EventArgs e)
+
         {
             await Shell.Current.GoToAsync(nameof(CategoryPage));
         }
 
         private async void OnMessagesClicked(object sender, EventArgs e)
         {
+
             await Shell.Current.GoToAsync(nameof(MessagesPage));
+
         }
 
         private async void OnSettingsClicked(object sender, EventArgs e)

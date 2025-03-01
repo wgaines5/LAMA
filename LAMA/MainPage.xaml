@@ -6,6 +6,7 @@
              BackgroundColor="White">
 
     <ScrollView>
+
         <VerticalStackLayout Padding="20" Spacing="15">
 
             <!-- quick question section -->
@@ -98,7 +99,6 @@
                 <Button Grid.Column="4" Text="Settings" Clicked="OnSettingsClicked"/>
             </Grid>
             
-
         </VerticalStackLayout>
     </ScrollView>
 

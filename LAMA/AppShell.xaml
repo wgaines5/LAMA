@@ -6,7 +6,7 @@
     xmlns:local="clr-namespace:LAMA"
      xmlns:auth="clr-namespace:LAMA.Auth"
      xmlns:core="clr-namespace:LAMA.Core"
-    Shell.FlyoutBehavior="Disabled"
+    Shell.FlyoutBehavior="Flyout"
     Title="LAMA">
 
    <!--Authentication Pages-->
@@ -31,7 +31,7 @@
 
 
     <ShellContent
-  Title="LAMA"
+  Title="Facts"
   ContentTemplate="{DataTemplate core:MedFactsPage}"
   Route="MedFactsPage" />
 
@@ -50,10 +50,6 @@
 Title="LAMA"
 ContentTemplate="{DataTemplate core:Signup}"
 Route="SignUp" />
-
-
-
-
 
 
 
