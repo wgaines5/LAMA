@@ -1,15 +1,46 @@
-<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="LAMA.Auth.SignInPage"
              Title="Sign In"
              >
 
-    <VerticalStackLayout
-        
-        
-        
-        ></VerticalStackLayout>
+    <ScrollView>
+        <VerticalStackLayout
+            Padding="30,0"
+            Spacing="25">
+            <Image
+                Source="dotnet_bot.png"
+                WidthRequest="{Binding AppIconSize}"
+                HeightRequest="{Binding AppIconSize}"
+                Aspect="AspectFit"
+                SemanticProperties.Description="dot net bot in a race car number eight" />
 
+            <Entry
+                Placeholder="Email or username"
+                ></Entry>
+ 
+            <Entry
+       Placeholder="Password"
+       ></Entry>
+ 
+            <Button
+                x:Name="SignInButton"
+                Text="Sign In" 
+                SemanticProperties.Hint="Counts the number of times you click"
+                HorizontalOptions="Fill"  
+                Clicked="OnSignInTapped"
+                />
+
+
+            <Label
+                Text="New to LAMA? Create an account."
+                HorizontalOptions="Center">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnSignUpTapped" />
+                </Label.GestureRecognizers>
+                </Label>
+        </VerticalStackLayout>
+    </ScrollView>
 
 </ContentPage>

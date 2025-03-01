@@ -6,15 +6,14 @@
     xmlns:local="clr-namespace:LAMA"
      xmlns:auth="clr-namespace:LAMA.Auth"
      xmlns:core="clr-namespace:LAMA.Core"
-    Shell.FlyoutBehavior="Flyout"
     Title="LAMA">
 
    <!--Authentication Pages-->
     
     <ShellContent
         Title="LAMA"
-        ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />
+        ContentTemplate="{DataTemplate auth:SignInPage}"
+        Route="SignInPage" />
 
 
     <ShellContent
@@ -22,29 +21,36 @@
         ContentTemplate="{DataTemplate auth:SignUpPage}"
         Route="SignUpPage" />
 
-    <!--Core Pages-->
+    <!--Core (Tab) Pages-->
+
+    <TabBar>
+
+        <Tab Title="Profile">
+            <ShellContent 
+                ContentTemplate="{DataTemplate core:ProfilePage}" 
+                          Route="ProfilePage"/>
+        </Tab>
+
+        <Tab Title="Med Facts">
+            <ShellContent ContentTemplate="{DataTemplate core:MedFactsPage}"
+                          Route="MedFactsPage"/>
+        </Tab>
+
+        <Tab Title="Messages">
+            <ShellContent ContentTemplate="{DataTemplate core:MessagesPage}" 
+                          Route="MessagesPage"/>
+        </Tab>
+
+        <Tab Title="Categories">
+            <ShellContent ContentTemplate="{DataTemplate core:CategoryPage}" 
+                          Route="CategoryPage"/>
+        </Tab>
+
+        <Tab Title="Settings">
+            <ShellContent ContentTemplate="{DataTemplate core:SettingsPage}"
+                          Route="SettingsPage"/>
+        </Tab>
+    </TabBar>
     
-    <ShellContent
-     Title="LAMA"
-     ContentTemplate="{DataTemplate core:ProfilePage}"
-     Route="ProfilePage" />
-
-
-    <ShellContent
-  Title="Facts"
-  ContentTemplate="{DataTemplate core:MedFactsPage}"
-  Route="MedFactsPage" />
-
-
-    <ShellContent
-  Title="LAMA"
-  ContentTemplate="{DataTemplate core:MessagesPage}"
-  Route="MessagesPage" />
-
-    <ShellContent
-  Title="LAMA"
-  ContentTemplate="{DataTemplate core:CategoryPage}"
-  Route="CategoryPage" />
-
 
 </Shell>

@@ -60,14 +60,12 @@
 	  <Compile Remove="Auth\NewPage1.cs" />
 	  <Compile Remove="Auth\NewPage1.xaml.cs" />
 	  <Compile Remove="Auth\NewPage2.xaml.cs" />
-	  <Compile Remove="Auth\SignInPage.xaml.cs" />
 	  <Compile Remove="SignUpPage.xaml.cs" />
 	</ItemGroup>
 
 	<ItemGroup>
 	  <MauiXaml Remove="Auth\NewPage1.xaml" />
 	  <MauiXaml Remove="Auth\NewPage2.xaml" />
-	  <MauiXaml Remove="Auth\SignInPage.xaml" />
 	  <MauiXaml Remove="SignUpPage.xaml" />
 	</ItemGroup>
 
@@ -75,6 +73,12 @@
 		<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
 		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="$(MauiVersion)" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.1" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Update="Auth\SignInPage.xaml.cs">
+	    <DependentUpon>SignInPage.xaml</DependentUpon>
+	  </Compile>
 	</ItemGroup>
 
 	<ItemGroup>
