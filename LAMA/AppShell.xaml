@@ -20,8 +20,14 @@
         Title="LAMA"
         ContentTemplate="{DataTemplate auth:SignUpPage}"
         Route="SignUpPage" />
+    
+    
+    <ShellContent 
+        Title="Medical Facts"
+        ContentTemplate="{DataTemplate core:MedFactsPage}"
+        Route="MedFactsPage"/>
 
-    <!--Core (Tab) Pages-->
+        <!--Core (Tab) Pages-->
 
     <TabBar>
 
