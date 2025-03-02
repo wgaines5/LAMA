@@ -1,12 +1,36 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="LAMA.Core.MessagesPage"
-             Title="MessagesPage">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
-</ContentPage>
+             Title="Chat Messages">
+
+        <Grid Padding="20" RowDefinitions="Auto, *, Auto">
+
+            <Label Text="Medical Advice Chat"
+                   FontSize="24" 
+                   FontAttributes="Bold" 
+                   Grid.Row="0"/>
+
+            <!-- chat messages -->
+            <CollectionView x:Name="ChatMessagesList"
+                        ItemsSource="{Binding ChatMessages}"
+                        Grid.Row="1">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame Padding="10" Margin="5" CornerRadius="10" BackgroundColor="LightGray">
+                            <Label Text="{Binding}" FontSize="16"/>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <!-- chat input -->
+            <Frame Padding="10" BackgroundColor="White" CornerRadius="10" Grid.Row="2">
+                <HorizontalStackLayout>
+                    <Entry x:Name="ChatEntry" Placeholder="Type a message..." WidthRequest="250"/>
+                    <Button Text="Send" Clicked="OnSendMessage"/>
+                </HorizontalStackLayout>
+            </Frame>
+
+        </Grid>
+    </ContentPage>

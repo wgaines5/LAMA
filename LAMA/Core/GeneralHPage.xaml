@@ -1,0 +1,31 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="LAMA.Core.GeneralHPage"
+             Title="General Health"
+             BackgroundColor="White">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="15">
+            <Label Text="General Health Advice" FontSize="24" FontAttributes="Bold"/>
+
+            <Image Source="general_health_info.png" HeightRequest="200" HorizontalOptions="Center"/>
+            <Label Text="Welcome! Taking care of your health is the first step to a better life. Ask any question and receive expert advice on your well-being."
+                   FontSize="16" TextColor="Black" HorizontalOptions="Center"/>
+
+            <Frame Padding="10" BackgroundColor="#0188ff" CornerRadius="10">
+                <VerticalStackLayout>
+                    <Label Text="Ask a General Health Question:" FontSize="18" FontAttributes="Bold"/>
+                    <Entry x:Name="QuestionEntry"
+                           Placeholder="Type your question here..."
+                           BackgroundColor="White"
+                           HeightRequest="40"/>
+                    <Button Text="Ask"
+                            BackgroundColor="#30cfcb"
+                            TextColor="Black"
+                            Clicked="OnAskQuestion"/>
+                </VerticalStackLayout>
+            </Frame>
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>

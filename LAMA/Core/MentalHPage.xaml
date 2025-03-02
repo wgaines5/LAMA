@@ -1,0 +1,24 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="LAMA.Core.MentalHPage"
+             Title="Mental Health"
+             BackgroundColor="White">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="15">
+            <Label Text="Mental Health Awareness" FontSize="24" FontAttributes="Bold"/>
+            <Image Source="mental_health_info.png" HeightRequest="200" HorizontalOptions="Center"/>
+            <Label Text="You're not alone. Every step you take toward mental wellness is a victory. We’re here to listen, support, and guide you."
+                   FontSize="16" TextColor="Black" HorizontalOptions="Center"/>
+
+            <Frame Padding="10" BackgroundColor="#0188ff" CornerRadius="10">
+                <VerticalStackLayout>
+                    <Label Text="Ask a Mental Health Question:" FontSize="18" FontAttributes="Bold"/>
+                    <Entry x:Name="QuestionEntry" Placeholder="Type your question..." BackgroundColor="White" HeightRequest="40"/>
+                    <Button Text="Ask" BackgroundColor="#30cfcb" TextColor="Black" Clicked="OnAskQuestion"/>
+                </VerticalStackLayout>
+            </Frame>
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>
