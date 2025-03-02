@@ -23,10 +23,34 @@ namespace LAMA.Core
             BindingContext = this;
         }
 
-        private async void OnBackButtonClicked(object sender, EventArgs e)
+        private async void OnCategorySelected(object sender, EventArgs e)
         {
-            await Navigation.PopAsync();
+            if (sender is Button button && button.CommandParameter is string categoryName)
+            {
+                switch (categoryName)
+                {
+                    case "General Health":
+                        await Shell.Current.GoToAsync(nameof(GeneralHPage));
+                        break;
+                    case "Mental Health":
+                        await Shell.Current.GoToAsync(nameof(MentalHPage));
+                        break;
+                    case "Sexual & Reproductive Health":
+                        await Shell.Current.GoToAsync(nameof(SexualRPage));
+                        break;
+                    case "Chronic Conditions & Autoimmune":
+                        await Shell.Current.GoToAsync(nameof(ChronicAPage));
+                        break;
+                    case "Medication & Drug Interactions":
+                        await Shell.Current.GoToAsync(nameof(MedicationDPage));
+                        break;
+                    case "Alternative & Holistic Medicine":
+                        await Shell.Current.GoToAsync(nameof(AlternativeHPage));
+                        break;
+                }
+            }
         }
+
         private async void OnProfileClicked(object sender, EventArgs e)
         {
             await Navigation.PushAsync(new ProfilePage());

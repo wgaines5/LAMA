@@ -18,6 +18,13 @@ namespace LAMA
             Routing.RegisterRoute(nameof(MessagesPage), typeof(MessagesPage));
             Routing.RegisterRoute(nameof(SettingsPage), typeof(SettingsPage));
             Routing.RegisterRoute(nameof(SignUpPage), typeof(SignUpPage));
+
+            Routing.RegisterRoute(nameof(GeneralHPage), typeof(GeneralHPage));
+            Routing.RegisterRoute(nameof(MentalHPage), typeof(MentalHPage));
+            Routing.RegisterRoute(nameof(SexualRPage), typeof(SexualRPage));
+            Routing.RegisterRoute(nameof(ChronicAPage), typeof(ChronicAPage));
+            Routing.RegisterRoute(nameof(MedicationDPage), typeof(MedicationDPage));
+            Routing.RegisterRoute(nameof(AlternativeHPage), typeof(AlternativeHPage));
         }
     }
 }
