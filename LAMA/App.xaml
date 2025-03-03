@@ -9,6 +9,8 @@
                 <ResourceDictionary Source="Resources/Styles/Colors.xaml" />
                 <ResourceDictionary Source="Resources/Styles/Styles.xaml" />
             </ResourceDictionary.MergedDictionaries>
+            <local:BoolToColorConverter x:Key="BoolToColorConverter"/>
+            <local:BoolToAlignmentConverter x:Key="BoolToAlignmentConverter"/>
         </ResourceDictionary>
     </Application.Resources>
 </Application>
