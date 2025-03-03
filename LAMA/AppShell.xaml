@@ -23,6 +23,11 @@
 
     <!--Core (Tab) Pages-->
 
+    <ShellContent
+        Title="Ask a Medical Professional"
+        ContentTemplate="{DataTemplate core:MessagesPage}"
+        Route="MessagesPage"/>
+    
     <TabBar>
 
         <Tab Title="Profile">
