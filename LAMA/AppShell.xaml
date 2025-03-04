@@ -19,13 +19,6 @@
 
     />
 
-    <ShellContent
-      Title="Sign In"
-      ContentTemplate="{DataTemplate auth:SignInPage}"
-      Route="SignInPage" 
-        FlyoutItemIsVisible="False"
-        />
-
 
     <ShellContent
         Title="Sign Up"
