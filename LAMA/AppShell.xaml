@@ -41,15 +41,39 @@
                           Route="MedFactsPage"/>
         </Tab>
 
-        <Tab Title="Messages">
-            <ShellContent ContentTemplate="{DataTemplate core:MessagesPage}" 
-                          Route="MessagesPage"/>
-        </Tab>
+            <ShellContent
+ Title="Facts"
+ ContentTemplate="{DataTemplate core:MedFactsPage}"
+ Route="MedFactsPage" />
 
-        <Tab Title="Categories">
-            <ShellContent ContentTemplate="{DataTemplate core:CategoryPage}" 
+       
+
+
+        <ShellSection Title="Messages">
+            <ShellContent
+Title="Messages"
+ContentTemplate="{DataTemplate core:MessagesPage}"
+Route="MessagesPage" />
+
+        </ShellSection>
+
+
+        <ShellSection Title="Categories" >
+            <ShellContent
+Title="Categories"
+ContentTemplate="{DataTemplate core:CategoryPage}"
+Route="CategoryPage" />
+
+        </ShellSection>
+
+
+        <ShellSection Title="Settings" >
+
+            <ShellContent Title="Categories">
+                <ShellContent ContentTemplate="{DataTemplate core:CategoryPage}" 
                           Route="CategoryPage"/>
-        </Tab>
+            </ShellContent>
+        </ShellSection>
 
         <Tab Title="Settings">
             <ShellContent ContentTemplate="{DataTemplate core:SettingsPage}"
