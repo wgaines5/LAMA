@@ -6,11 +6,10 @@
     xmlns:local="clr-namespace:LAMA"
      xmlns:auth="clr-namespace:LAMA.Auth"
      xmlns:core="clr-namespace:LAMA.Core"
-      xmlns:messages="clr-namespace:LAMA.Core.Messages"
+     xmlns:messages="clr-namespace:LAMA.Core.Messages"
     Title="LAMA">
 
     <!--Authentication Pages-->
-
 
     <ShellContent
     Title="Home"
@@ -33,14 +32,7 @@
         Route="SignUpPage" 
         FlyoutItemIsVisible="False"
         />
-   
 
-    <ShellContent
-        Title="Ask a Medical Professional"
-        ContentTemplate="{DataTemplate core:MessagesPage}"
-        Route="MessagesPage"/>
-    
-  
 
         <ShellSection Title="Profile">
 
@@ -60,16 +52,15 @@ Route="ProfilePage" />
         </ShellSection>
 
 
-        <ShellSection Title="Messages">
-            <ShellContent
-Title="Messages"
+    <ShellSection Title="Inbox">
+        <ShellContent
+Title="Inbox"
 ContentTemplate="{DataTemplate messages:InboxPage}"
 Route="InboxPage" />
+    </ShellSection>
+    
 
-        </ShellSection>
-
-
-        <ShellSection Title="Categories" >
+    <ShellSection Title="Categories" >
             <ShellContent
 Title="Categories"
 ContentTemplate="{DataTemplate core:CategoryPage}"
@@ -85,7 +76,6 @@ Title="Settings"
 ContentTemplate="{DataTemplate core:SettingsPage}"
 Route="SettingsPage" />
         </ShellSection>
- 
-  
+
 
 </Shell>

@@ -82,9 +82,6 @@
 	  <Compile Update="Core\Messages\DirectMessagePage.xaml.cs">
 	    <DependentUpon>DirectMessagePage.xaml</DependentUpon>
 	  </Compile>
-	  <Compile Update="Core\Messages\InboxPage.xaml.cs">
-	    <DependentUpon>InboxPage.xaml</DependentUpon>
-	  </Compile>
 	</ItemGroup>
 
 	<ItemGroup>
