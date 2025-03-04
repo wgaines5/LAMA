@@ -6,13 +6,15 @@
     <ScrollView>
         <VerticalStackLayout
             Padding="30,0"
-            Spacing="25">
+            Spacing="25"
+            HorizontalOptions="Center">
             <Image
-                Source="dotnet_bot.png"
+                Source="lama_logo.png"
                 WidthRequest="{Binding AppIconSize}"
                 HeightRequest="{Binding AppIconSize}"
                 Aspect="AspectFit"
-                SemanticProperties.Description="dot net bot in a race car number eight" />
+                HorizontalOptions="Center"
+                SemanticProperties.Description="Live Anonymous Medical Advice Logo" />
 
             <Entry
               Placeholder="Email Address..."

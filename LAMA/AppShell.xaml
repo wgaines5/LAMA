@@ -6,54 +6,65 @@
     xmlns:local="clr-namespace:LAMA"
      xmlns:auth="clr-namespace:LAMA.Auth"
      xmlns:core="clr-namespace:LAMA.Core"
+      xmlns:messages="clr-namespace:LAMA.Core.Messages"
     Title="LAMA">
 
-   <!--Authentication Pages-->
-    
-    <ShellContent
-        Title="LAMA"
-        ContentTemplate="{DataTemplate auth:SignInPage}"
-        Route="SignInPage" />
+    <!--Authentication Pages-->
 
 
     <ShellContent
-        Title="LAMA"
+    Title="Home"
+    ContentTemplate="{DataTemplate auth:MainPage}"
+    Route="MainPage"
+
+    />
+
+    <ShellContent
+      Title="Sign In"
+      ContentTemplate="{DataTemplate auth:SignInPage}"
+      Route="SignInPage" 
+        FlyoutItemIsVisible="False"
+        />
+
+
+    <ShellContent
+        Title="Sign Up"
         ContentTemplate="{DataTemplate auth:SignUpPage}"
-        Route="SignUpPage" />
-
-    <!--Core (Tab) Pages-->
+        Route="SignUpPage" 
+        FlyoutItemIsVisible="False"
+        />
+   
 
     <ShellContent
         Title="Ask a Medical Professional"
         ContentTemplate="{DataTemplate core:MessagesPage}"
         Route="MessagesPage"/>
     
-    <TabBar>
+  
 
-        <Tab Title="Profile">
-            <ShellContent 
-                ContentTemplate="{DataTemplate core:ProfilePage}" 
-                          Route="ProfilePage"/>
-        </Tab>
+        <ShellSection Title="Profile">
 
-        <Tab Title="Med Facts">
-            <ShellContent ContentTemplate="{DataTemplate core:MedFactsPage}"
-                          Route="MedFactsPage"/>
-        </Tab>
+            <ShellContent
+Title="Profile"
+ContentTemplate="{DataTemplate core:ProfilePage}"
+Route="ProfilePage" />
+        </ShellSection>
+
+        <ShellSection Title="Facts">
 
             <ShellContent
  Title="Facts"
  ContentTemplate="{DataTemplate core:MedFactsPage}"
  Route="MedFactsPage" />
 
-       
+        </ShellSection>
 
 
         <ShellSection Title="Messages">
             <ShellContent
 Title="Messages"
-ContentTemplate="{DataTemplate core:MessagesPage}"
-Route="MessagesPage" />
+ContentTemplate="{DataTemplate messages:InboxPage}"
+Route="InboxPage" />
 
         </ShellSection>
 
@@ -69,17 +80,12 @@ Route="CategoryPage" />
 
         <ShellSection Title="Settings" >
 
-            <ShellContent Title="Categories">
-                <ShellContent ContentTemplate="{DataTemplate core:CategoryPage}" 
-                          Route="CategoryPage"/>
-            </ShellContent>
+            <ShellContent
+Title="Settings"
+ContentTemplate="{DataTemplate core:SettingsPage}"
+Route="SettingsPage" />
         </ShellSection>
-
-        <Tab Title="Settings">
-            <ShellContent ContentTemplate="{DataTemplate core:SettingsPage}"
-                          Route="SettingsPage"/>
-        </Tab>
-    </TabBar>
-    
+ 
+  
 
 </Shell>

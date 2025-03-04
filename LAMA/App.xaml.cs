@@ -1,5 +1,5 @@
-﻿namespace LAMA
-{
+﻿namespace LAMA;
+
     public partial class App : Application
     {
         public App()
@@ -9,4 +9,4 @@
             MainPage = new AppShell();
         }
     }
-}
+

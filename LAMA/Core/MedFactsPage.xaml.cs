@@ -11,7 +11,7 @@ public partial class MedFactsPage : ContentPage
 		BindingContext = new MedFactsViewModel();
 	}
 }
-
+ 
 public class MedFactsViewModel : INotifyPropertyChanged
 {
 	//
