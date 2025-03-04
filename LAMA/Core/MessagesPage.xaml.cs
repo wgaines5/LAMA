@@ -1,65 +1,41 @@
 using System.Collections.ObjectModel;
-using System.Windows.Input;
+using System.Web;
+using Microsoft.Maui.Controls;
 
-namespace LAMA.Core;
-
-public partial class MessagesPage : ContentPage
+namespace LAMA.Core
 {
-	public MessagesPage()
-	{
-		InitializeComponent();
-		BindingContext = new ChatViewModel();
-	}
+    public partial class MessagesPage : ContentPage
+    {
+        public ObservableCollection<string> ChatMessages { get; set; } = new ObservableCollection<string>();
+        
 
-	private void OnSendMessage(object sender, EventArgs e)
-	{
-		if (BindingContext is ChatViewModel chatViewModel)
-		{
-			chatViewModel.SendMessageCommand.Execute(this);
-		}
-	}
-}
+        public MessagesPage()
+        {
+            InitializeComponent();
+            BindingContext = this;
+        }
 
-public class ChatViewModel : BindableObject
-{
-	private string _newMessage;
-	public ObservableCollection<ChatMessage> Messages { get; set; } = new ObservableCollection<ChatMessage>();
-	public string NewMessage
-	{
-		get => _newMessage;
+        protected override void OnNavigatedTo(NavigatedToEventArgs args)
+        {
+            base.OnNavigatedTo(args);
 
-		set
-		{
-			if (_newMessage != value)
-			{
-				_newMessage = value;
-				OnPropertyChanged();
-			}
-		}
-	}
-	public ICommand SendMessageCommand { get; }
+            var query = HttpUtility.ParseQueryString(new Uri(Shell.Current.CurrentState.Location.OriginalString).Query);
 
-	public ChatViewModel()
-	{
-		SendMessageCommand = new Command(SendMessage);
-	}
+            if (query["Question"] is string questionText && !string.IsNullOrWhiteSpace(questionText))
+            {
+                ChatMessages.Add($"User: {questionText}");
+            }
+        }
 
-	private void SendMessage()
-	{
-		if (!string.IsNullOrWhiteSpace(NewMessage))
-		{
-			Messages.Add(new ChatMessage { Content = NewMessage, IsUserMessage = true});
-			NewMessage = string.Empty;
-			OnPropertyChanged(nameof(NewMessage));
+        private void OnSendMessage(object sender, EventArgs e)
+        {
+            Entry chatEntry = (Entry)FindByName("ChatEntry");
 
-			// Simulate response
-			Messages.Add(new ChatMessage { Content = "Thanks for your message.", IsUserMessage = false});
-		}
-	}
-}
-
-public class ChatMessage
-{
-	public string Content { get; set; }
-	public bool IsUserMessage { get; set; }
+            if (chatEntry != null && !string.IsNullOrWhiteSpace(chatEntry.Text))
+            {
+                ChatMessages.Add($"User: {chatEntry.Text}");
+                chatEntry.Text = ""; // clear input after sending
+            }
+        }
+    }
 }
