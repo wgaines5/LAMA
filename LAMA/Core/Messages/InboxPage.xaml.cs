@@ -1,9 +1,16 @@
+
+
 namespace LAMA.Core.Messages;
 
 public partial class InboxPage : ContentPage
 {
 	public InboxPage()
 	{
-		InitializeComponent();
+        InitializeComponent();
 	}
+
+    private void InitializeComponent()
+    {
+        throw new NotImplementedException();
+    }
 }

@@ -40,9 +40,7 @@
         ContentTemplate="{DataTemplate core:MessagesPage}"
         Route="MessagesPage"/>
     
-    <TabBar>
-
-    <FlyoutItem Title="Main Menu">
+  
 
         <ShellSection Title="Profile">
 
@@ -88,6 +86,6 @@ ContentTemplate="{DataTemplate core:SettingsPage}"
 Route="SettingsPage" />
         </ShellSection>
  
-    </FlyoutItem>
+  
 
 </Shell>
