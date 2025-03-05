@@ -2,14 +2,14 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="LAMA.Core.ChronicAPage"
              Title="Chronic Conditions and Autoimmune"
-             BackgroundColor="White">
+             BackgroundImageSource="chronicbck.png">
 
     <ScrollView>
         <VerticalStackLayout Padding="20" Spacing="15">
             <Label Text="Chronic Conditions and Autoimmune Disorders" FontSize="24" FontAttributes="Bold"/>
             <Image Source="chronic_conditions_info.png" HeightRequest="200" HorizontalOptions="Center"/>
             <Label Text="💙 You are not alone. Managing a chronic condition can be challenging, but with the right knowledge and support, you can live a fulfilling life. Ask your questions, and let’s navigate this journey together. 💙"
-                   FontSize="16" TextColor="Black" HorizontalOptions="Center"/>
+                   FontSize="16" TextColor="Black" FontAttributes="Bold" BackgroundColor="White" HorizontalOptions="Center"/>
 
             <Frame Padding="10" BackgroundColor="#0188ff" CornerRadius="10">
                 <VerticalStackLayout>

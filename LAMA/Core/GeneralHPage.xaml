@@ -2,7 +2,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="LAMA.Core.GeneralHPage"
              Title="General Health"
-             BackgroundColor="White">
+             BackgroundImageSource="generalbck.png">
 
     <ScrollView>
         <VerticalStackLayout Padding="20" Spacing="15">
@@ -10,7 +10,7 @@
 
             <Image Source="general_health_info.png" HeightRequest="200" HorizontalOptions="Center"/>
             <Label Text="Welcome! Taking care of your health is the first step to a better life. Ask any question and receive expert advice on your well-being."
-                   FontSize="16" TextColor="Black" HorizontalOptions="Center"/>
+                   FontSize="16" TextColor="Black" FontAttributes="Bold" BackgroundColor="LightGray" HorizontalOptions="Center"/>
 
             <Frame Padding="10" BackgroundColor="#0188ff" CornerRadius="10">
                 <VerticalStackLayout>
