@@ -2,12 +2,134 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="LAMA.Core.ProfilePage"
-             Title="Profile"
-             >
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+             Title="Profile" >
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height=".3*"/>
+            <RowDefinition Height=".12*"/>
+            <RowDefinition Height=".3*"/>
+        </Grid.RowDefinitions>
+
+        <Frame 
+                Grid.Row="0"
+                VerticalOptions="Fill" 
+                HorizontalOptions="Fill"
+               >
+
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height=".2*"/>
+                    <RowDefinition Height=".1*"/>
+                </Grid.RowDefinitions>
+
+
+                <ImageButton
+                    Grid.Row="0"
+                    BackgroundColor="White"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"
+                    WidthRequest="125"
+                    HeightRequest="125"
+                    CornerRadius="100"
+                    BorderColor="Cyan"
+                    BorderWidth="2"
+                      >
+                </ImageButton>
+
+                <Label
+         Grid.Row="1"
+     VerticalOptions="Start"
+      HorizontalOptions="Center"
+     Text="Hello, Username"
+     FontSize="24"
+     ></Label>
+
+                <Label
+    Grid.Row="2"
+VerticalOptions="Center"
+ HorizontalOptions="Center"
+Text="Joined 1/1/2025"
+FontSize="13"
+></Label>
+
+            </Grid>
+        </Frame>
+
+        <Frame 
+       Grid.Row="1"
+       VerticalOptions="Fill" 
+       HorizontalOptions="Fill">
+            <Grid
+                ColumnSpacing="5">
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height=".7*"/>
+                    <RowDefinition Height=".3*"/>
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width=".5*"/>
+                    <ColumnDefinition Width=".5*"/>
+                </Grid.ColumnDefinitions>
+
+
+                <Frame
+                    Grid.Row="0"
+                     Grid.Column="1"
+                   HeightRequest="60"
+                  VerticalOptions="Start"
+             HorizontalOptions="Fill">
+                </Frame>
+
+
+                <Label
+                     VerticalOptions="End"
+                    HorizontalOptions="Center"
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    Text="Queries"
+                    FontSize="18" >
+                </Label>
+
+                <Frame
+               Grid.Row="0"
+                Grid.Column="0" 
+              HeightRequest="60"
+             VerticalOptions="Start"
+        HorizontalOptions="Fill" >
+
+                    <Label
+          VerticalOptions="Center"
+        HorizontalOptions="Center"
+         Text="0"
+                        FontSize="16" >
+                    </Label>
+
+                </Frame>
+
+                <Label
+                     VerticalOptions="End"
+                     HorizontalOptions="Center"
+                    Grid.Row="1"
+                     Grid.Column="1"
+                    Text="Suggested"
+                     FontSize="18">
+
+                </Label>
+
+            </Grid>
+
+        </Frame>
+
+        <Frame 
+ Grid.Row="2"
+ VerticalOptions="Fill" 
+ HorizontalOptions="Fill" >
+        </Frame>
+
+
+    </Grid>
+
 </ContentPage>
