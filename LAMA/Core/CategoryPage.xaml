@@ -3,11 +3,11 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="LAMA.Core.CategoryPage"
              Title="Categories"
-             BackgroundColor="White">
+             BackgroundImageSource="categorybckgrnd.png">
 
     <ScrollView>
         <VerticalStackLayout Padding="20" Spacing="15">
-            <Label Text="Select a Category" FontSize="24" FontAttributes="Bold" />
+            <Label Text="Select a Category" FontSize="24" FontAttributes="Bold" TextColor="White" />
 
             <CollectionView ItemsSource="{Binding Categories}" SelectionMode="None">
                 <CollectionView.ItemsLayout>
