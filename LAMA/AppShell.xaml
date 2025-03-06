@@ -32,10 +32,15 @@
         Title="Ask a Medical Professional"
         ContentTemplate="{DataTemplate core:MessagesPage}"
         Route="MessagesPage"/>
-    
-  
 
-        <ShellSection Title="Profile">
+    <ShellContent
+    Title="Medical Provider Dashboard"
+    ContentTemplate="{DataTemplate core:MPDashBoard}"
+    Route="MPDashBoard"/>
+
+
+
+    <ShellSection Title="Profile">
 
             <ShellContent
 Title="Profile"

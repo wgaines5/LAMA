@@ -26,14 +26,24 @@
                 ></Entry>
 
             <Entry
-       Placeholder="Password"
-       ></Entry>
+               Placeholder="Password"
+            ></Entry>
+            <Entry
+                Placeholder="NPI"
+            ></Entry>
+            <Entry
+             Placeholder="State"   
+            ></Entry>
+            <Entry
+             Placeholder="License Number"   
+             ></Entry>
 
             <Button
                 x:Name="SignUpButton"
                 Text="Sign Up" 
                 SemanticProperties.Hint="Counts the number of times you click"
-                HorizontalOptions="Fill" />
+                HorizontalOptions="Fill"
+                Clicked="OnSignUpTapped"/>
 
 
             <Label

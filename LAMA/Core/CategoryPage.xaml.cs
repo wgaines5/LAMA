@@ -50,32 +50,6 @@ namespace LAMA.Core
                 }
             }
         }
-
-        private async void OnProfileClicked(object sender, EventArgs e)
-        {
-            await Navigation.PushAsync(new ProfilePage());
-
-        }
-        private async void OnMedFactsClicked(object sender, EventArgs e)
-        {
-            await Navigation.PushAsync(new MedFactsPage());
-
-        }
-        private async void OnCategoryClicked(object sender, EventArgs e)
-        {
-            await Navigation.PushAsync(new CategoryPage());
-
-        }
-        private async void OnMessagesClicked(object sender, EventArgs e)
-        {
-            await Navigation.PushAsync(new Messages.InboxPage());
-
-        }
-        private async void OnSettingsClicked(object sender, EventArgs e)
-        {
-            await Navigation.PushAsync(new SettingsPage());
-
-        }
     }
 
     public class Category
