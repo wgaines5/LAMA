@@ -6,7 +6,7 @@
     <VerticalStackLayout Padding=" 20" Spacing="10">
         
         <!-- Profile Button -->
-        <Frame BackgroundColor="LightBlue"
+        <Frame BackgroundColor="#3cacae"
                    CornerRadius="10"
                    Padding="15"
                    HasShadow="true">
@@ -33,8 +33,9 @@
                 <TapGestureRecognizer Tapped="OnUserProfileClicked"/>
             </Frame.GestureRecognizers>
         </Frame>
+        
         <!-- Preferred Doctors Button -->
-        <Frame BackgroundColor="LightBlue"
+        <Frame BackgroundColor="#3cacae"
                    CornerRadius="10"
                    Padding="15"
                    HasShadow="true">
@@ -56,6 +57,151 @@
                            HeightRequest="25"
                            Margin="10"
                            Grid.Column="2"/>
+            </Grid>
+            <Frame.GestureRecognizers>
+                <TapGestureRecognizer Tapped="OnEditDoctorsClicked"/>
+            </Frame.GestureRecognizers>
+        </Frame>
+
+        <!-- Preferred Doctors Button -->
+        <Frame BackgroundColor="#3cacae"
+           CornerRadius="10"
+           Padding="15"
+           HasShadow="true">
+            <Grid ColumnDefinitions="Auto, *, Auto">
+                <Image Source="doctor_icon.png"
+                   WidthRequest="30"
+                   HeightRequest="30"
+                   Margin="10"/>
+                <StackLayout Grid.Column="1">
+                    <Label Text="Accessibility" 
+                       FontSize="18" 
+                       TextColor="White"/>
+                    <Label Text="Adjust accessibility settings" 
+                       FontSize="14" 
+                       TextColor="White"/>
+                </StackLayout>
+                <Image Source="arrow_icon.png" 
+                   WidthRequest="25"
+                   HeightRequest="25"
+                   Margin="10"
+                   Grid.Column="2"/>
+            </Grid>
+            <Frame.GestureRecognizers>
+                <TapGestureRecognizer Tapped="OnEditDoctorsClicked"/>
+            </Frame.GestureRecognizers>
+        </Frame>
+
+        <!-- Preferred Doctors Button -->
+        <Frame BackgroundColor="#3cacae"
+           CornerRadius="10"
+           Padding="15"
+           HasShadow="true">
+            <Grid ColumnDefinitions="Auto, *, Auto">
+                <Image Source="doctor_icon.png"
+                   WidthRequest="30"
+                   HeightRequest="30"
+                   Margin="10"/>
+                <StackLayout Grid.Column="1">
+                    <Label Text="Support" 
+                       FontSize="18" 
+                       TextColor="White"/>
+                    <Label Text="Get help and support" 
+                       FontSize="14" 
+                       TextColor="White"/>
+                </StackLayout>
+                <Image Source="arrow_icon.png" 
+                   WidthRequest="25"
+                   HeightRequest="25"
+                   Margin="10"
+                   Grid.Column="2"/>
+            </Grid>
+            <Frame.GestureRecognizers>
+                <TapGestureRecognizer Tapped="OnEditDoctorsClicked"/>
+            </Frame.GestureRecognizers>
+        </Frame>
+
+        <!-- Preferred Doctors Button -->
+        <Frame BackgroundColor="#3cacae"
+           CornerRadius="10"
+           Padding="15"
+           HasShadow="true">
+            <Grid ColumnDefinitions="Auto, *, Auto">
+                <Image Source="doctor_icon.png"
+                   WidthRequest="30"
+                   HeightRequest="30"
+                   Margin="10"/>
+                <StackLayout Grid.Column="1">
+                    <Label Text="TOS" 
+                       FontSize="18" 
+                       TextColor="White"/>
+                    <Label Text="Terms of Service" 
+                       FontSize="14" 
+                       TextColor="White"/>
+                </StackLayout>
+                <Image Source="arrow_icon.png" 
+                   WidthRequest="25"
+                   HeightRequest="25"
+                   Margin="10"
+                   Grid.Column="2"/>
+            </Grid>
+            <Frame.GestureRecognizers>
+                <TapGestureRecognizer Tapped="OnEditDoctorsClicked"/>
+            </Frame.GestureRecognizers>
+        </Frame>
+
+        <!-- Preferred Doctors Button -->
+        <Frame BackgroundColor="#3cacae"
+           CornerRadius="10"
+           Padding="15"
+           HasShadow="true">
+            <Grid ColumnDefinitions="Auto, *, Auto">
+                <Image Source="doctor_icon.png"
+                   WidthRequest="30"
+                   HeightRequest="30"
+                   Margin="10"/>
+                <StackLayout Grid.Column="1">
+                    <Label Text="Change Accounts" 
+                       FontSize="18" 
+                       TextColor="White"/>
+                    <Label Text="Switch to another profile" 
+                       FontSize="14" 
+                       TextColor="White"/>
+                </StackLayout>
+                <Image Source="arrow_icon.png" 
+                   WidthRequest="25"
+                   HeightRequest="25"
+                   Margin="10"
+                   Grid.Column="2"/>
+            </Grid>
+            <Frame.GestureRecognizers>
+                <TapGestureRecognizer Tapped="OnEditDoctorsClicked"/>
+            </Frame.GestureRecognizers>
+        </Frame>
+
+        <!-- Preferred Doctors Button -->
+        <Frame BackgroundColor="#3cacae"
+           CornerRadius="10"
+           Padding="15"
+           HasShadow="true">
+            <Grid ColumnDefinitions="Auto, *, Auto">
+                <Image Source="doctor_icon.png"
+                   WidthRequest="30"
+                   HeightRequest="30"
+                   Margin="10"/>
+                <StackLayout Grid.Column="1">
+                    <Label Text="Logout" 
+                       FontSize="18" 
+                       TextColor="White"/>
+                    <Label Text="Sign out from your account" 
+                       FontSize="14" 
+                       TextColor="White"/>
+                </StackLayout>
+                <Image Source="arrow_icon.png" 
+                   WidthRequest="25"
+                   HeightRequest="25"
+                   Margin="10"
+                   Grid.Column="2"/>
             </Grid>
             <Frame.GestureRecognizers>
                 <TapGestureRecognizer Tapped="OnEditDoctorsClicked"/>
