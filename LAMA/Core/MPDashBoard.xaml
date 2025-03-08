@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="LAMA.Core.MPDashBoard"
              Title="Provider Dashboard"
-             BackgroundColor="White">
+             BackgroundImageSource="mpdashboardbck.png">
 
     <ScrollView>
         <VerticalStackLayout Padding="20" Spacing="15">
@@ -29,7 +29,7 @@
                 </VerticalStackLayout>
             </Frame>
 
-            <Label Text="Pending Messages Queue" FontSize="18" FontAttributes="Bold"/>
+            <Label Text="Pending Messages Queue" FontSize="18" FontAttributes="Bold" BackgroundColor="#8eabb5"/>
             <CollectionView x:Name="PendingMessagesList" HeightRequest="200">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
@@ -44,7 +44,7 @@
             </CollectionView>
 
             
-            <Label Text="Select Categories You Can Answer:" FontSize="18" FontAttributes="Bold"/>
+            <Label Text="Select Categories You Can Answer:" FontSize="18" FontAttributes="Bold" BackgroundColor="#8eabb5"/>
             <CollectionView x:Name="CategoriesList" SelectionMode="None">
                 <CollectionView.ItemsLayout>
                     <GridItemsLayout Orientation="Vertical" Span="2"/>
@@ -52,8 +52,8 @@
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <HorizontalStackLayout>
-                            <CheckBox IsChecked="{Binding IsSelected}"/>
-                            <Label Text="{Binding Name}" FontSize="16"/>
+                            <CheckBox IsChecked="{Binding IsSelected}" Color="#004add"/>
+                            <Label Text="{Binding Name}" FontSize="16" FontAttributes="Bold"/>
                         </HorizontalStackLayout>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
