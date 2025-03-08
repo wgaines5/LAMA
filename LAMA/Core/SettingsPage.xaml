@@ -3,10 +3,63 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="LAMA.Core.SettingsPage"
              Title="SettingsPage">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+    <VerticalStackLayout Padding=" 20" Spacing="10">
+        
+        <!-- Profile Button -->
+        <Frame BackgroundColor="LightBlue"
+                   CornerRadius="10"
+                   Padding="15"
+                   HasShadow="true">
+            <Grid ColumnDefinitions="Auto, *, Auto">
+                <Image Source="profile_icon.png"
+                           WidthRequest="30"
+                           HeightRequest="30"
+                           Margin="10"/>
+                <StackLayout Grid.Column="1">
+                    <Label Text="User Profile" 
+                               FontSize="18" 
+                               TextColor="White"/>
+                    <Label Text="View and edit your profile" 
+                               FontSize="14" 
+                               TextColor="White"/>
+                </StackLayout>
+                <Image Source="arrow_icon.png" 
+                           WidthRequest="25"
+                           HeightRequest="25"
+                           Margin="10"
+                           Grid.Column="2"/>
+            </Grid>
+            <Frame.GestureRecognizers>
+                <TapGestureRecognizer Tapped="OnUserProfileClicked"/>
+            </Frame.GestureRecognizers>
+        </Frame>
+        <!-- Preferred Doctors Button -->
+        <Frame BackgroundColor="LightBlue"
+                   CornerRadius="10"
+                   Padding="15"
+                   HasShadow="true">
+            <Grid ColumnDefinitions="Auto, *, Auto">
+                <Image Source="doctor_icon.png"
+                           WidthRequest="30"
+                           HeightRequest="30"
+                           Margin="10"/>
+                <StackLayout Grid.Column="1">
+                    <Label Text="Edit Preferred Doctors" 
+                               FontSize="18" 
+                               TextColor="White"/>
+                    <Label Text="Manage your preferred doctors" 
+                               FontSize="14" 
+                               TextColor="White"/>
+                </StackLayout>
+                <Image Source="arrow_icon.png" 
+                           WidthRequest="25"
+                           HeightRequest="25"
+                           Margin="10"
+                           Grid.Column="2"/>
+            </Grid>
+            <Frame.GestureRecognizers>
+                <TapGestureRecognizer Tapped="OnEditDoctorsClicked"/>
+            </Frame.GestureRecognizers>
+        </Frame>
     </VerticalStackLayout>
 </ContentPage>
