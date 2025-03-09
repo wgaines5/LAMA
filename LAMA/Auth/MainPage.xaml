@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="LAMA.Auth.MainPage"
              Title="Home"
-             BackgroundColor="White">
+             BackgroundImageSource="lamabckgrd.png">
 
     <ScrollView>
 
@@ -16,38 +16,41 @@
                     <Entry x:Name="QuestionEntry"
                            Placeholder="Type your question here"
                            BackgroundColor="#01a4ff"
+                           TextColor="Black"
                            HeightRequest="40"/>
                     <Picker x:Name="CategoryPicker"
                             Title="Select Category"
+                            TextColor="Black"
                             ItemsSource="{Binding Categories}"/>
                     <Button Text="Ask"
                             BackgroundColor="#26c7b6"
-                            TextColor="Black"/>
+                            TextColor="Black"
+                            FontAttributes="Bold"/>
                 </VerticalStackLayout>
             </Frame>
 
             <!-- doctors section -->
-            <Label Text="Available Medical Professionals" FontSize="20" FontAttributes="Bold" Padding="5"/>
+            <Label Text="Available Medical Professionals" FontSize="20" BackgroundColor="#01a4ff" FontAttributes="Bold" Padding="5"/>
 
             <ScrollView Orientation="Horizontal" HeightRequest="140">
                 <HorizontalStackLayout Spacing="15" Padding="10">
                     <Frame CornerRadius="15" BackgroundColor="#34485a" Padding="10">
                         <VerticalStackLayout HorizontalOptions="Center" Spacing="5">
-                            <Image Source="appicon.png" WidthRequest="90" HeightRequest="90"/>
+                            <Image Source="mdamin.png" WidthRequest="90" HeightRequest="90"/>
                             <Label Text="Dr. Unk1" FontSize="16" FontAttributes="Bold" HorizontalOptions="Center"/>
                         </VerticalStackLayout>
                     </Frame>
 
                     <Frame CornerRadius="15" BackgroundColor="#34485a" Padding="10">
                         <VerticalStackLayout HorizontalOptions="Center" Spacing="5">
-                            <Image Source="appicon.png" WidthRequest="90" HeightRequest="90"/>
+                            <Image Source="mdmaro.png" WidthRequest="90" HeightRequest="90"/>
                             <Label Text="Dr. Unk2" FontSize="16" FontAttributes="Bold" HorizontalOptions="Center"/>
                         </VerticalStackLayout>
                     </Frame>
 
                     <Frame CornerRadius="15" BackgroundColor="#34485a" Padding="10">
                         <VerticalStackLayout HorizontalOptions="Center" Spacing="5">
-                            <Image Source="appicon.png" WidthRequest="90" HeightRequest="90"/>
+                            <Image Source="mdmalk.png" WidthRequest="90" HeightRequest="90"/>
                             <Label Text="Dr. Unk3" FontSize="16" FontAttributes="Bold" HorizontalOptions="Center"/>
                         </VerticalStackLayout>
                     </Frame>
@@ -55,7 +58,7 @@
             </ScrollView>
 
             <!-- medical advice section -->
-            <Label Text="Medical Advice of the Day" FontSize="20" FontAttributes="Bold"/>
+            <Label Text="Medical Advice of the Day" FontSize="20" FontAttributes="Bold" BackgroundColor="#01a4ff"/>
             <ScrollView Orientation="Horizontal" HeightRequest="120">
                 <HorizontalStackLayout Spacing="10">
                     <Frame CornerRadius="10" BackgroundColor="#30cfcb" Padding="10" WidthRequest="180">
@@ -71,7 +74,7 @@
             </ScrollView>
 
            
-            <Label Text="Medical Professional Sign Up" FontSize="20" FontAttributes="Bold"/>
+            <Label Text="Medical Professional Sign Up" FontSize="20" FontAttributes="Bold" BackgroundColor="#01a4ff"/>
             <Frame Padding="10" BackgroundColor="#004aad" CornerRadius="10">
                 <VerticalStackLayout>
                     <Button 
