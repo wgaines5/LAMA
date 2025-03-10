@@ -127,6 +127,21 @@ FontSize="13"
  Grid.Row="2"
  VerticalOptions="Fill" 
  HorizontalOptions="Fill" >
+
+            <Frame 
+                VerticalOptions="Fill"  
+                HorizontalOptions="Fill"
+                >
+
+
+                <Image
+        HorizontalOptions="Fill"
+        VerticalOptions="Fill"
+        Source="image.png"
+        Aspect="AspectFit"  >
+                </Image>
+            </Frame>
+
         </Frame>
 
 
