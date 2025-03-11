@@ -36,7 +36,7 @@
    
 
     <ShellContent
-        Title="Ask a Medical Professional"
+        Title="Message"
         ContentTemplate="{DataTemplate core:MessagesPage}"
         Route="MessagesPage"/>
     
@@ -60,7 +60,7 @@ Route="ProfilePage" />
         </ShellSection>
 
 
-        <ShellSection Title="Messages">
+        <ShellSection Title="Inbox">
             <ShellContent
 Title="Messages"
 ContentTemplate="{DataTemplate messages:InboxPage}"
