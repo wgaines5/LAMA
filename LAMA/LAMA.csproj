@@ -57,6 +57,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <AndroidResource Remove="Platforms\Android\Resources\values\strings.xml" />
+	</ItemGroup>
+
+	<ItemGroup>
 	  <Compile Remove="Auth\NewPage1.cs" />
 	  <Compile Remove="Auth\NewPage1.xaml.cs" />
 	  <Compile Remove="Auth\NewPage2.xaml.cs" />
