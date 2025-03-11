@@ -66,8 +66,10 @@ Security & Compliance
  Data Encryption - Secure question & answer exchange
 
  Screenshots
-  ![Screenshot 2025-03-03 223942](https://github.com/user-attachments/assets/09c4f52f-4847-4ad2-b4a1-53aeb19294eb)
-  ![Screenshot 2025-02-28 212422](https://github.com/user-attachments/assets/c842ab55-b78d-4725-85fa-6cd9fdc446bb)
+ ![Screenshot 2025-03-09 180030](https://github.com/user-attachments/assets/ea8f89fb-057a-41b9-ada9-5b6e0e16b916)
+ ![Screenshot 2025-03-09 180046](https://github.com/user-attachments/assets/b376eb9f-0074-49d7-bc2e-212990ce26e8)
+ ![Screenshot 2025-03-09 180100](https://github.com/user-attachments/assets/67daf3ab-6f37-4f59-bcb3-b2c45a7d4904)
+
 
  📧 Contact
 📩 Developer: Willie Gaines

@@ -37,21 +37,33 @@
                     <Frame CornerRadius="15" BackgroundColor="#34485a" Padding="10">
                         <VerticalStackLayout HorizontalOptions="Center" Spacing="5">
                             <Image Source="mdamin.png" WidthRequest="90" HeightRequest="90"/>
-                            <Label Text="Dr. Unk1" FontSize="16" FontAttributes="Bold" HorizontalOptions="Center"/>
+                            <Label Text="Dr.Amin" FontSize="16" FontAttributes="Bold" HorizontalOptions="Center"/>
                         </VerticalStackLayout>
                     </Frame>
 
                     <Frame CornerRadius="15" BackgroundColor="#34485a" Padding="10">
                         <VerticalStackLayout HorizontalOptions="Center" Spacing="5">
                             <Image Source="mdmaro.png" WidthRequest="90" HeightRequest="90"/>
-                            <Label Text="Dr. Unk2" FontSize="16" FontAttributes="Bold" HorizontalOptions="Center"/>
+                            <Label Text="Dr.Maarouf" FontSize="16" FontAttributes="Bold" HorizontalOptions="Center"/>
                         </VerticalStackLayout>
                     </Frame>
 
                     <Frame CornerRadius="15" BackgroundColor="#34485a" Padding="10">
                         <VerticalStackLayout HorizontalOptions="Center" Spacing="5">
                             <Image Source="mdmalk.png" WidthRequest="90" HeightRequest="90"/>
-                            <Label Text="Dr. Unk3" FontSize="16" FontAttributes="Bold" HorizontalOptions="Center"/>
+                            <Label Text="Dr.Malki" FontSize="16" FontAttributes="Bold" HorizontalOptions="Center"/>
+                        </VerticalStackLayout>
+                    </Frame>
+                    <Frame CornerRadius="15" BackgroundColor="#34485a" Padding="10">
+                        <VerticalStackLayout HorizontalOptions="Center" Spacing="5">
+                            <Image Source="mdtaw.png" WidthRequest="90" HeightRequest="90"/>
+                            <Label Text="Dr.Tawadrous" FontSize="16" FontAttributes="Bold" HorizontalOptions="Center"/>
+                        </VerticalStackLayout>
+                    </Frame>
+                    <Frame CornerRadius="15" BackgroundColor="#34485a" Padding="10">
+                        <VerticalStackLayout HorizontalOptions="Center" Spacing="5">
+                            <Image Source="mdcal.png" WidthRequest="90" HeightRequest="90"/>
+                            <Label Text="Dr.Calzado" FontSize="16" FontAttributes="Bold" HorizontalOptions="Center"/>
                         </VerticalStackLayout>
                     </Frame>
                 </HorizontalStackLayout>
