@@ -2,6 +2,7 @@
 using Android.Content.PM;
 using Android.OS;
 using Firebase;
+using Firebase.Auth;
 
 namespace LAMA;
 
