@@ -1,41 +1,76 @@
 using System.Collections.ObjectModel;
-using System.Web;
-using Microsoft.Maui.Controls;
+using System.Windows.Input;
+using LAMA.Core.Messages;
+using Microsoft.AspNetCore.SignalR.Client;
 
-namespace LAMA.Core
+namespace LAMA.Core;
+
+public partial class MessagesPage : ContentPage
 {
-    public partial class MessagesPage : ContentPage
-    {
-        public ObservableCollection<string> ChatMessages { get; set; } = new ObservableCollection<string>();
-        
+	public MessagesPage()
+	{
+		InitializeComponent();
+		BindingContext = new ChatViewModel(new MessageService("https://localhost:5001/chathub"));
+	}
 
-        public MessagesPage()
-        {
-            InitializeComponent();
-            BindingContext = this;
-        }
+	private void OnSendMessage(object sender, EventArgs e)
+	{
+		if (BindingContext is ChatViewModel chatViewModel)
+		{
+			chatViewModel.SendMessageCommand.Execute(this);
+		}
+	}
+}
 
-        protected override void OnNavigatedTo(NavigatedToEventArgs args)
-        {
-            base.OnNavigatedTo(args);
+public class ChatViewModel : BindableObject
+{
+	private MessageService _messageService;
+	private string _newMessage;
+	public ObservableCollection<ChatMessage> Messages { get; set; } = new ObservableCollection<ChatMessage>();
+	public string NewMessage
+	{
+		get => _newMessage;
 
-            var query = HttpUtility.ParseQueryString(new Uri(Shell.Current.CurrentState.Location.OriginalString).Query);
+		set
+		{
+			if (_newMessage != value)
+			{
+				_newMessage = value;
+				OnPropertyChanged();
+			}
+		}
+	}
+	public ICommand SendMessageCommand { get; }
 
-            if (query["Question"] is string questionText && !string.IsNullOrWhiteSpace(questionText))
-            {
-                ChatMessages.Add($"User: {questionText}");
-            }
-        }
+	public ChatViewModel(MessageService messageService)
+	{
+		_messageService = messageService;
+		SendMessageCommand = new Command(async () => await SendMessage());
 
-        private void OnSendMessage(object sender, EventArgs e)
-        {
-            Entry chatEntry = (Entry)FindByName("ChatEntry");
+		_messageService.MessageReceived += (message) =>
+		{
+			Messages.Add(new ChatMessage { Content = message, IsUserMessage = false });
+		};
 
-            if (chatEntry != null && !string.IsNullOrWhiteSpace(chatEntry.Text))
-            {
-                ChatMessages.Add($"User: {chatEntry.Text}");
-                chatEntry.Text = ""; // clear input after sending
-            }
-        }
-    }
+		Task.Run(async () => await _messageService.ConnectAsync());
+	}
+
+	private async Task SendMessage()
+	{
+		if (!string.IsNullOrWhiteSpace(NewMessage))
+		{
+			await _messageService.SendMessageAsync(NewMessage);
+			Messages.Add(new ChatMessage { Content = NewMessage, IsUserMessage = true});
+			NewMessage = string.Empty;
+			OnPropertyChanged(nameof(NewMessage));
+		}
+	}
+}
+
+public class ChatMessage
+{
+	public string Content { get; set; }
+	public bool IsUserMessage { get; set; }
+}
+	public bool IsUserMessage { get; set; }
 }
