@@ -71,6 +71,7 @@ public class ChatMessage
 {
 	public string Content { get; set; }
 	public bool IsUserMessage { get; set; }
+
 }
-	public bool IsUserMessage { get; set; }
-}
+
+
