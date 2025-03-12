@@ -58,12 +58,13 @@
                            Margin="10"
                            Grid.Column="2"/>
             </Grid>
-            <Frame.GestureRecognizers>
-                <TapGestureRecognizer Tapped="OnEditDoctorsClicked"/>
+            <!--<Frame.GestureRecognizers>
+                <TapGestureRecognizer Tapped="OnEditPreferredDoctorClicked"/>
             </Frame.GestureRecognizers>
+            -->
         </Frame>
 
-        <!-- Preferred Doctors Button -->
+        <!-- Accessibility Button -->
         <Frame BackgroundColor="#3cacae"
            CornerRadius="10"
            Padding="15"
@@ -87,12 +88,13 @@
                    Margin="10"
                    Grid.Column="2"/>
             </Grid>
-            <Frame.GestureRecognizers>
-                <TapGestureRecognizer Tapped="OnEditDoctorsClicked"/>
+            <!--<Frame.GestureRecognizers>
+                <TapGestureRecognizer Tapped="OnAccessibilityClicked"/>
             </Frame.GestureRecognizers>
+            -->
         </Frame>
 
-        <!-- Preferred Doctors Button -->
+        <!-- Support Button -->
         <Frame BackgroundColor="#3cacae"
            CornerRadius="10"
            Padding="15"
@@ -116,12 +118,13 @@
                    Margin="10"
                    Grid.Column="2"/>
             </Grid>
-            <Frame.GestureRecognizers>
-                <TapGestureRecognizer Tapped="OnEditDoctorsClicked"/>
+            <!--<Frame.GestureRecognizers>
+                <TapGestureRecognizer Tapped="OnSupportClicked"/>
             </Frame.GestureRecognizers>
+            -->
         </Frame>
 
-        <!-- Preferred Doctors Button -->
+        <!-- TOS Button -->
         <Frame BackgroundColor="#3cacae"
            CornerRadius="10"
            Padding="15"
@@ -145,12 +148,13 @@
                    Margin="10"
                    Grid.Column="2"/>
             </Grid>
-            <Frame.GestureRecognizers>
-                <TapGestureRecognizer Tapped="OnEditDoctorsClicked"/>
+            <!--<Frame.GestureRecognizers>
+                <TapGestureRecognizer Tapped="OnTOSClicked"/>
             </Frame.GestureRecognizers>
+            -->
         </Frame>
 
-        <!-- Preferred Doctors Button -->
+        <!-- Change Accounts Button -->
         <Frame BackgroundColor="#3cacae"
            CornerRadius="10"
            Padding="15"
@@ -174,12 +178,13 @@
                    Margin="10"
                    Grid.Column="2"/>
             </Grid>
-            <Frame.GestureRecognizers>
-                <TapGestureRecognizer Tapped="OnEditDoctorsClicked"/>
+            <!--<Frame.GestureRecognizers>
+                <TapGestureRecognizer Tapped="OnChangeAccountsClicked"/>
             </Frame.GestureRecognizers>
+            -->
         </Frame>
 
-        <!-- Preferred Doctors Button -->
+        <!-- Logout Button -->
         <Frame BackgroundColor="#3cacae"
            CornerRadius="10"
            Padding="15"
@@ -197,15 +202,16 @@
                        FontSize="14" 
                        TextColor="White"/>
                 </StackLayout>
-                <Image Source="arrow_icon.png" 
+                <Image Source="arrow_icon.png"
                    WidthRequest="25"
                    HeightRequest="25"
                    Margin="10"
                    Grid.Column="2"/>
             </Grid>
-            <Frame.GestureRecognizers>
-                <TapGestureRecognizer Tapped="OnEditDoctorsClicked"/>
+            <!--<Frame.GestureRecognizers>
+                <TapGestureRecognizer Tapped="OnLogoutClicked"/>
             </Frame.GestureRecognizers>
+            -->
         </Frame>
     </VerticalStackLayout>
 </ContentPage>
