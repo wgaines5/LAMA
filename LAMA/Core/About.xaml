@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="LAMA.Core.About"
+             Title="About"
+             BackgroundImageSource="aboutbck2.png">
+    <ScrollView>
+        <StackLayout Padding="20" Spacing="15">
+            <Label Text="LAMA - Live Anonymous Medical Assistance"
+                   FontSize="24"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center"/>
+            <Image Source="lama_logo.png" WidthRequest="90" HeightRequest="90"/>
+
+            <BoxView HeightRequest="2" Color="Blue"/>
+
+            <Label Text="🩺 What is LAMA?"
+                   FontSize="18"
+                   FontAttributes="Bold" />
+            <Label Text="LAMA is a revolutionary app designed to provide anonymous access to live medical professionals. If you have a medical question but feel afraid, ashamed, or uncomfortable discussing it in person, LAMA gives you a judgment-free way to get answers."
+                   FontSize="14"
+                   LineBreakMode="WordWrap" />
+
+            <Label Text="🌍⚕️Why LAMA Matters"
+                   FontSize="18"
+                   FontAttributes="Bold" />
+            <Label Text="Over 50 million people worldwide hesitate to ask medical questions due to fear or embarrassment. LAMA aims to break down these barriers by offering a safe, private, and accessible way to seek medical guidance."
+                   FontSize="14"
+                   LineBreakMode="WordWrap" />
+
+            <Label Text="⚠️ Important Disclaimer ⚠️"
+                   FontSize="20"
+                   FontAttributes="Bold"
+                   TextColor="Red" />
+            <Label Text="LAMA is not a substitute for professional medical care. This app is not intended for:&#10;
+                   🚨 Medical Consultations&#10;
+                   🚨 Diagnosing Conditions&#10;
+                   🚨Replacing a visit to your primary care physician&#10;
+                   &#10;
+ If you are experiencing a medical emergency or require ongoing care, please consult a healthcare provider directly."
+                   FontSize="14"
+                   LineBreakMode="WordWrap"
+                   TextColor="White"
+                   FontAttributes="Bold"/>
+
+        </StackLayout>
+    </ScrollView>
+</ContentPage>
