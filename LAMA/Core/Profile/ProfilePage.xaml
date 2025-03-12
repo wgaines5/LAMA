@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="LAMA.Core.Profile.ProfilePage"
+             Title="Profile"
+             >
+    <Grid>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height=".4*"/>
+            <RowDefinition Height=".2*"/>
+            <RowDefinition Height=".4*"/>
+        </Grid.RowDefinitions>
+
+        <Frame
+            Grid.Row="0"   >
+
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height=".6*"/>
+                    <RowDefinition Height=".2*" />
+                    <RowDefinition Height=" .1*" />
+                </Grid.RowDefinitions>
+
+
+                <Frame
+                    Grid.Row="0"
+                    WidthRequest="125"
+                    HeightRequest="125"
+                      HorizontalOptions="Center"
+                    VerticalOptions="Center"
+                     CornerRadius="100"
+                        BorderColor="Cyan"  >
+
+                    <ImageButton 
+      BackgroundColor="White"
+       WidthRequest="125"
+      HeightRequest="125"
+      BorderColor="Cyan"
+    BorderWidth="200"
+      Aspect="AspectFill"
+      Source="mdamin.png">
+                    </ImageButton>
+
+                </Frame>
+
+                <Label
+                    Grid.Row="1"
+                    VerticalOptions="Center"
+                    HorizontalOptions="Center"
+                    Text="Hello, Username"
+                    FontSize="24"
+                 ></Label>
+
+                <Label
+         Grid.Row="2"
+         VerticalOptions="Center"
+         HorizontalOptions="Center"
+         Text="Joined 1/1/2025 "
+         FontSize="13"
+      ></Label>
+
+            </Grid>
+
+        </Frame>
+
+        <Frame
+              Grid.Row="1">
+
+            <Grid
+           ColumnSpacing="5"
+       >
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height=".6*"/>
+                    <RowDefinition Height=".4*"/>
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width=".5*" />
+                    <ColumnDefinition Width=".5*" />
+                </Grid.ColumnDefinitions>
+
+                <Frame
+       Grid.Row="0"
+       Grid.Column="0">
+
+                    <Label
+          Text="0"
+          FontSize="18"
+          VerticalOptions="Center"
+          HorizontalOptions="Center">
+
+                    </Label>
+
+                </Frame>
+
+
+                <Label
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    Text="Queries"
+                  HorizontalOptions="Center"
+                    FontSize="18">
+
+                </Label>
+
+                <Frame
+       Grid.Row="0"
+       Grid.Column="1"
+                    HorizontalOptions="Fill"
+                    VerticalOptions="Fill">
+
+                    <Label
+                        Text="0"
+                        FontSize="18"
+                        VerticalOptions="Center"
+                        HorizontalOptions="Center">
+
+                    </Label>
+
+                </Frame>
+
+                <Label
+                    Grid.Row="1"
+  Grid.Column="1"
+  Text="Frequent"
+HorizontalOptions="Center"
+  FontSize="18">
+                </Label>
+
+
+            </Grid>
+
+        </Frame>
+
+
+        <Frame
+            Grid.Row="2"
+          >
+
+            <ImageButton
+                HorizontalOptions="Fill"
+                VerticalOptions="Fill"
+            
+                Source="image.svg">
+
+            </ImageButton>
+
+
+        </Frame>
+
+    </Grid>
+
+</ContentPage>
