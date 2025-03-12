@@ -21,37 +21,37 @@ namespace LAMA.Core
         private async void OnEditPreferredDoctorsC(object sender, EventArgs e)
         {
             //await this.TranslateTo(-500, 0, 300, Easing.SinInOut); // Slide left before navigating
-            //await Shell.Current.GoToAsync("//PreferredDoctorsPage"); // Navigate to PreferredDoctors
+            await Shell.Current.GoToAsync("//PreferredDoctorsPage"); // Navigate to PreferredDoctorsPage
         }
 
         private async void OnAccessibilityClicked(object sender, EventArgs e)
         {
             //await this.TranslateTo(-500, 0, 300, Easing.SinInOut); // Slide left before navigating
-            //await Shell.Current.GoToAsync("//AccessibilityPage"); // Navigate to PreferredDoctors
+            //await Shell.Current.GoToAsync("//AccessibilityPage"); // Navigate to AccessibilityPage
         }
 
         private async void OnSupportClicked(object sender, EventArgs e)
         {
             //await this.TranslateTo(-500, 0, 300, Easing.SinInOut); // Slide left before navigating
-            //await Shell.Current.GoToAsync("//SupportPage"); // Navigate to PreferredDoctors
+            //await Shell.Current.GoToAsync("//SupportPage"); // Navigate to SupportPage
         }
 
         private async void OnTOSClicked(object sender, EventArgs e)
         {
             //await this.TranslateTo(-500, 0, 300, Easing.SinInOut); // Slide left before navigating
-            //await Shell.Current.GoToAsync("//TOSPage"); // Navigate to PreferredDoctors
+            //await Shell.Current.GoToAsync("//TOSPage"); // Navigate to TOSPage
         }
 
         private async void OnChangeAccountsClicked(object sender, EventArgs e)
         {
             //await this.TranslateTo(-500, 0, 300, Easing.SinInOut); // Slide left before navigating
-            //await Shell.Current.GoToAsync("//SignInPage"); // Navigate to PreferredDoctors
+            //await Shell.Current.GoToAsync("//SignInPage"); // Navigate to SignInPage
         }
 
         private async void OnLogoutClicked(object sender, EventArgs e)
         {
             //await this.TranslateTo(-500, 0, 300, Easing.SinInOut); // Slide left before navigating
-            //await Shell.Current.GoToAsync("//Logout"); // Navigate to PreferredDoctors
+            //await Shell.Current.GoToAsync("//Logout"); // Navigate to LogoutPage
         }
 
         private async void AnimatePageEntry()
