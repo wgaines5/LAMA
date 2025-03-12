@@ -83,7 +83,13 @@ Title="Settings"
 ContentTemplate="{DataTemplate core:SettingsPage}"
 Route="SettingsPage" />
         </ShellSection>
- 
-  
+
+        <ShellSection Title="PreferredDoctorsPage" >
+
+            <ShellContent
+Title="PreferredDoctorsPage"
+ContentTemplate="{DataTemplate core:PreferredDoctorsPage}"
+Route="PreferredDoctorsPage" />
+        </ShellSection>
 
 </Shell>
