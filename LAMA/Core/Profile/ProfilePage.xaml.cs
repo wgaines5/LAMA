@@ -1,4 +1,4 @@
-namespace LAMA.Core;
+namespace LAMA.Core.Profile;
 
 public partial class ProfilePage : ContentPage
 {

@@ -1,5 +1,6 @@
 ﻿using LAMA.Core;
 using LAMA.Auth;
+
 using Microsoft.Maui.Controls;
 namespace LAMA
 {
@@ -12,7 +13,7 @@ namespace LAMA
 
             //Routing.RegisterRoute("auth/signup", typeof(LAMA.Auth.SignUpPage));
 
-            Routing.RegisterRoute(nameof(ProfilePage), typeof(ProfilePage));
+         
             Routing.RegisterRoute(nameof(MedFactsPage), typeof(MedFactsPage));
             Routing.RegisterRoute(nameof(CategoryPage), typeof(CategoryPage));
             Routing.RegisterRoute(nameof(MessagesPage), typeof(MessagesPage));
