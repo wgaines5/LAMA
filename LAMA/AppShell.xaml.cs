@@ -10,9 +10,6 @@ namespace LAMA
         {
         
             InitializeComponent();
-
-            //Routing.RegisterRoute("auth/signup", typeof(LAMA.Auth.SignUpPage));
-
          
             Routing.RegisterRoute(nameof(MedFactsPage), typeof(MedFactsPage));
             Routing.RegisterRoute(nameof(CategoryPage), typeof(CategoryPage));
