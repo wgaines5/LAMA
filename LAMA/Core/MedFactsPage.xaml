@@ -13,7 +13,7 @@
                     SelectionMode="Single">
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
-                            <Frame BackgroundColor="{Binding ., Converter={StaticResource AlternatingColorConverter}, ConverterParameter={Binding Index}}" 
+                            <Frame BackgroundColor="SteelBlue" 
                                    CornerRadius="10"
                                    Padding="10" Margin="5" HasShadow="True">
                                 <Label Text="{Binding}" FontSize="18"

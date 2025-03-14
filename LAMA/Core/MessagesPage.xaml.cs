@@ -20,6 +20,11 @@ public partial class MessagesPage : ContentPage
 			chatViewModel.SendMessageCommand.Execute(this);
 		}
 	}
+
+    private void AutoScroll()
+    {
+        throw new NotImplementedException();
+    }
 }
 
 public class ChatViewModel : BindableObject
@@ -52,8 +57,10 @@ public class ChatViewModel : BindableObject
 			Messages.Add(new ChatMessage { Content = message, IsUserMessage = false });
 		};
 
-		Task.Run(async () => await _messageService.ConnectAsync());
-	}
+        Task.Run(async () => await _messageService.ConnectAsync());
+
+        
+    }
 
 	private async Task SendMessage()
 	{
@@ -64,7 +71,9 @@ public class ChatViewModel : BindableObject
 			NewMessage = string.Empty;
 			OnPropertyChanged(nameof(NewMessage));
 		}
-	}
+        // Simulate response
+        Messages.Add(new ChatMessage { Content = "Thanks for your message.", IsUserMessage = false });
+    }
 }
 
 public class ChatMessage
