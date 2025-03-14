@@ -81,6 +81,9 @@
 	  <MauiXaml Update="Auth\SignUpPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Core\AccessibilityPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Core\AlternativeHPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

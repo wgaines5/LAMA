@@ -88,10 +88,10 @@
                    Margin="10"
                    Grid.Column="2"/>
             </Grid>
-            <!--<Frame.GestureRecognizers>
+            <Frame.GestureRecognizers>
                 <TapGestureRecognizer Tapped="OnAccessibilityClicked"/>
             </Frame.GestureRecognizers>
-            -->
+            
         </Frame>
 
         <!-- Support Button -->
@@ -118,10 +118,10 @@
                    Margin="10"
                    Grid.Column="2"/>
             </Grid>
-            <!--<Frame.GestureRecognizers>
+            <Frame.GestureRecognizers>
                 <TapGestureRecognizer Tapped="OnSupportClicked"/>
             </Frame.GestureRecognizers>
-            -->
+            
         </Frame>
 
         <!-- TOS Button -->
@@ -148,10 +148,10 @@
                    Margin="10"
                    Grid.Column="2"/>
             </Grid>
-            <!--<Frame.GestureRecognizers>
+            <Frame.GestureRecognizers>
                 <TapGestureRecognizer Tapped="OnTOSClicked"/>
             </Frame.GestureRecognizers>
-            -->
+            
         </Frame>
 
         <!-- Change Accounts Button -->

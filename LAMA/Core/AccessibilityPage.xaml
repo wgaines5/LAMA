@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="LAMA.Core.AccessibilityPage"
+             Title="AccessibilityPage"
+             BackgroundColor="#004aad">
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="15"
+                             VerticalOptions="CenterAndExpand"
+                             HorizontalOptions="CenterAndExpand">
+
+            <!-- Accessibility Settings Bubble -->
+            <Frame BackgroundColor="#3cacae"
+                   CornerRadius="15"
+                   Padding="20"
+                   HasShadow="true"
+                   WidthRequest="375"
+                   HorizontalOptions="Center">
+
+                <VerticalStackLayout Spacing="10">
+
+                    <!-- Accessibility Title -->
+                    <Label Text="Accessibility Settings" 
+                           FontSize="22" 
+                           FontAttributes="Bold" 
+                           TextColor="White"
+                           HorizontalOptions="Center" />
+
+                    <!-- Font Scaling -->
+                    <Label Text="Font Scaling" 
+                           FontSize="18" 
+                           TextColor="White"
+                           FontAttributes="Bold"/>
+                    <Slider x:Name="FontSizeSlider"
+                            Minimum="12"
+                            Maximum="30"/>
+                    <!--ValueChanged="OnFontSizeChanged" -->
+
+                    <!-- Screen Reading -->
+                    <Label Text="Screen Reading" 
+                           FontSize="18" 
+                           TextColor="White"
+                           FontAttributes="Bold"/>
+                    <Switch x:Name="ScreenReadingSwitch"/>
+                    <!--Toggled="OnScreenReadingToggled"/ -->
+
+                    <!-- Notifications -->
+                    <Label Text="Notifications" 
+                           FontSize="18" 
+                           TextColor="White"
+                           FontAttributes="Bold"/>
+                    <Switch x:Name="NotificationsSwitch"/>
+                    <!--Toggled="OnNotificationsToggled" -->
+
+                </VerticalStackLayout>
+
+            </Frame>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

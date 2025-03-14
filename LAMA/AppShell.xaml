@@ -109,5 +109,12 @@ ContentTemplate="{DataTemplate core:TOSPage}"
 Route="TOSPage" />
     </ShellSection>
 
+    <ShellSection Title="AccessibilityPage" >
+
+        <ShellContent
+Title="AccessibilityPage"
+ContentTemplate="{DataTemplate core:AccessibilityPage}"
+Route="AccessibilityPage" />
+    </ShellSection>
 
 </Shell>

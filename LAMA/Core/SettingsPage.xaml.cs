@@ -27,19 +27,19 @@ namespace LAMA.Core
         private async void OnAccessibilityClicked(object sender, EventArgs e)
         {
             //await this.TranslateTo(-500, 0, 300, Easing.SinInOut); // Slide left before navigating
-            //await Shell.Current.GoToAsync("//AccessibilityPage"); // Navigate to AccessibilityPage
+            await Shell.Current.GoToAsync("//AccessibilityPage"); // Navigate to AccessibilityPage
         }
 
         private async void OnSupportClicked(object sender, EventArgs e)
         {
             //await this.TranslateTo(-500, 0, 300, Easing.SinInOut); // Slide left before navigating
-            //await Shell.Current.GoToAsync("//SupportPage"); // Navigate to SupportPage
+            await Shell.Current.GoToAsync("//SupportPage"); // Navigate to SupportPage
         }
 
         private async void OnTOSClicked(object sender, EventArgs e)
         {
             //await this.TranslateTo(-500, 0, 300, Easing.SinInOut); // Slide left before navigating
-            //await Shell.Current.GoToAsync("//TOSPage"); // Navigate to TOSPage
+            await Shell.Current.GoToAsync("//TOSPage"); // Navigate to TOSPage
         }
 
         private async void OnChangeAccountsClicked(object sender, EventArgs e)
