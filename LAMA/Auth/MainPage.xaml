@@ -9,7 +9,7 @@
 
         <VerticalStackLayout Padding="20" Spacing="15">
 
-            <!-- quick question section -->
+            <!-- Quick question section -->
             <Frame Padding="10" BackgroundColor="#8eabb5" CornerRadius="10">
                 <VerticalStackLayout>
                     <Label Text="Ask a Medical Question:" FontSize="18" FontAttributes="Bold"/>
@@ -29,8 +29,10 @@
                 </VerticalStackLayout>
             </Frame>
 
-            <!-- doctors section -->
-            <Label Text="Available Medical Professionals" FontSize="20" BackgroundColor="#01a4ff" FontAttributes="Bold" Padding="5"/>
+            <!-- Med profossional section -->
+            <Frame Padding="10" BackgroundColor="#01a4ff" CornerRadius="20" HasShadow="True">
+                <Label Text="Available Medical Professionals" FontSize="20" FontAttributes="Bold" TextColor="White" HorizontalOptions="Center"/>
+            </Frame>
 
             <ScrollView Orientation="Horizontal" HeightRequest="140">
                 <HorizontalStackLayout Spacing="15" Padding="10">
@@ -38,6 +40,20 @@
                         <VerticalStackLayout HorizontalOptions="Center" Spacing="5">
                             <Image Source="mdamin.png" WidthRequest="90" HeightRequest="90"/>
                             <Label Text="Dr.Amin" FontSize="16" FontAttributes="Bold" HorizontalOptions="Center"/>
+                        </VerticalStackLayout>
+                    </Frame>
+
+                    <Frame CornerRadius="15" BackgroundColor="#34485a" Padding="10">
+                        <VerticalStackLayout HorizontalOptions="Center" Spacing="5">
+                            <Image Source="mdcal.png" WidthRequest="90" HeightRequest="90"/>
+                            <Label Text="Dr.Calzado" FontSize="16" FontAttributes="Bold" HorizontalOptions="Center"/>
+                        </VerticalStackLayout>
+                    </Frame>
+
+                    <Frame CornerRadius="15" BackgroundColor="#34485a" Padding="10">
+                        <VerticalStackLayout HorizontalOptions="Center" Spacing="5">
+                            <Image Source="mdtaw.png" WidthRequest="90" HeightRequest="90"/>
+                            <Label Text="Dr.Tawadrous" FontSize="16" FontAttributes="Bold" HorizontalOptions="Center"/>
                         </VerticalStackLayout>
                     </Frame>
 
@@ -54,30 +70,22 @@
                             <Label Text="Dr.Malki" FontSize="16" FontAttributes="Bold" HorizontalOptions="Center"/>
                         </VerticalStackLayout>
                     </Frame>
-                    <Frame CornerRadius="15" BackgroundColor="#34485a" Padding="10">
-                        <VerticalStackLayout HorizontalOptions="Center" Spacing="5">
-                            <Image Source="mdtaw.png" WidthRequest="90" HeightRequest="90"/>
-                            <Label Text="Dr.Tawadrous" FontSize="16" FontAttributes="Bold" HorizontalOptions="Center"/>
-                        </VerticalStackLayout>
-                    </Frame>
-                    <Frame CornerRadius="15" BackgroundColor="#34485a" Padding="10">
-                        <VerticalStackLayout HorizontalOptions="Center" Spacing="5">
-                            <Image Source="mdcal.png" WidthRequest="90" HeightRequest="90"/>
-                            <Label Text="Dr.Calzado" FontSize="16" FontAttributes="Bold" HorizontalOptions="Center"/>
-                        </VerticalStackLayout>
-                    </Frame>
+
                 </HorizontalStackLayout>
             </ScrollView>
 
-            <!-- medical advice section -->
-            <Label Text="Medical Advice of the Day" FontSize="20" FontAttributes="Bold" BackgroundColor="#01a4ff"/>
+            <!-- Medical advice section -->
+            <Frame Padding="10" BackgroundColor="#01a4ff" CornerRadius="20" HasShadow="True">
+                <Label Text="Medical Advice of the Day" FontSize="20" FontAttributes="Bold" TextColor="White" HorizontalOptions="Center"/>
+            </Frame>
+
             <ScrollView Orientation="Horizontal" HeightRequest="120">
                 <HorizontalStackLayout Spacing="10">
                     <Frame CornerRadius="10" BackgroundColor="#30cfcb" Padding="10" WidthRequest="180">
                         <Label Text="Mental Health matters! Take 5 min in silence" FontSize="14"/>
                     </Frame>
                     <Frame CornerRadius="10" BackgroundColor="#30cfcb" Padding="10" WidthRequest="180">
-                        <Label Text="Be Sure to eat healthy meals, and stay hydrated" FontSize="14"/>
+                        <Label Text="Be sure to eat healthy meals and stay hydrated" FontSize="14"/>
                     </Frame>
                     <Frame CornerRadius="10" BackgroundColor="#30cfcb" Padding="10" WidthRequest="180">
                         <Label Text="Wash your hands regularly for 30 seconds" FontSize="14"/>
@@ -85,8 +93,11 @@
                 </HorizontalStackLayout>
             </ScrollView>
 
-           
-            <Label Text="Medical Professional Sign Up" FontSize="20" FontAttributes="Bold" BackgroundColor="#01a4ff"/>
+            <!-- medical professional sign up section -->
+            <Frame Padding="10" BackgroundColor="#01a4ff" CornerRadius="20" HasShadow="True">
+                <Label Text="Medical Professional Sign Up" FontSize="20" FontAttributes="Bold" TextColor="White" HorizontalOptions="Center"/>
+            </Frame>
+
             <Frame Padding="10" BackgroundColor="#004aad" CornerRadius="10">
                 <VerticalStackLayout>
                     <Button 

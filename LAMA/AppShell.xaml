@@ -7,13 +7,16 @@
      xmlns:auth="clr-namespace:LAMA.Auth"
      xmlns:core="clr-namespace:LAMA.Core"
       xmlns:messages="clr-namespace:LAMA.Core.Messages"
+    BackgroundColor="#01a4ff"
+    FlyoutBackgroundColor="#c1d9e0"
+    
     Title="LAMA">
 
     <!--Authentication Pages-->
 
 
     <ShellContent
-    Title="Home"
+    Title="🏠 Home"
     ContentTemplate="{DataTemplate auth:MainPage}"
     Route="MainPage"
 
@@ -29,18 +32,18 @@
    
 
     <ShellContent
-        Title="Message"
+        Title="💬 Message"
         ContentTemplate="{DataTemplate core:MessagesPage}"
         Route="MessagesPage"/>
 
     <ShellContent
-    Title="Medical Provider Dashboard"
+    Title="🥼 Medical Provider Dashboard"
     ContentTemplate="{DataTemplate core:MPDashBoard}"
     Route="MPDashBoard"/>
 
 
 
-    <ShellSection Title="Profile">
+    <ShellSection Title="👤 Profile">
 
             <ShellContent
 Title="Profile"
@@ -48,7 +51,7 @@ ContentTemplate="{DataTemplate core:ProfilePage}"
 Route="ProfilePage" />
         </ShellSection>
 
-        <ShellSection Title="Facts">
+    <ShellSection Title="📖 Facts">
 
             <ShellContent
  Title="Facts"
@@ -58,7 +61,7 @@ Route="ProfilePage" />
         </ShellSection>
 
 
-        <ShellSection Title="Inbox">
+        <ShellSection Title="📥 Inbox">
             <ShellContent
 Title="Messages"
 ContentTemplate="{DataTemplate messages:InboxPage}"
@@ -67,7 +70,7 @@ Route="InboxPage" />
         </ShellSection>
 
 
-        <ShellSection Title="Categories" >
+    <ShellSection Title="📂 Categories" >
             <ShellContent
 Title="Categories"
 ContentTemplate="{DataTemplate core:CategoryPage}"
@@ -76,7 +79,7 @@ Route="CategoryPage" />
         </ShellSection>
 
 
-        <ShellSection Title="Settings" >
+    <ShellSection Title="⚙️ Settings" >
 
             <ShellContent
 Title="Settings"
@@ -84,10 +87,10 @@ ContentTemplate="{DataTemplate core:SettingsPage}"
 Route="SettingsPage" />
         </ShellSection>
 
-    <ShellSection Title="About" >
+    <ShellSection Title="ℹ️⚠️ About" >
 
         <ShellContent
-Title="About"
+Title=" About"
 ContentTemplate="{DataTemplate core:About}"
 Route="About" />
     </ShellSection>
