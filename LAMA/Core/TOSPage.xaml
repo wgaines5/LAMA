@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="LAMA.Core.TOSPage"
+             Title="TOSPage"
+             BackgroundColor="#004aad">
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="15"
+                             VerticalOptions="Start"
+                             HorizontalOptions="Center">
+
+            <!-- Bubble for text content -->
+            <Frame BackgroundColor="#3cacae"
+                   CornerRadius="15"
+                   Padding="20"
+                   HasShadow="true"
+                   WidthRequest="375"
+                   HorizontalOptions="Center">
+
+                <VerticalStackLayout Spacing="10">
+
+                    <!-- TOS Title -->
+                    <Label Text="Terms of Service" 
+                           FontSize="22" 
+                           FontAttributes="Bold" 
+                           TextColor="White"
+                           HorizontalOptions="Center" />
+
+                    <!-- Terms of Service Content -->
+                    <Label Text="Welcome to LAMA. By using our services, you agree to comply with our terms and conditions."
+                           FontSize="16" 
+                           TextColor="White"
+                           HorizontalOptions="Start"
+                           LineBreakMode="WordWrap"/>
+
+                    <Label Text="1. **Use of Services**: Our services are for personal, non-commercial use only."
+                           FontSize="14" 
+                           TextColor="White"
+                           HorizontalOptions="Start"
+                           LineBreakMode="WordWrap"/>
+
+                    <Label Text="2. **User Responsibilities**: You agree not to misuse or interfere with our services."
+                           FontSize="14" 
+                           TextColor="White"
+                           HorizontalOptions="Start"
+                           LineBreakMode="WordWrap"/>
+
+                    <Label Text="3. **Privacy and Data Collection**: We respect your privacy and handle your data according to our privacy policy."
+                           FontSize="14" 
+                           TextColor="White"
+                           HorizontalOptions="Start"
+                           LineBreakMode="WordWrap"/>
+
+                    <Label Text="4. **Termination**: We may suspend or terminate your access if you violate our terms."
+                           FontSize="14" 
+                           TextColor="White"
+                           HorizontalOptions="Start"
+                           LineBreakMode="WordWrap"/>
+
+                    <Label Text="5. **Changes to Terms**: We may update our terms from time to time. Continued use means acceptance of changes."
+                           FontSize="14" 
+                           TextColor="White"
+                           HorizontalOptions="Start"
+                           LineBreakMode="WordWrap"/>
+
+                    <Label Text="For full details, visit our official website or contact support."
+                           FontSize="14" 
+                           TextColor="White"
+                           HorizontalOptions="Start"
+                           LineBreakMode="WordWrap"/>
+
+                </VerticalStackLayout>
+
+            </Frame>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

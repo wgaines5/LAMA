@@ -98,6 +98,15 @@ Route="PreferredDoctorsPage" />
 Title="SupportPage"
 ContentTemplate="{DataTemplate core:SupportPage}"
 Route="SupportPage" />
+
+    </ShellSection>
+
+    <ShellSection Title="TOSPage" >
+
+        <ShellContent
+Title="TOSPage"
+ContentTemplate="{DataTemplate core:TOSPage}"
+Route="TOSPage" />
     </ShellSection>
 
 
