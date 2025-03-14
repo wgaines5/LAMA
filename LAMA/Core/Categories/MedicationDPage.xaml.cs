@@ -1,10 +1,10 @@
 using LAMA.Core.Messages;
 
-namespace LAMA.Core
+namespace LAMA.Core.Categories
 {
-    public partial class AlternativeHPage : ContentPage
+    public partial class MedicationDPage : ContentPage
     {
-        public AlternativeHPage()
+        public MedicationDPage()
         {
             InitializeComponent();
         }
@@ -16,7 +16,7 @@ namespace LAMA.Core
             if (questionEntry != null && !string.IsNullOrWhiteSpace(questionEntry.Text))
             {
                 string questionText = questionEntry.Text;
-                questionEntry.Text = ""; // clear input after sending
+                questionEntry.Text = ""; // clear input field
 
                 await Shell.Current.GoToAsync($"{nameof(InboxPage)}?Question={Uri.EscapeDataString(questionText)}");
             }
