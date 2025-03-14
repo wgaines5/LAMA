@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8" ?> 
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="LAMA.Core.MPDashBoard"
@@ -9,7 +9,7 @@
         <VerticalStackLayout Padding="20" Spacing="15">
 
             <Label x:Name="WelcomeMessage"
-                   Text="Welcome, Provider!"
+                   Text="Welcome,Med Professional!"
                    FontSize="24"
                    FontAttributes="Bold"
                    TextColor="Black"
@@ -22,18 +22,25 @@
                 </HorizontalStackLayout>
             </Frame>
 
-            <Frame Padding="10" BackgroundColor="#3cacae" CornerRadius="10">
+            <Frame Padding="10" BackgroundColor="#034277" CornerRadius="10">
                 <VerticalStackLayout>
-                    <Label Text="Total Users Answered" FontSize="18" FontAttributes="Bold"/>
-                    <Label x:Name="UsersAnsweredCount" Text="0" FontSize="24" FontAttributes="Bold"/>
+                    <Label Text="Total Users Answered" FontSize="18" FontAttributes="Bold" TextColor="White"/>
+                    <Label x:Name="UsersAnsweredCount" Text="0" FontSize="24" FontAttributes="Bold" TextColor="LimeGreen"/>
                 </VerticalStackLayout>
             </Frame>
 
-            <Label Text="Pending Messages Queue" FontSize="18" FontAttributes="Bold" BackgroundColor="#8eabb5"/>
+            <Frame Padding="15" BackgroundColor="#34485a" CornerRadius="25" HasShadow="True">
+                <Label Text="📩 Pending Messages Queue" 
+                       FontSize="18" 
+                       FontAttributes="Bold"
+                       TextColor="White"
+                       HorizontalOptions="Center"/>
+            </Frame>
+
             <CollectionView x:Name="PendingMessagesList" HeightRequest="200">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <Frame Padding="10" BackgroundColor="#01a4ff" CornerRadius="10">
+                        <Frame Padding="10" BackgroundColor="#01a4ff" CornerRadius="10" HasShadow="True">
                             <VerticalStackLayout>
                                 <Label Text="{Binding Message}" FontSize="16"/>
                                 <Button Text="Reply" Clicked="OnReplyClicked"/>
@@ -43,8 +50,14 @@
                 </CollectionView.ItemTemplate>
             </CollectionView>
 
-            
-            <Label Text="Select Categories You Can Answer:" FontSize="18" FontAttributes="Bold" BackgroundColor="#8eabb5"/>
+            <Frame Padding="15" BackgroundColor="#34485a" CornerRadius="25" HasShadow="True">
+                <Label Text="⬇️📋 Select Categories You Can Answer" 
+                       FontSize="18" 
+                       FontAttributes="Bold"
+                       TextColor="White"
+                       HorizontalOptions="Center"/>
+            </Frame>
+
             <CollectionView x:Name="CategoriesList" SelectionMode="None">
                 <CollectionView.ItemsLayout>
                     <GridItemsLayout Orientation="Vertical" Span="2"/>
@@ -52,7 +65,7 @@
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <HorizontalStackLayout>
-                            <CheckBox IsChecked="{Binding IsSelected}" Color="#004add"/>
+                            <CheckBox IsChecked="{Binding IsSelected}" Color="#034277"/>
                             <Label Text="{Binding Name}" FontSize="16" FontAttributes="Bold"/>
                         </HorizontalStackLayout>
                     </DataTemplate>

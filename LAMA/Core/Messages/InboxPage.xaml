@@ -5,10 +5,13 @@
              Title="Ask a Medical Professional">
 
     <Grid RowDefinitions="*,Auto">
+        <Image Source="medfactsbkg.png" Aspect="AspectFill"
+       VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand"
+               Opacity="0.2"/>
         <!-- Message panel -->
         <ScrollView VerticalScrollBarVisibility="Never"
-                    Grid.Row="0">
-            <CollectionView ItemsSource="{Binding Messages}"
+                    Grid.Row="0" >
+            <CollectionView x:Name="MessageList" ItemsSource="{Binding Messages}"
                             VerticalOptions="FillAndExpand">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>

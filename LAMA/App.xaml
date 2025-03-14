@@ -11,6 +11,7 @@
             </ResourceDictionary.MergedDictionaries>
             <local:BoolToColorConverter x:Key="BoolToColorConverter"/>
             <local:BoolToAlignmentConverter x:Key="BoolToAlignmentConverter"/>
+            <local:AlternatingColorConverter x:Key="AlternatingColorConverter"/>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

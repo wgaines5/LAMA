@@ -15,7 +15,7 @@
 
 
     <ShellContent
-    Title="Home"
+    Title="🏠 Home"
     ContentTemplate="{DataTemplate auth:MainPage}"
     Route="MainPage"
     />
@@ -31,13 +31,14 @@
 
     <ShellContent
         Title="Message"
-        ContentTemplate="{DataTemplate messages:InboxPage}"
-        Route="InboxPage"/>
+        ContentTemplate="{DataTemplate core:MessagesPage}"
+        Route="MessagesPage"/>
 
     <ShellContent
-    Title="Medical Provider Dashboard"
+    Title="🥼 Medical Provider Dashboard"
     ContentTemplate="{DataTemplate core:MPDashBoard}"
     Route="MPDashBoard"/>
+
 
 
     <ShellSection Title="Profile">
@@ -48,7 +49,7 @@ ContentTemplate="{DataTemplate profile:ProfilePage}"
 Route="ProfilePage" />
         </ShellSection>
 
-        <ShellSection Title="Facts">
+    <ShellSection Title="📖 Facts">
 
             <ShellContent
  Title="Facts"
@@ -58,7 +59,7 @@ Route="ProfilePage" />
         </ShellSection>
 
 
-        <ShellSection Title="Inbox">
+        <ShellSection Title="📥 Inbox">
             <ShellContent
 Title="Messages"
 ContentTemplate="{DataTemplate messages:InboxPage}"
@@ -67,7 +68,7 @@ Route="InboxPage" />
         </ShellSection>
 
 
-        <ShellSection Title="Categories" >
+    <ShellSection Title="📂 Categories" >
             <ShellContent
 Title="Categories"
 ContentTemplate="{DataTemplate core:CategoryPage}"
@@ -76,14 +77,22 @@ Route="CategoryPage" />
         </ShellSection>
 
 
-        <ShellSection Title="Settings" >
+    <ShellSection Title="⚙️ Settings" >
 
             <ShellContent
 Title="Settings"
 ContentTemplate="{DataTemplate core:SettingsPage}"
 Route="SettingsPage" />
         </ShellSection>
- 
-  
+
+    <ShellSection Title="ℹ️⚠️ About" >
+
+        <ShellContent
+Title=" About"
+ContentTemplate="{DataTemplate core:About}"
+Route="About" />
+    </ShellSection>
+
+
 
 </Shell>
