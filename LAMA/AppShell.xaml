@@ -92,4 +92,13 @@ ContentTemplate="{DataTemplate core:PreferredDoctorsPage}"
 Route="PreferredDoctorsPage" />
         </ShellSection>
 
+    <ShellSection Title="SupportPage" >
+
+        <ShellContent
+Title="SupportPage"
+ContentTemplate="{DataTemplate core:SupportPage}"
+Route="SupportPage" />
+    </ShellSection>
+
+
 </Shell>

@@ -18,7 +18,7 @@ namespace LAMA.Core
             await Shell.Current.GoToAsync("//ProfilePage"); // Navigate to ProfilePage
         }
 
-        private async void OnEditPreferredDoctorsC(object sender, EventArgs e)
+        private async void OnEditPreferredDoctorsClicked(object sender, EventArgs e)
         {
             //await this.TranslateTo(-500, 0, 300, Easing.SinInOut); // Slide left before navigating
             await Shell.Current.GoToAsync("//PreferredDoctorsPage"); // Navigate to PreferredDoctorsPage

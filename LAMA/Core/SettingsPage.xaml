@@ -36,33 +36,33 @@
         
         <!-- Preferred Doctors Button -->
         <Frame BackgroundColor="#3cacae"
-                   CornerRadius="10"
-                   Padding="15"
-                   HasShadow="true">
+            CornerRadius="10"
+            Padding="15"
+            HasShadow="true">
             <Grid ColumnDefinitions="Auto, *, Auto">
                 <Image Source="doctor_icon.png"
-                           WidthRequest="30"
-                           HeightRequest="30"
-                           Margin="10"/>
+                    WidthRequest="30"
+                    HeightRequest="30"
+                    Margin="10"/>
                 <StackLayout Grid.Column="1">
                     <Label Text="Edit Preferred Doctors" 
-                               FontSize="18" 
-                               TextColor="White"/>
+                        FontSize="18" 
+                        TextColor="White"/>
                     <Label Text="Manage your preferred doctors" 
-                               FontSize="14" 
-                               TextColor="White"/>
+                        FontSize="14" 
+                        TextColor="White"/>
                 </StackLayout>
                 <Image Source="arrow_icon.png" 
-                           WidthRequest="25"
-                           HeightRequest="25"
-                           Margin="10"
-                           Grid.Column="2"/>
+                    WidthRequest="25"
+                    HeightRequest="25"
+                    Margin="10"
+                    Grid.Column="2"/>
             </Grid>
-            <!--<Frame.GestureRecognizers>
-                <TapGestureRecognizer Tapped="OnEditPreferredDoctorClicked"/>
+            <Frame.GestureRecognizers>
+                <TapGestureRecognizer Tapped="OnEditPreferredDoctorsClicked"/>
             </Frame.GestureRecognizers>
-            -->
         </Frame>
+
 
         <!-- Accessibility Button -->
         <Frame BackgroundColor="#3cacae"
