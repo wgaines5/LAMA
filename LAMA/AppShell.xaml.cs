@@ -1,7 +1,9 @@
 ﻿using LAMA.Core;
 using LAMA.Auth;
-
+using LAMA.Core.Messages;
+using LAMA.Core.Categories;
 using Microsoft.Maui.Controls;
+
 namespace LAMA
 {
     public partial class AppShell : Shell
@@ -13,7 +15,7 @@ namespace LAMA
          
             Routing.RegisterRoute(nameof(MedFactsPage), typeof(MedFactsPage));
             Routing.RegisterRoute(nameof(CategoryPage), typeof(CategoryPage));
-            Routing.RegisterRoute(nameof(MessagesPage), typeof(MessagesPage));
+            Routing.RegisterRoute(nameof(InboxPage), typeof(InboxPage));
             Routing.RegisterRoute(nameof(SettingsPage), typeof(SettingsPage));
             Routing.RegisterRoute(nameof(SignUpPage), typeof(SignUpPage));
             Routing.RegisterRoute(nameof(MPDashBoard), typeof(MPDashBoard));

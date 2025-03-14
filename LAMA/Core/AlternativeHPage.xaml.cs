@@ -1,3 +1,5 @@
+using LAMA.Core.Messages;
+
 namespace LAMA.Core
 {
     public partial class AlternativeHPage : ContentPage
@@ -16,7 +18,7 @@ namespace LAMA.Core
                 string questionText = questionEntry.Text;
                 questionEntry.Text = ""; // clear input after sending
 
-                await Shell.Current.GoToAsync($"{nameof(MessagesPage)}?Question={Uri.EscapeDataString(questionText)}");
+                await Shell.Current.GoToAsync($"{nameof(InboxPage)}?Question={Uri.EscapeDataString(questionText)}");
             }
         }
     }

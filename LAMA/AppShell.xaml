@@ -8,6 +8,7 @@
      xmlns:core="clr-namespace:LAMA.Core"
       xmlns:messages="clr-namespace:LAMA.Core.Messages"
     xmlns:profile="clr-namespace:LAMA.Core.Profile"
+      xmlns:categories="clr-namespace:LAMA.Core.Categories"
     Title="LAMA">
 
     <!--Authentication Pages-->
@@ -17,9 +18,7 @@
     Title="Home"
     ContentTemplate="{DataTemplate auth:MainPage}"
     Route="MainPage"
-
     />
-
 
     <ShellContent
         Title="Sign Up"
@@ -27,18 +26,18 @@
         Route="SignUpPage" 
         FlyoutItemIsVisible="False"
         />
-   
+
+    <!--Core Pages-->
 
     <ShellContent
         Title="Message"
-        ContentTemplate="{DataTemplate core:MessagesPage}"
-        Route="MessagesPage"/>
+        ContentTemplate="{DataTemplate messages:InboxPage}"
+        Route="InboxPage"/>
 
     <ShellContent
     Title="Medical Provider Dashboard"
     ContentTemplate="{DataTemplate core:MPDashBoard}"
     Route="MPDashBoard"/>
-
 
 
     <ShellSection Title="Profile">

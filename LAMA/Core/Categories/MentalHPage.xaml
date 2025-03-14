@@ -1,20 +1,19 @@
-<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="LAMA.Core.SexualRPage"
-             Title="Sexual and Reproductive Health"
-             BackgroundImageSource="sexualbck.png">
+             x:Class="LAMA.Core.Categories.MentalHPage"
+             Title="Mental Health"
+             BackgroundImageSource="mentalbck.png">
 
     <ScrollView>
         <VerticalStackLayout Padding="20" Spacing="15">
-            <Label Text="Sexual and Reproductive Health" FontSize="24" FontAttributes="Bold"/>
-            <Image Source="sexual_health_info.png" HeightRequest="200" HorizontalOptions="Center"/>
-            <Label Text="Your health, your comfort. No judgment, just support. Ask anything."
-                   FontSize="16" TextColor="Black" FontAttributes="Bold" BackgroundColor="LightGray" HorizontalOptions="Center"/>
+            <Label Text="Mental Health Awareness" FontSize="24" FontAttributes="Bold"/>
+            <Image Source="mental_health_info.png" HeightRequest="200" HorizontalOptions="Center"/>
+            <Label Text="You're not alone. Every step you take toward mental wellness is a victory. We’re here to listen, support, and guide you."
+                   FontSize="16" TextColor="Black" FontAttributes="Bold" BackgroundColor="White" HorizontalOptions="Center"/>
 
             <Frame Padding="10" BackgroundColor="#0188ff" CornerRadius="10">
                 <VerticalStackLayout>
-                    <Label Text="Ask a Question:" FontSize="18" FontAttributes="Bold"/>
+                    <Label Text="Ask a Mental Health Question:" FontSize="18" FontAttributes="Bold"/>
                     <Entry x:Name="QuestionEntry" Placeholder="Type your question..." BackgroundColor="White" HeightRequest="40"/>
                     <Button Text="Ask" BackgroundColor="#30cfcb" TextColor="Black" FontAttributes="Bold" Clicked="OnAskQuestion"/>
                 </VerticalStackLayout>

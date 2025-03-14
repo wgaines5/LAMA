@@ -93,10 +93,10 @@
 	  <MauiXaml Update="Core\CategoryPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Core\ChronicAPage.xaml">
+	  <MauiXaml Update="Core\Categories\ChronicAPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Core\GeneralHPage.xaml">
+	  <MauiXaml Update="Core\Categories\GeneralHPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Core\MedFactsPage.xaml">
@@ -105,7 +105,7 @@
 	  <MauiXaml Update="Core\MedicationDPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Core\MentalHPage.xaml">
+	  <MauiXaml Update="Core\Categories\MentalHPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Core\MessagesPage.xaml">
@@ -120,7 +120,7 @@
 	  <MauiXaml Update="Core\SettingsPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Core\SexualRPage.xaml">
+	  <MauiXaml Update="Core\Categories\SexualRPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Core\Signup.xaml">
