@@ -1,13 +1,14 @@
-using System.Collections.ObjectModel;
-using System.Windows.Input;
-using LAMA.Core.Messages;
-using Microsoft.AspNetCore.SignalR.Client;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace LAMA.Core.Messages;
 
 public partial class InboxPage : ContentPage
 {
-	public InboxPage()
+	public DirectMessagePage()
 	{
 		InitializeComponent();
 		BindingContext = new ChatViewModel(new MessageService("https://localhost:5001/chathub"));

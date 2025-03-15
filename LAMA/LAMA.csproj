@@ -88,6 +88,15 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Update="Core\Messages\InboxPage.xaml.cs">
+	    <DependentUpon>InboxPage.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Core\Messages\DirectMessagePage.xaml.cs">
+	    <DependentUpon>DirectMessagePage.xaml</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+
+	<ItemGroup>
 	  <MauiXaml Update="Auth\SignUpPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
