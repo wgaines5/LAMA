@@ -101,37 +101,28 @@ Route="About" />
     </ShellSection>
 
 
-    <ShellSection Title="PreferredDoctorsPage" >
+    <ShellContent
+        Title="Preferred Doctors"
+        ContentTemplate="{DataTemplate core:PreferredDoctorsPage}"
+        Route="PreferredDoctorsPage"
+        FlyoutItemIsVisible="False"/>
 
-            <ShellContent
-Title="PreferredDoctorsPage"
-ContentTemplate="{DataTemplate core:PreferredDoctorsPage}"
-Route="PreferredDoctorsPage" />
-        </ShellSection>
+    <ShellContent
+        Title="Support"
+        ContentTemplate="{DataTemplate core:SupportPage}"
+        Route="SupportPage"
+        FlyoutItemIsVisible="False"/>
 
-    <ShellSection Title="SupportPage" >
+    <ShellContent
+        Title="Terms of Service"
+        ContentTemplate="{DataTemplate core:TOSPage}"
+        Route="TOSPage"
+        FlyoutItemIsVisible="False"/>
 
-        <ShellContent
-Title="SupportPage"
-ContentTemplate="{DataTemplate core:SupportPage}"
-Route="SupportPage" />
-
-    </ShellSection>
-
-    <ShellSection Title="TOSPage" >
-
-        <ShellContent
-Title="TOSPage"
-ContentTemplate="{DataTemplate core:TOSPage}"
-Route="TOSPage" />
-    </ShellSection>
-
-    <ShellSection Title="AccessibilityPage" >
-
-        <ShellContent
-Title="AccessibilityPage"
-ContentTemplate="{DataTemplate core:AccessibilityPage}"
-Route="AccessibilityPage" />
-    </ShellSection>
+    <ShellContent
+        Title="Accessibility"
+        ContentTemplate="{DataTemplate core:AccessibilityPage}"
+        Route="AccessibilityPage"
+        FlyoutItemIsVisible="False"/>
 
 </Shell>
