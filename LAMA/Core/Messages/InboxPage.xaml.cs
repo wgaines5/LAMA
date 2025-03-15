@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LAMA.Core.Messages;
 
-public partial class DirectMessagePage : ContentPage
+public partial class InboxPage : ContentPage
 {
     public InboxPage()
     {

@@ -1,12 +1,14 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace LAMA.Core.Messages;
 
-public partial class InboxPage : ContentPage
+public partial class DirectMessagePage : ContentPage
 {
 	public DirectMessagePage()
 	{
