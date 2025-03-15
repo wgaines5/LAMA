@@ -24,7 +24,7 @@ Project Structure
 📁 LAMA
 │-- 📁 Auth                # Authentication Pages (SignUp, MainPage, Intake)
 │-- 📁 Core                # Core Functionality Pages (Dashboard, Categories, Messages)
-│-- 📁 Messages            # Direct & Inbox Messaging Pages
+│-- 📁 Messages            # Messages & Inbox Messaging Pages
 │-- 📁 Platforms           # Platform-specific configurations
 │-- 📁 Resources           # Images, Fonts, and Styles
 │-- 📄 App.xaml            # Application-wide resources
@@ -36,6 +36,7 @@ Project Structure
 │-- 📄 SettingsPage.xaml   # App Settings
 │-- 📄 MedFactsPage.xaml   # Medical Facts & Information
 │-- 📄 ProfilePage.xaml    # User Profile Page
+│-- 📄 SettingsPage.xaml    # Personal Preferences for Users
 │-- 📄 AppShell.xaml.cs    # Routing & Navigation Management
 
 Getting Started
@@ -66,9 +67,13 @@ Security & Compliance
  Data Encryption - Secure question & answer exchange
 
  Screenshots
- ![Screenshot 2025-03-09 180030](https://github.com/user-attachments/assets/ea8f89fb-057a-41b9-ada9-5b6e0e16b916)
- ![Screenshot 2025-03-09 180046](https://github.com/user-attachments/assets/b376eb9f-0074-49d7-bc2e-212990ce26e8)
- ![Screenshot 2025-03-09 180100](https://github.com/user-attachments/assets/67daf3ab-6f37-4f59-bcb3-b2c45a7d4904)
+![Screenshot 2025-03-15 134335](https://github.com/user-attachments/assets/5283e64a-6112-44b7-be25-06c52bf3c64b)
+![Screenshot 2025-03-15 134354](https://github.com/user-attachments/assets/ae1871b3-f084-47df-9f19-31773bb5b6ea)
+![Screenshot 2025-03-15 134404](https://github.com/user-attachments/assets/2ad4fe62-baf8-4dad-b841-9943f593970f)
+![Screenshot 2025-03-15 134436](https://github.com/user-attachments/assets/549fe0b8-3bfd-49a5-8d45-53b61b995ed8)
+![Screenshot 2025-03-15 134426](https://github.com/user-attachments/assets/b3c07d86-b636-48b8-b62b-771154007fdb)
+![Screenshot 2025-03-15 134447](https://github.com/user-attachments/assets/9aa7ed8a-a49f-44d1-9711-c7c19fbb9213)
+
 
 
  📧 Contact
