@@ -1,15 +1,16 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="LAMA.Core.AlternativeHPage"
-             Title="Alternative and Holistic Medicine"
-             BackgroundImageSource="holisticbck.png">
+             x:Class="LAMA.Core.Categories.ChronicAPage"
+             Title="Chronic Conditions and Autoimmune"
+             BackgroundImageSource="chronicbck.png">
 
     <ScrollView>
         <VerticalStackLayout Padding="20" Spacing="15">
-            <Label Text="Alternative and Holistic Medicine" FontSize="24" FontAttributes="Bold"/>
-            <Image Source="holistic_medicine_info.png" HeightRequest="200" HorizontalOptions="Center"/>
-            <Label Text="“Your body hears everything your mind says. Embrace healing, balance, and natural wellness.”"
-                   FontSize="16" TextColor="Black" FontAttributes="Bold" HorizontalOptions="Center"/>
+            <Label Text="Chronic Conditions and Autoimmune Disorders" FontSize="24" FontAttributes="Bold"/>
+            <Image Source="chronic_conditions_info.png" HeightRequest="200" HorizontalOptions="Center"/>
+            <Label Text="💙 You are not alone. Managing a chronic condition can be challenging, but with the right knowledge and support, you can live a fulfilling life. Ask your questions, and let’s navigate this journey together. 💙"
+                   FontSize="16" TextColor="Black" FontAttributes="Bold" BackgroundColor="White" HorizontalOptions="Center"/>
+
             <Frame Padding="10" BackgroundColor="#0188ff" CornerRadius="10">
                 <VerticalStackLayout>
                     <Label Text="Ask a Question:" FontSize="18" FontAttributes="Bold"/>

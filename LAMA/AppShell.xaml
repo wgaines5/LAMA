@@ -7,9 +7,9 @@
      xmlns:auth="clr-namespace:LAMA.Auth"
      xmlns:core="clr-namespace:LAMA.Core"
       xmlns:messages="clr-namespace:LAMA.Core.Messages"
-    BackgroundColor="#01a4ff"
-    FlyoutBackgroundColor="#c1d9e0"
-    
+    xmlns:profile="clr-namespace:LAMA.Core.Profile"
+     BackgroundColor="#01a4ff"
+  FlyoutBackgroundColor="#c1d9e0"
     Title="LAMA">
 
     <!--Authentication Pages-->
@@ -29,12 +29,13 @@
         Route="SignUpPage" 
         FlyoutItemIsVisible="False"
         />
-   
+
 
     <ShellContent
-        Title="💬 Message"
-        ContentTemplate="{DataTemplate core:MessagesPage}"
-        Route="MessagesPage"/>
+        Title="💬 Messages"
+        ContentTemplate="{DataTemplate messages:MessagePage}"
+        Route="MessagePage"/>
+
 
     <ShellContent
     Title="🥼 Medical Provider Dashboard"
@@ -45,15 +46,17 @@
 
     <ShellSection Title="👤 Profile">
 
-            <ShellContent
+
+        <ShellContent
 Title="Profile"
-ContentTemplate="{DataTemplate core:ProfilePage}"
+ContentTemplate="{DataTemplate profile:ProfilePage}"
 Route="ProfilePage" />
         </ShellSection>
 
     <ShellSection Title="📖 Facts">
 
-            <ShellContent
+
+        <ShellContent
  Title="Facts"
  ContentTemplate="{DataTemplate core:MedFactsPage}"
  Route="MedFactsPage" />
@@ -61,17 +64,18 @@ Route="ProfilePage" />
         </ShellSection>
 
 
-        <ShellSection Title="📥 Inbox">
-            <ShellContent
+    <ShellSection Title="📥 Inbox">
+        <ShellContent
 Title="Messages"
 ContentTemplate="{DataTemplate messages:InboxPage}"
 Route="InboxPage" />
 
-        </ShellSection>
+
+    </ShellSection>
 
 
     <ShellSection Title="📂 Categories" >
-            <ShellContent
+        <ShellContent
 Title="Categories"
 ContentTemplate="{DataTemplate core:CategoryPage}"
 Route="CategoryPage" />
@@ -81,7 +85,8 @@ Route="CategoryPage" />
 
     <ShellSection Title="⚙️ Settings" >
 
-            <ShellContent
+
+        <ShellContent
 Title="Settings"
 ContentTemplate="{DataTemplate core:SettingsPage}"
 Route="SettingsPage" />
@@ -96,5 +101,37 @@ Route="About" />
     </ShellSection>
 
 
+    <ShellSection Title="PreferredDoctorsPage" >
+
+            <ShellContent
+Title="PreferredDoctorsPage"
+ContentTemplate="{DataTemplate core:PreferredDoctorsPage}"
+Route="PreferredDoctorsPage" />
+        </ShellSection>
+
+    <ShellSection Title="SupportPage" >
+
+        <ShellContent
+Title="SupportPage"
+ContentTemplate="{DataTemplate core:SupportPage}"
+Route="SupportPage" />
+
+    </ShellSection>
+
+    <ShellSection Title="TOSPage" >
+
+        <ShellContent
+Title="TOSPage"
+ContentTemplate="{DataTemplate core:TOSPage}"
+Route="TOSPage" />
+    </ShellSection>
+
+    <ShellSection Title="AccessibilityPage" >
+
+        <ShellContent
+Title="AccessibilityPage"
+ContentTemplate="{DataTemplate core:AccessibilityPage}"
+Route="AccessibilityPage" />
+    </ShellSection>
 
 </Shell>

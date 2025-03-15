@@ -1,8 +1,10 @@
-namespace LAMA.Core
+using LAMA.Core.Messages;
+
+namespace LAMA.Core.Categories
 {
-    public partial class AlternativeHPage : ContentPage
+    public partial class ChronicAPage : ContentPage
     {
-        public AlternativeHPage()
+        public ChronicAPage()
         {
             InitializeComponent();
         }
@@ -14,9 +16,9 @@ namespace LAMA.Core
             if (questionEntry != null && !string.IsNullOrWhiteSpace(questionEntry.Text))
             {
                 string questionText = questionEntry.Text;
-                questionEntry.Text = ""; // clear input after sending
+                questionEntry.Text = ""; // clear input field
 
-                await Shell.Current.GoToAsync($"{nameof(MessagesPage)}?Question={Uri.EscapeDataString(questionText)}");
+                await Shell.Current.GoToAsync($"{nameof(InboxPage)}?Question={Uri.EscapeDataString(questionText)}");
             }
         }
     }

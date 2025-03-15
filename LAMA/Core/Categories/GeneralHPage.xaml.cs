@@ -1,4 +1,6 @@
-namespace LAMA.Core
+using LAMA.Core.Messages;
+
+namespace LAMA.Core.Categories
 {
     public partial class GeneralHPage : ContentPage
     {
@@ -15,7 +17,7 @@ namespace LAMA.Core
                 return;
             }
 
-            await Shell.Current.GoToAsync(nameof(MessagesPage), true,
+            await Shell.Current.GoToAsync(nameof(InboxPage), true,
                 new Dictionary<string, object> { { "Question", question } });
 
             QuestionEntry.Text = ""; // clear input

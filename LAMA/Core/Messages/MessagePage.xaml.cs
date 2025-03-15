@@ -1,13 +1,16 @@
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Input;
-using LAMA.Core.Messages;
-using Microsoft.AspNetCore.SignalR.Client;
 
-namespace LAMA.Core;
+namespace LAMA.Core.Messages;
 
-public partial class MessagesPage : ContentPage
+public partial class MessagePage : ContentPage
 {
-	public MessagesPage()
+	public MessagePage()
 	{
 		InitializeComponent();
 		BindingContext = new ChatViewModel(new MessageService("https://localhost:5001/chathub"));

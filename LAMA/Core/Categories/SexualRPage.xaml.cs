@@ -1,8 +1,10 @@
-namespace LAMA.Core
+using LAMA.Core.Messages; 
+
+namespace LAMA.Core.Categories
 {
-    public partial class ChronicAPage : ContentPage
+    public partial class SexualRPage : ContentPage
     {
-        public ChronicAPage()
+        public SexualRPage()
         {
             InitializeComponent();
         }
@@ -16,7 +18,7 @@ namespace LAMA.Core
                 string questionText = questionEntry.Text;
                 questionEntry.Text = ""; // clear input field
 
-                await Shell.Current.GoToAsync($"{nameof(MessagesPage)}?Question={Uri.EscapeDataString(questionText)}");
+                await Shell.Current.GoToAsync($"{nameof(InboxPage)}?Question={Uri.EscapeDataString(questionText)}");
             }
         }
     }

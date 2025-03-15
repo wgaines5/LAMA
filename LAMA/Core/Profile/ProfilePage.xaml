@@ -1,58 +1,65 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="LAMA.Core.ProfilePage"
+             x:Class="LAMA.Core.Profile.ProfilePage"
              Title="Profile"
              >
     <Grid>
 
         <Grid.RowDefinitions>
-            <RowDefinition Height=".3*"/>
-            <RowDefinition Height=".12*"/>
-            <RowDefinition Height=".3*"/>
+            <RowDefinition Height=".45*"/>
+            <RowDefinition Height=".2*"/>
+            <RowDefinition Height=".4*"/>
         </Grid.RowDefinitions>
 
         <Frame
-            Grid.Row="0"
-            VerticalOptions="Fill"
-            HorizontalOptions="Fill"
-            >
+            Grid.Row="0"   >
 
             <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
+                    <RowDefinition Height=".6*"/>
                     <RowDefinition Height=".2*" />
-                    <RowDefinition Height=" .1" />
+                    <RowDefinition Height=" .1*" />
                 </Grid.RowDefinitions>
 
-                <ImageButton
+
+                <Frame
                     Grid.Row="0"
-                    BackgroundColor="White"
-                    HorizontalOptions="Center"
-                    VerticalOptions="Center"
                     WidthRequest="125"
                     HeightRequest="125"
-                    CornerRadius="100"
-                    BorderColor="Cyan"
-                    BorderWidth="2">
-                </ImageButton>
+                      HorizontalOptions="Center"
+                    VerticalOptions="Center"
+                     CornerRadius="100"
+                        BorderColor="Cyan"  >
 
+                    <ImageButton 
+      BackgroundColor="White"
+       WidthRequest="125"
+      HeightRequest="125"
+      BorderColor="Cyan"
+    BorderWidth="200"
+      Aspect="AspectFill"
+      Source="usermock.png">
+                    </ImageButton>
+
+                </Frame>
 
                 <Label
                     Grid.Row="1"
-                    VerticalOptions="Start"
+                    VerticalOptions="Center"
                     HorizontalOptions="Center"
                     Text="Hello, Username"
                     FontSize="24"
                  ></Label>
 
                 <Label
-                    Grid.Row="2"
-                    VerticalOptions="Center"
-                    HorizontalOptions="Center"
-                    Text="Joined 1/1/2025"
-                    FontSize="13"
-                   ></Label>
+         Grid.Row="2"
+         VerticalOptions="Center"
+         HorizontalOptions="Center"
+         Text="Joined 1/1/2025 "
+         FontSize="13"
+      ></Label>
+
             </Grid>
 
         </Frame>
@@ -61,13 +68,12 @@
               Grid.Row="1">
 
             <Grid
-
            ColumnSpacing="5"
        >
 
                 <Grid.RowDefinitions>
-                    <RowDefinition Height=".65*"/>
-                    <RowDefinition Height=".35*"/>
+                    <RowDefinition Height=".7*"/>
+                    <RowDefinition Height=".3*"/>
                 </Grid.RowDefinitions>
 
                 <Grid.ColumnDefinitions>
@@ -77,14 +83,27 @@
 
                 <Frame
        Grid.Row="0"
-       Grid.Column="0">
+       Grid.Column="0"
+                        BorderColor="Cyan"
+       >
+
+                    <Label
+          Text="Mental Health"
+          FontSize="18"
+          VerticalOptions="Center"
+          HorizontalOptions="Center"
+                         FontAttributes="Bold">
+
+                    </Label>
+
                 </Frame>
 
 
                 <Label
                     Grid.Row="1"
                     Grid.Column="0"
-                    Text="Queries"
+                    Text="Frequent"
+                                    
                   HorizontalOptions="Center"
                     FontSize="18">
 
@@ -92,15 +111,28 @@
 
                 <Frame
        Grid.Row="0"
-       Grid.Column="1">
+       Grid.Column="1"
+                                     BorderColor="Cyan"
+                    HorizontalOptions="Fill"
+                    VerticalOptions="Fill">
 
-                    
+                    <Label
+                        Text="0"
+       
+                        FontSize="18"
+                        VerticalOptions="Center"
+                        HorizontalOptions="Center"
+                         FontAttributes="Bold">
+
+                    </Label>
+
                 </Frame>
 
                 <Label
                     Grid.Row="1"
   Grid.Column="1"
-  Text="Frequented"
+  Text="Queries"
+ 
 HorizontalOptions="Center"
   FontSize="18">
                 </Label>
@@ -119,10 +151,10 @@ HorizontalOptions="Center"
                 HorizontalOptions="Fill"
                 VerticalOptions="Fill"
                 Source="lama_logo.png">
-            
+
             </ImageButton>
 
-         
+
         </Frame>
 
     </Grid>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="LAMA.Core.PreferredDoctorsPage"
+             Title="PreferredDoctorsPage">
+    <VerticalStackLayout Padding="20" Spacing="10">
+
+        <!-- Search Box (For adding new doctors) -->
+        <Label Text="Search and Add a Doctor:" FontSize="18" FontAttributes="Bold"/>
+        <Entry x:Name="SearchEntry"
+               Placeholder="Search for a doctor..."
+               TextChanged="OnSearchTextChanged"/>
+        <Button Text="Add Doctor" Clicked="OnAddDoctorClicked"/>
+
+        <!-- Selected Doctors Section -->
+        <Label Text="Your Preferred Doctors:" FontSize="18" FontAttributes="Bold"/>
+        <CollectionView x:Name="PreferredDoctorsList"
+                        ItemsSource="{Binding PreferredDoctors}"
+                        SelectionMode="None">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Frame BackgroundColor="LightGray"
+                           CornerRadius="10"
+                           Padding="10"
+                           Margin="5">
+                        <HorizontalStackLayout>
+                            <CheckBox IsChecked="{Binding IsSelected, Mode=TwoWay}"/>
+                            <Label Text="{Binding Name}" FontSize="16" VerticalOptions="Center"/>
+                        </HorizontalStackLayout>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <!-- Remove Selected Doctors Button -->
+        <Button Text="Remove Selected" Clicked="OnRemoveSelectedDoctorsClicked" BackgroundColor="Red" TextColor="White"/>
+
+    </VerticalStackLayout>
+</ContentPage>
