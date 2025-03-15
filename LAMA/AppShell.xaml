@@ -84,37 +84,28 @@ ContentTemplate="{DataTemplate core:SettingsPage}"
 Route="SettingsPage" />
         </ShellSection>
 
-        <ShellSection Title="PreferredDoctorsPage" >
+    <ShellContent
+        Title="PreferredDoctorsPage"
+        ContentTemplate="{DataTemplate core:PreferredDoctorsPage}"
+        Route="PreferredDoctorsPage" 
+        FlyoutItemIsVisible="False"/>
 
-            <ShellContent
-Title="PreferredDoctorsPage"
-ContentTemplate="{DataTemplate core:PreferredDoctorsPage}"
-Route="PreferredDoctorsPage" />
-        </ShellSection>
+    <ShellContent
+        Title="SupportPage"
+        ContentTemplate="{DataTemplate core:SupportPage}"
+        Route="SupportPage" 
+        FlyoutItemIsVisible="False"/>
 
-    <ShellSection Title="SupportPage" >
+    <ShellContent
+        Title="TOS"
+        ContentTemplate="{DataTemplate core:TOSPage}"
+        Route="TOSPage" 
+        FlyoutItemIsVisible="False"/>
 
-        <ShellContent
-Title="SupportPage"
-ContentTemplate="{DataTemplate core:SupportPage}"
-Route="SupportPage" />
-
-    </ShellSection>
-
-    <ShellSection Title="TOSPage" >
-
-        <ShellContent
-Title="TOSPage"
-ContentTemplate="{DataTemplate core:TOSPage}"
-Route="TOSPage" />
-    </ShellSection>
-
-    <ShellSection Title="AccessibilityPage" >
-
-        <ShellContent
-Title="AccessibilityPage"
-ContentTemplate="{DataTemplate core:AccessibilityPage}"
-Route="AccessibilityPage" />
-    </ShellSection>
+    <ShellContent
+        Title="Accessibility"
+        ContentTemplate="{DataTemplate core:AccessibilityPage}"
+        Route="AccessibilityPage"
+        FlyoutItemIsVisible="False"/>
 
 </Shell>

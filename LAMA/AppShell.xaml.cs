@@ -26,8 +26,6 @@ namespace LAMA
             Routing.RegisterRoute(nameof(ChronicAPage), typeof(ChronicAPage));
             Routing.RegisterRoute(nameof(MedicationDPage), typeof(MedicationDPage));
             Routing.RegisterRoute(nameof(AlternativeHPage), typeof(AlternativeHPage));
-
-            Routing.RegisterRoute(nameof(AccessibilityPage), typeof(AccessibilityPage));
         }
     }
 }
