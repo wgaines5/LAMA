@@ -8,9 +8,9 @@ using System.Windows.Input;
 
 namespace LAMA.Core.Messages;
 
-public partial class DirectMessagePage : ContentPage
+public partial class MessagePage : ContentPage
 {
-	public DirectMessagePage()
+	public MessagePage()
 	{
 		InitializeComponent();
 		BindingContext = new ChatViewModel(new MessageService("https://localhost:5001/chathub"));
