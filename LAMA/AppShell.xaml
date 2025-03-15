@@ -31,8 +31,8 @@
 
     <ShellContent
         Title="Message"
-        ContentTemplate="{DataTemplate messages:InboxPage}"
-        Route="MessagesPage"/>
+        ContentTemplate="{DataTemplate messages:DirectMessagePage}"
+        Route="DirectMessagePage"/>
 
     <ShellContent
     Title="🥼 Medical Provider Dashboard"
