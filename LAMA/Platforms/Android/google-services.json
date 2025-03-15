@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1007404781660",
+    "project_id": "lama-60ddc",
+    "storage_bucket": "lama-60ddc.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1007404781660:android:55352e16463355097c1699",
+        "android_client_info": {
+          "package_name": "com.mycompany.myapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDiAuutGePttuNIoUxGy2Ok6NDcqGoh74k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

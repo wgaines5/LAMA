@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8" ?> 
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="LAMA.Core.MPDashBoard"
+             Title="Provider Dashboard"
+             BackgroundImageSource="mpdashboardbck.png">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="15">
+
+            <Label x:Name="WelcomeMessage"
+                   Text="Welcome,Med Professional!"
+                   FontSize="24"
+                   FontAttributes="Bold"
+                   TextColor="Black"
+                   HorizontalOptions="Center"/>
+
+            <Frame Padding="10" BackgroundColor="#8eabb5" CornerRadius="10">
+                <HorizontalStackLayout>
+                    <Label Text="Online Status:" FontSize="18"/>
+                    <Switch x:Name="OnlineToggle" Toggled="OnOnlineToggleChanged"/>
+                </HorizontalStackLayout>
+            </Frame>
+
+            <Frame Padding="10" BackgroundColor="#034277" CornerRadius="10">
+                <VerticalStackLayout>
+                    <Label Text="Total Users Answered" FontSize="18" FontAttributes="Bold" TextColor="White"/>
+                    <Label x:Name="UsersAnsweredCount" Text="0" FontSize="24" FontAttributes="Bold" TextColor="LimeGreen"/>
+                </VerticalStackLayout>
+            </Frame>
+
+            <Frame Padding="15" BackgroundColor="#34485a" CornerRadius="25" HasShadow="True">
+                <Label Text="📩 Pending Messages Queue" 
+                       FontSize="18" 
+                       FontAttributes="Bold"
+                       TextColor="White"
+                       HorizontalOptions="Center"/>
+            </Frame>
+
+            <CollectionView x:Name="PendingMessagesList" HeightRequest="200">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame Padding="10" BackgroundColor="#01a4ff" CornerRadius="10" HasShadow="True">
+                            <VerticalStackLayout>
+                                <Label Text="{Binding Message}" FontSize="16"/>
+                                <Button Text="Reply" Clicked="OnReplyClicked"/>
+                            </VerticalStackLayout>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <Frame Padding="15" BackgroundColor="#34485a" CornerRadius="25" HasShadow="True">
+                <Label Text="⬇️📋 Select Categories You Can Answer" 
+                       FontSize="18" 
+                       FontAttributes="Bold"
+                       TextColor="White"
+                       HorizontalOptions="Center"/>
+            </Frame>
+
+            <CollectionView x:Name="CategoriesList" SelectionMode="None">
+                <CollectionView.ItemsLayout>
+                    <GridItemsLayout Orientation="Vertical" Span="2"/>
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <HorizontalStackLayout>
+                            <CheckBox IsChecked="{Binding IsSelected}" Color="#034277"/>
+                            <Label Text="{Binding Name}" FontSize="16" FontAttributes="Bold"/>
+                        </HorizontalStackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>

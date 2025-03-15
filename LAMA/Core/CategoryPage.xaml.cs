@@ -1,5 +1,6 @@
 using Microsoft.Maui.Controls;
 using System.Collections.ObjectModel;
+using LAMA.Core.Categories;
 
 namespace LAMA.Core
 {
@@ -23,34 +24,32 @@ namespace LAMA.Core
             BindingContext = this;
         }
 
-        private async void OnBackButtonClicked(object sender, EventArgs e)
+        private async void OnCategorySelected(object sender, EventArgs e)
         {
-            await Navigation.PopAsync();
-        }
-        private async void OnProfileClicked(object sender, EventArgs e)
-        {
-            await Navigation.PushAsync(new ProfilePage());
-
-        }
-        private async void OnMedFactsClicked(object sender, EventArgs e)
-        {
-            await Navigation.PushAsync(new MedFactsPage());
-
-        }
-        private async void OnCategoryClicked(object sender, EventArgs e)
-        {
-            await Navigation.PushAsync(new CategoryPage());
-
-        }
-        private async void OnMessagesClicked(object sender, EventArgs e)
-        {
-            await Navigation.PushAsync(new Messages.InboxPage());
-
-        }
-        private async void OnSettingsClicked(object sender, EventArgs e)
-        {
-            await Navigation.PushAsync(new SettingsPage());
-
+            if (sender is Button button && button.CommandParameter is string categoryName)
+            {
+                switch (categoryName)
+                {
+                    case "General Health":
+                        await Shell.Current.GoToAsync(nameof(GeneralHPage));
+                        break;
+                    case "Mental Health":
+                        await Shell.Current.GoToAsync(nameof(MentalHPage));
+                        break;
+                    case "Sexual & Reproductive Health":
+                        await Shell.Current.GoToAsync(nameof(SexualRPage));
+                        break;
+                    case "Chronic Conditions & Autoimmune":
+                        await Shell.Current.GoToAsync(nameof(ChronicAPage));
+                        break;
+                    case "Medication & Drug Interactions":
+                        await Shell.Current.GoToAsync(nameof(MedicationDPage));
+                        break;
+                    case "Alternative & Holistic Medicine":
+                        await Shell.Current.GoToAsync(nameof(AlternativeHPage));
+                        break;
+                }
+            }
         }
     }
 

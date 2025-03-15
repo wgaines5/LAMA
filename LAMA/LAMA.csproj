@@ -60,50 +60,65 @@
 	  <Compile Remove="Auth\NewPage1.cs" />
 	  <Compile Remove="Auth\NewPage1.xaml.cs" />
 	  <Compile Remove="Auth\NewPage2.xaml.cs" />
+	  <Compile Remove="Auth\SignInPage.xaml.cs" />
 	  <Compile Remove="SignUpPage.xaml.cs" />
 	</ItemGroup>
 
 	<ItemGroup>
 	  <MauiXaml Remove="Auth\NewPage1.xaml" />
 	  <MauiXaml Remove="Auth\NewPage2.xaml" />
+	  <MauiXaml Remove="Auth\SignInPage.xaml" />
 	  <MauiXaml Remove="SignUpPage.xaml" />
 	</ItemGroup>
 
 	<ItemGroup>
+		<PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="9.0.3" />
 		<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
 		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="$(MauiVersion)" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.1" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Compile Update="Auth\SignInPage.xaml.cs">
-	    <DependentUpon>SignInPage.xaml</DependentUpon>
-	  </Compile>
-	  <Compile Update="Core\Messages\DirectMessagePage.xaml.cs">
-	    <DependentUpon>DirectMessagePage.xaml</DependentUpon>
-	  </Compile>
-	  <Compile Update="Core\Messages\InboxPage.xaml.cs">
-	    <DependentUpon>InboxPage.xaml</DependentUpon>
+	  <Compile Update="Core\Messages\MessagePage.xaml.cs">
+	    <DependentUpon>MessagePage.xaml</DependentUpon>
 	  </Compile>
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiXaml Update="Auth\IntakePage.xaml">
+	  <MauiXaml Update="Auth\SignUpPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Auth\SignUpPage.xaml">
+	  <MauiXaml Update="Core\AccessibilityPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Core\AlternativeHPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Core\CategoryPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Core\ChronicAPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Core\GeneralHPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Core\MedFactsPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Core\Messages\InboxPage.xaml">
+	  <MauiXaml Update="Core\MedicationDPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Core\Messages\DirectMessagePage.xaml">
+	  <MauiXaml Update="Core\MentalHPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Core\MessagesPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Core\MPDashBoard.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Core\PreferredDoctorsPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Core\ProfilePage.xaml">
@@ -112,7 +127,16 @@
 	  <MauiXaml Update="Core\SettingsPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Auth\SignInPage.xaml">
+	  <MauiXaml Update="Core\SexualRPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Core\Signup.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Core\SupportPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Core\TOSPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>
