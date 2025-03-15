@@ -35,11 +35,14 @@
             <Entry x:Name="MessageEntry"
                    Text="{Binding NewMessage}"
                    Placeholder="Type a message..."
+                   TextColor="Black"
+                   BackgroundColor="Transparent"
                    HorizontalOptions="FillAndExpand"
                    VerticalOptions="Center" 
                    ReturnType="Send"
                    Completed="OnSendMessage"/>
             <Button Text="Send"
+                    TextColor="Black"
                     Command="{Binding SendMessageCommand}" />
         </StackLayout>
     </Grid>
