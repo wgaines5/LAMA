@@ -7,7 +7,7 @@
     <Grid>
 
         <Grid.RowDefinitions>
-            <RowDefinition Height=".4*"/>
+            <RowDefinition Height=".45*"/>
             <RowDefinition Height=".2*"/>
             <RowDefinition Height=".4*"/>
         </Grid.RowDefinitions>
@@ -72,8 +72,8 @@
        >
 
                 <Grid.RowDefinitions>
-                    <RowDefinition Height=".6*"/>
-                    <RowDefinition Height=".4*"/>
+                    <RowDefinition Height=".7*"/>
+                    <RowDefinition Height=".3*"/>
                 </Grid.RowDefinitions>
 
                 <Grid.ColumnDefinitions>
@@ -83,13 +83,16 @@
 
                 <Frame
        Grid.Row="0"
-       Grid.Column="0">
+       Grid.Column="0"
+                        BorderColor="Cyan"
+       >
 
                     <Label
-          Text="0"
+          Text="Mental Health"
           FontSize="18"
           VerticalOptions="Center"
-          HorizontalOptions="Center">
+          HorizontalOptions="Center"
+                         FontAttributes="Bold">
 
                     </Label>
 
@@ -99,7 +102,8 @@
                 <Label
                     Grid.Row="1"
                     Grid.Column="0"
-                    Text="Queries"
+                    Text="Frequent"
+                                    
                   HorizontalOptions="Center"
                     FontSize="18">
 
@@ -108,14 +112,17 @@
                 <Frame
        Grid.Row="0"
        Grid.Column="1"
+                                     BorderColor="Cyan"
                     HorizontalOptions="Fill"
                     VerticalOptions="Fill">
 
                     <Label
                         Text="0"
+       
                         FontSize="18"
                         VerticalOptions="Center"
-                        HorizontalOptions="Center">
+                        HorizontalOptions="Center"
+                         FontAttributes="Bold">
 
                     </Label>
 
@@ -124,7 +131,8 @@
                 <Label
                     Grid.Row="1"
   Grid.Column="1"
-  Text="Frequent"
+  Text="Queries"
+ 
 HorizontalOptions="Center"
   FontSize="18">
                 </Label>
@@ -142,7 +150,6 @@ HorizontalOptions="Center"
             <ImageButton
                 HorizontalOptions="Fill"
                 VerticalOptions="Fill"
-            
                 Source="image.svg">
 
             </ImageButton>
