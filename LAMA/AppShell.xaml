@@ -4,97 +4,99 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:LAMA"
-     xmlns:auth="clr-namespace:LAMA.Auth"
-     xmlns:core="clr-namespace:LAMA.Core"
-      xmlns:messages="clr-namespace:LAMA.Core.Messages"
+    xmlns:auth="clr-namespace:LAMA.Auth"
+    xmlns:core="clr-namespace:LAMA.Core"
+    xmlns:messages="clr-namespace:LAMA.Core.Messages"
     BackgroundColor="#01a4ff"
     FlyoutBackgroundColor="#c1d9e0"
-    
     Title="LAMA">
 
     <!--Authentication Pages-->
-
-
     <ShellContent
-    Title="🏠 Home"
-    ContentTemplate="{DataTemplate auth:MainPage}"
-    Route="MainPage"
-
-    />
-
+        Title="🏠 Home"
+        ContentTemplate="{DataTemplate auth:MainPage}"
+        Route="MainPage"/>
 
     <ShellContent
         Title="Sign Up"
         ContentTemplate="{DataTemplate auth:SignUpPage}"
         Route="SignUpPage" 
-        FlyoutItemIsVisible="False"
-        />
-   
+        FlyoutItemIsVisible="False"/>
 
     <ShellContent
-        Title="💬 Message"
+        Title="💬 Ask a Medical Professional"
         ContentTemplate="{DataTemplate core:MessagesPage}"
         Route="MessagesPage"/>
 
     <ShellContent
-    Title="🥼 Medical Provider Dashboard"
-    ContentTemplate="{DataTemplate core:MPDashBoard}"
-    Route="MPDashBoard"/>
-
-
+        Title="🥼 Medical Provider Dashboard"
+        ContentTemplate="{DataTemplate core:MPDashBoard}"
+        Route="MPDashBoard"/>
 
     <ShellSection Title="👤 Profile">
-
-            <ShellContent
-Title="Profile"
-ContentTemplate="{DataTemplate core:ProfilePage}"
-Route="ProfilePage" />
-        </ShellSection>
-
-    <ShellSection Title="📖 Facts">
-
-            <ShellContent
- Title="Facts"
- ContentTemplate="{DataTemplate core:MedFactsPage}"
- Route="MedFactsPage" />
-
-        </ShellSection>
-
-
-        <ShellSection Title="📥 Inbox">
-            <ShellContent
-Title="Messages"
-ContentTemplate="{DataTemplate messages:InboxPage}"
-Route="InboxPage" />
-
-        </ShellSection>
-
-
-    <ShellSection Title="📂 Categories" >
-            <ShellContent
-Title="Categories"
-ContentTemplate="{DataTemplate core:CategoryPage}"
-Route="CategoryPage" />
-
-        </ShellSection>
-
-
-    <ShellSection Title="⚙️ Settings" >
-
-            <ShellContent
-Title="Settings"
-ContentTemplate="{DataTemplate core:SettingsPage}"
-Route="SettingsPage" />
-        </ShellSection>
-
-    <ShellSection Title="ℹ️⚠️ About" >
-
         <ShellContent
-Title=" About"
-ContentTemplate="{DataTemplate core:About}"
-Route="About" />
+            Title="Profile"
+            ContentTemplate="{DataTemplate core:ProfilePage}"
+            Route="ProfilePage"/>
     </ShellSection>
 
+    <ShellSection Title="📖 Facts">
+        <ShellContent
+            Title="Facts"
+            ContentTemplate="{DataTemplate core:MedFactsPage}"
+            Route="MedFactsPage"/>
+    </ShellSection>
 
+    <ShellSection Title="📥 Messages">
+        <ShellContent
+            Title="Messages"
+            ContentTemplate="{DataTemplate messages:InboxPage}"
+            Route="InboxPage"/>
+    </ShellSection>
+
+    <ShellSection Title="📂 Categories">
+        <ShellContent
+            Title="Categories"
+            ContentTemplate="{DataTemplate core:CategoryPage}"
+            Route="CategoryPage"/>
+    </ShellSection>
+
+    <ShellSection Title="⚙️ Settings">
+        <ShellContent
+            Title="Settings"
+            ContentTemplate="{DataTemplate core:SettingsPage}"
+            Route="SettingsPage"/>
+    </ShellSection>
+
+    <ShellSection Title="ℹ️⚠️ About">
+        <ShellContent
+            Title="About"
+            ContentTemplate="{DataTemplate core:About}"
+            Route="About"/>
+    </ShellSection>
+
+    <ShellContent
+        Title="Preferred Doctors"
+        ContentTemplate="{DataTemplate core:PreferredDoctorsPage}"
+        Route="PreferredDoctorsPage"
+        FlyoutItemIsVisible="False"/>
+
+    <ShellContent
+        Title="Support"
+        ContentTemplate="{DataTemplate core:SupportPage}"
+        Route="SupportPage"
+        FlyoutItemIsVisible="False"/>
+
+    <ShellContent
+        Title="Terms of Service"
+        ContentTemplate="{DataTemplate core:TOSPage}"
+        Route="TOSPage"
+        FlyoutItemIsVisible="False"/>
+
+    <ShellContent
+        Title="Accessibility"
+        ContentTemplate="{DataTemplate core:AccessibilityPage}"
+        Route="AccessibilityPage"
+        FlyoutItemIsVisible="False"/>
 
 </Shell>
