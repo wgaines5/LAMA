@@ -83,7 +83,29 @@ Title="Settings"
 ContentTemplate="{DataTemplate core:SettingsPage}"
 Route="SettingsPage" />
         </ShellSection>
- 
-  
+
+    <ShellContent
+        Title="PreferredDoctorsPage"
+        ContentTemplate="{DataTemplate core:PreferredDoctorsPage}"
+        Route="PreferredDoctorsPage" 
+        FlyoutItemIsVisible="False"/>
+
+    <ShellContent
+        Title="SupportPage"
+        ContentTemplate="{DataTemplate core:SupportPage}"
+        Route="SupportPage" 
+        FlyoutItemIsVisible="False"/>
+
+    <ShellContent
+        Title="TOS"
+        ContentTemplate="{DataTemplate core:TOSPage}"
+        Route="TOSPage" 
+        FlyoutItemIsVisible="False"/>
+
+    <ShellContent
+        Title="Accessibility"
+        ContentTemplate="{DataTemplate core:AccessibilityPage}"
+        Route="AccessibilityPage"
+        FlyoutItemIsVisible="False"/>
 
 </Shell>

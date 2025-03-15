@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="LAMA.Core.SupportPage"
+             Title="SupportPage"
+             BackgroundColor="#004aad">
+    <VerticalStackLayout Padding="20" Spacing="15"
+                         VerticalOptions="CenterAndExpand"
+                         HorizontalOptions="CenterAndExpand">
+
+        <!-- Bubble for text content -->
+        <Frame BackgroundColor="#3cacae"
+               CornerRadius="15"
+               Padding="20"
+               HasShadow="true"
+               WidthRequest="300"
+               HorizontalOptions="Center">
+
+            <VerticalStackLayout Spacing="10">
+
+                <!-- Version -->
+                <Label Text="Version 0.0.1" 
+                       FontSize="20" 
+                       FontAttributes="Bold" 
+                       TextColor="White"
+                       HorizontalOptions="Center" />
+
+                <!-- Help Section -->
+                <Label Text="Help" 
+                       FontSize="18" 
+                       FontAttributes="Bold"
+                       TextColor="White"
+                       HorizontalOptions="Center" />
+
+                <!-- Support Phone -->
+                <HorizontalStackLayout HorizontalOptions="Center">
+                    <Label Text="📞 " FontSize="18" TextColor="White"/>
+                    <Label Text="+1 (555) 123-4567" 
+                           FontSize="18" 
+                           TextColor="White"/>
+                </HorizontalStackLayout>
+
+                <!-- Support Email -->
+                <HorizontalStackLayout HorizontalOptions="Center">
+                    <Label Text="📧 " FontSize="18" TextColor="White"/>
+                    <Label Text="support@example.com"
+                           FontSize="18"
+                           TextColor="White"/>
+                </HorizontalStackLayout>
+
+            </VerticalStackLayout>
+
+        </Frame>
+
+    </VerticalStackLayout>
+</ContentPage>
