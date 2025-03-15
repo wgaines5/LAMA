@@ -7,18 +7,18 @@
      xmlns:auth="clr-namespace:LAMA.Auth"
      xmlns:core="clr-namespace:LAMA.Core"
       xmlns:messages="clr-namespace:LAMA.Core.Messages"
-    xmlns:profile="clr-namespace:LAMA.Core.Profile"
-      xmlns:categories="clr-namespace:LAMA.Core.Categories"
     Title="LAMA">
 
     <!--Authentication Pages-->
 
 
     <ShellContent
-    Title="🏠 Home"
+    Title="Home"
     ContentTemplate="{DataTemplate auth:MainPage}"
     Route="MainPage"
+
     />
+
 
     <ShellContent
         Title="Sign Up"
@@ -26,30 +26,29 @@
         Route="SignUpPage" 
         FlyoutItemIsVisible="False"
         />
-
-    <!--Core Pages-->
-
-    <ShellContent
-        Title="Direct Message"
-        ContentTemplate="{DataTemplate messages:DirectMessagePage}"
-        Route="DirectMessagePage"/>
+   
 
     <ShellContent
-    Title="🥼 Medical Provider Dashboard"
+        Title="Ask a Medical Professional"
+        ContentTemplate="{DataTemplate core:MessagesPage}"
+        Route="MessagesPage"/>
+
+    <ShellContent
+    Title="Medical Provider Dashboard"
     ContentTemplate="{DataTemplate core:MPDashBoard}"
     Route="MPDashBoard"/>
 
 
 
-    <ShellSection Title="👤Profile">
+    <ShellSection Title="Profile">
 
             <ShellContent
 Title="Profile"
-ContentTemplate="{DataTemplate profile:ProfilePage}"
+ContentTemplate="{DataTemplate core:ProfilePage}"
 Route="ProfilePage" />
         </ShellSection>
 
-    <ShellSection Title="📖 Facts">
+        <ShellSection Title="Facts">
 
             <ShellContent
  Title="Facts"
@@ -59,16 +58,16 @@ Route="ProfilePage" />
         </ShellSection>
 
 
-        <ShellSection Title="📥 Inbox">
+        <ShellSection Title="Messages">
             <ShellContent
-Title="Inbox"
+Title="Messages"
 ContentTemplate="{DataTemplate messages:InboxPage}"
 Route="InboxPage" />
 
         </ShellSection>
 
 
-    <ShellSection Title="📂 Categories" >
+        <ShellSection Title="Categories" >
             <ShellContent
 Title="Categories"
 ContentTemplate="{DataTemplate core:CategoryPage}"
@@ -77,7 +76,7 @@ Route="CategoryPage" />
         </ShellSection>
 
 
-    <ShellSection Title="⚙️ Settings" >
+        <ShellSection Title="Settings" >
 
             <ShellContent
 Title="Settings"
@@ -85,14 +84,37 @@ ContentTemplate="{DataTemplate core:SettingsPage}"
 Route="SettingsPage" />
         </ShellSection>
 
-    <ShellSection Title="ℹ️⚠️ About" >
+        <ShellSection Title="PreferredDoctorsPage" >
+
+            <ShellContent
+Title="PreferredDoctorsPage"
+ContentTemplate="{DataTemplate core:PreferredDoctorsPage}"
+Route="PreferredDoctorsPage" />
+        </ShellSection>
+
+    <ShellSection Title="SupportPage" >
 
         <ShellContent
-Title=" About"
-ContentTemplate="{DataTemplate core:About}"
-Route="About" />
+Title="SupportPage"
+ContentTemplate="{DataTemplate core:SupportPage}"
+Route="SupportPage" />
+
     </ShellSection>
 
+    <ShellSection Title="TOSPage" >
 
+        <ShellContent
+Title="TOSPage"
+ContentTemplate="{DataTemplate core:TOSPage}"
+Route="TOSPage" />
+    </ShellSection>
+
+    <ShellSection Title="AccessibilityPage" >
+
+        <ShellContent
+Title="AccessibilityPage"
+ContentTemplate="{DataTemplate core:AccessibilityPage}"
+Route="AccessibilityPage" />
+    </ShellSection>
 
 </Shell>
