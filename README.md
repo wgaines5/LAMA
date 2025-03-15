@@ -72,6 +72,6 @@ Security & Compliance
 
 
  📧 Contact
-📩 Developer: Willie Gaines
+📩 Developer: Willie Gaines, David Street, Mason Haire, Jaxon Chalfant
 🔗 GitHub: github.com/wgaines5
 📚 College Student 
