@@ -30,7 +30,7 @@
     <!--Core Pages-->
 
     <ShellContent
-        Title="Message"
+        Title="Direct Message"
         ContentTemplate="{DataTemplate messages:DirectMessagePage}"
         Route="DirectMessagePage"/>
 
@@ -61,7 +61,7 @@ Route="ProfilePage" />
 
         <ShellSection Title="📥 Inbox">
             <ShellContent
-Title="Messages"
+Title="Inbox"
 ContentTemplate="{DataTemplate messages:InboxPage}"
 Route="InboxPage" />
 
