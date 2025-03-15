@@ -13,15 +13,10 @@
     Title="LAMA">
 
     <!--Authentication Pages-->
-
-
     <ShellContent
-    Title="🏠 Home"
-    ContentTemplate="{DataTemplate auth:MainPage}"
-    Route="MainPage"
-
-    />
-
+        Title="🏠 Home"
+        ContentTemplate="{DataTemplate auth:MainPage}"
+        Route="MainPage"/>
 
     <ShellContent
         Title="Sign Up"
@@ -38,11 +33,9 @@
 
 
     <ShellContent
-    Title="🥼 Medical Provider Dashboard"
-    ContentTemplate="{DataTemplate core:MPDashBoard}"
-    Route="MPDashBoard"/>
-
-
+        Title="🥼 Medical Provider Dashboard"
+        ContentTemplate="{DataTemplate core:MPDashBoard}"
+        Route="MPDashBoard"/>
 
     <ShellSection Title="👤 Profile">
 
@@ -95,11 +88,10 @@ Route="SettingsPage" />
     <ShellSection Title="ℹ️⚠️ About" >
 
         <ShellContent
-Title=" About"
-ContentTemplate="{DataTemplate core:About}"
-Route="About" />
+            Title="About"
+            ContentTemplate="{DataTemplate core:About}"
+            Route="About"/>
     </ShellSection>
-
 
     <ShellContent
         Title="Preferred Doctors"
