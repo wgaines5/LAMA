@@ -76,6 +76,8 @@
 		<PackageReference Include="Microsoft.Maui.Controls" Version="9.0.50" />
 		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="9.0.50" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="9.0.3" />
+		<PackageReference Include="Plugin.FirebaseAuth" Version="4.1.0" />
+		<PackageReference Include="Plugin.FirebaseStorage" Version="4.1.0" />
 	</ItemGroup>
 
 	<ItemGroup>
