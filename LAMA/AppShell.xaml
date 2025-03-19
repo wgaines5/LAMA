@@ -117,4 +117,10 @@ Route="SettingsPage" />
         Route="AccessibilityPage"
         FlyoutItemIsVisible="False"/>
 
+    <ShellContent
+        Title='Saved Facts'
+        ContentTemplate="{DataTemplate profile:SavedFacts}"
+        Route="SavedFacts"/>
+
+
 </Shell>

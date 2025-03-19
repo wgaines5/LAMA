@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="LAMA.Core.Profile.SavedFacts"
+             Title="SavedFacts">
+    <Grid>
+        <Image Source="medfactsbkg.png" Aspect="AspectFill"
+               VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand"/>
+        <ScrollView>
+            <VerticalStackLayout>
+
+                <CollectionView ItemsSource="{Binding SavedFacts}"
+                    SelectionMode="Single">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Frame BackgroundColor="SteelBlue" 
+                                   CornerRadius="10"
+                                   Padding="10" Margin="5" HasShadow="True">
+                                <StackLayout Orientation="Horizontal" Spacing="10">
+                                    <Label Text="{Binding}" FontSize="18"
+                                           HorizontalTextAlignment="Center"
+                                           HorizontalOptions="FillAndExpand"/>
+                                    <!--<Button Text="{Binding IsBookmarked, Converter={StaticResource BoolToBookmarkConverter}}"
+                                            Command="{Binding Source={x:Reference MedFactsPage}, Path=BindingContext.ToggleBookmarkCommand}"
+                                        CommandParameter="{Binding}"
+                                            FontFamily="Arial"
+                                        BackgroundColor="Transparent"/>-->
+                                    <CheckBox IsChecked="{Binding IsBookmarked}"
+                                              Color="Green"/>
+                                </StackLayout>
+                            </Frame>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </VerticalStackLayout>
+        </ScrollView>
+    </Grid>
+</ContentPage>

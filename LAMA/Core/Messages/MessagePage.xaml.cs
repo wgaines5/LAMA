@@ -1,4 +1,9 @@
-﻿using System;
+﻿#if ANDROID
+using Android.App;
+using AndroidX.Lifecycle;
+#endif
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -14,6 +19,14 @@ public partial class MessagePage : ContentPage
 	{
 		InitializeComponent();
 		BindingContext = new ChatViewModel(new MessageService("https://localhost:5001/chathub"));
+
+		(BindingContext as ChatViewModel).Messages.CollectionChanged += (sender, e) =>
+		{
+			if (e.Action == System.Collections.Specialized.NotifyCollectionChangedAction.Add)
+			{
+				AutoScoll();
+			}
+		};
 	}
 
 	private void OnSendMessage(object sender, EventArgs e)
@@ -22,6 +35,17 @@ public partial class MessagePage : ContentPage
 		{
 			chatViewModel.SendMessageCommand.Execute(this);
 		}
+	}
+
+	private async void AutoScoll()
+	{
+		if (MessageList.ItemsSource is ObservableCollection<ChatMessage> messages && messages.Count > 0)
+		{
+			this.Dispatcher.Dispatch(() =>
+			{
+				MessageList.ScrollTo(messages[messages.Count - 1], position: ScrollToPosition.End, animate: true);
+			});
+        }
 	}
 }
 
