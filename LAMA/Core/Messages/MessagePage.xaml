@@ -8,19 +8,20 @@
         <Image Source="medfactsbkg.png" Aspect="AspectFill"
        VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand"
                Opacity="0.2"/>
-        <!-- Message panel -->
+        <!--message layout -->
         <ScrollView VerticalScrollBarVisibility="Never"
                     Grid.Row="0" >
-            <CollectionView x:Name="MessageList" ItemsSource="{Binding Messages}"
+            <CollectionView x:Name="MessageList"
+                            ItemsSource="{Binding Messages}"
                             VerticalOptions="FillAndExpand">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <Frame Padding="10" 
-                           Margin="5"
-                           BackgroundColor="{Binding IsUserMessage, Converter={StaticResource BoolToColorConverter}}"
-                           HorizontalOptions="{Binding IsUserMessage, Converter={StaticResource BoolToAlignmentConverter}}"
-                           CornerRadius="10"
-                           HasShadow="True">
+                               Margin="5"
+                               BackgroundColor="{Binding IsUserMessage, Converter={StaticResource BoolToColorConverter}}"
+                               HorizontalOptions="{Binding IsUserMessage, Converter={StaticResource BoolToAlignmentConverter}}"
+                               CornerRadius="12"
+                               HasShadow="True">
                             <Label Text="{Binding Content}"
                                TextColor="Black"
                                FontSize="18" />
@@ -30,7 +31,7 @@
             </CollectionView>
         </ScrollView>
 
-        <!-- Message entry -->
+        <!--message entries-->
         <StackLayout Grid.Row="1" Orientation="Horizontal" Padding="10" BackgroundColor="White">
             <Entry x:Name="MessageEntry"
                    Text="{Binding NewMessage}"
