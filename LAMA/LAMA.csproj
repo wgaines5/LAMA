@@ -72,19 +72,38 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="9.0.3" />
+	  <None Remove="Resources\Images\medfactsbkg.png" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
+		<PackageReference Include="FirebaseAuthentication.net" Version="4.1.0" />
+		<PackageReference Include="Microsoft.AspNetCore.SignalR" Version="1.2.0" />
+		<PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="9.0.2" />
 		<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
 		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="$(MauiVersion)" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.1" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Compile Update="Core\Messages\MessagePage.xaml.cs">
-	    <DependentUpon>MessagePage.xaml</DependentUpon>
+	  <Compile Update="Auth\AuthTestSignInPage.xaml.cs">
+	    <DependentUpon>AuthTestSignInPage.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Auth\AuthTestSignUpPage.xaml.cs">
+	    <DependentUpon>AuthTestSignUpPage.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Core\Messages\InboxPage.xaml.cs">
+	    <DependentUpon>InboxPage.xaml</DependentUpon>
 	  </Compile>
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiXaml Update="Auth\AuthTestSignInPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Auth\AuthTestSignUpPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Auth\SignUpPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

@@ -1,4 +1,4 @@
-﻿#if ANDROID
+#if ANDROID
 using Android.App;
 using AndroidX.Lifecycle;
 #endif

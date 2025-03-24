@@ -4,12 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LAMA.Core.Messages;
-
-public partial class InboxPage : ContentPage
+namespace LAMA.Auth
 {
-    public InboxPage()
+    internal class AuthTestViewModel
     {
-        InitializeComponent();
     }
 }
