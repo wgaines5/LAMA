@@ -14,14 +14,25 @@
 
     <!--Authentication Pages-->
 
-
     <ShellContent
-    Title="🏠 Home"
-    ContentTemplate="{DataTemplate auth:MainPage}"
-    Route="MainPage"
-
+    Title="Test Sign In"
+    ContentTemplate="{DataTemplate auth:AuthTestSignUpPage}"
+    Route="TestSignUp"
     />
 
+
+    <ShellContent
+    Title="Test Sign Up"
+    ContentTemplate="{DataTemplate auth:AuthTestSignInPage}"
+    Route="TestSignIn"
+    />
+
+
+
+    <ShellContent
+        Title="🏠 Home"
+        ContentTemplate="{DataTemplate auth:MainPage}"
+        Route="MainPage"/>
 
     <ShellContent
         Title="Sign Up"
@@ -38,11 +49,9 @@
 
 
     <ShellContent
-    Title="🥼 Medical Provider Dashboard"
-    ContentTemplate="{DataTemplate core:MPDashBoard}"
-    Route="MPDashBoard"/>
-
-
+        Title="🥼 Medical Provider Dashboard"
+        ContentTemplate="{DataTemplate core:MPDashBoard}"
+        Route="MPDashBoard"/>
 
     <ShellSection Title="👤 Profile">
 
@@ -95,11 +104,10 @@ Route="SettingsPage" />
     <ShellSection Title="ℹ️⚠️ About" >
 
         <ShellContent
-Title=" About"
-ContentTemplate="{DataTemplate core:About}"
-Route="About" />
+            Title="About"
+            ContentTemplate="{DataTemplate core:About}"
+            Route="About"/>
     </ShellSection>
-
 
     <ShellContent
         Title="Preferred Doctors"
@@ -124,5 +132,11 @@ Route="About" />
         ContentTemplate="{DataTemplate core:AccessibilityPage}"
         Route="AccessibilityPage"
         FlyoutItemIsVisible="False"/>
+
+    <ShellContent
+        Title='Saved Facts'
+        ContentTemplate="{DataTemplate profile:SavedFacts}"
+        Route="SavedFacts"/>
+
 
 </Shell>

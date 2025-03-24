@@ -1,4 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
+using Firebase.Auth;
+using Firebase.Auth.Providers;
+using LAMA.Auth;
 
 namespace LAMA;
 
@@ -19,6 +22,21 @@ public static class MauiProgram
 		builder.Logging.AddDebug();
 #endif
 
-		return builder.Build();
+		builder.Services.AddSingleton(new FirebaseAuthClient(new FirebaseAuthConfig()
+		{
+			ApiKey = "AIzaSyDiAuutGePttuNIoUxGy2Ok6NDcqGoh74k",
+			AuthDomain = "lama-60ddc.firebaseapp.com",
+			Providers = new FirebaseAuthProvider[]
+			{
+				new EmailProvider()
+			}
+        }));
+
+		builder.Services.AddSingleton<AuthTestSignInPage>();
+        builder.Services.AddSingleton<SignInViewModel>();
+        builder.Services.AddSingleton<AuthTestSignUpPage>();
+        builder.Services.AddSingleton<SignUpViewModel>();
+
+        return builder.Build();
 	}
 }
