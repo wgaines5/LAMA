@@ -1,4 +1,6 @@
 using LAMA.Core;
+using CommunityToolkit.Mvvm;
+
 
 namespace LAMA.Auth;
 
@@ -7,6 +9,7 @@ public partial class SignUpPage : ContentPage
 	public SignUpPage()
 	{
 		InitializeComponent();
+
 	}
 
     private async void OnSignInTapped(object sender, EventArgs e)

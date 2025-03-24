@@ -13,6 +13,20 @@
 
     <!--Authentication Pages-->
 
+    <ShellContent
+    Title="Test Sign In"
+    ContentTemplate="{DataTemplate auth:AuthTestSignUpPage}"
+    Route="TestSignUp"
+    />
+
+
+    <ShellContent
+    Title="Test Sign Up"
+    ContentTemplate="{DataTemplate auth:AuthTestSignInPage}"
+    Route="TestSignIn"
+    />
+
+
 
     <ShellContent
     Title="🏠 Home"
