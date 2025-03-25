@@ -17,14 +17,9 @@
                                    CornerRadius="10"
                                    Padding="10" Margin="5" HasShadow="True">
                                 <StackLayout Orientation="Horizontal" Spacing="10">
-                                    <Label Text="{Binding}" FontSize="18"
+                                    <Label Text="{Binding Text}" FontSize="18"
                                            HorizontalTextAlignment="Center"
                                            HorizontalOptions="FillAndExpand"/>
-                                    <!--<Button Text="{Binding IsBookmarked, Converter={StaticResource BoolToBookmarkConverter}}"
-                                            Command="{Binding Source={x:Reference MedFactsPage}, Path=BindingContext.ToggleBookmarkCommand}"
-                                        CommandParameter="{Binding}"
-                                            FontFamily="Arial"
-                                        BackgroundColor="Transparent"/>-->
                                     <CheckBox IsChecked="{Binding IsBookmarked}"
                                               Color="Green"/>
                                 </StackLayout>

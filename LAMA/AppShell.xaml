@@ -138,5 +138,10 @@ Route="SettingsPage" />
         ContentTemplate="{DataTemplate profile:SavedFacts}"
         Route="SavedFacts"/>
 
+    <ShellContent
+    Title='Firestore Test'
+    ContentTemplate="{DataTemplate local:Sample}"
+    Route="Sample"/>
+
 
 </Shell>
