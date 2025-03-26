@@ -1,7 +1,9 @@
 using LAMA.Core;
-using CommunityToolkit.Mvvm;
+using System.Text;
+using System.Text.Json;
 using Firebase.Auth;
-using Google.Cloud.Firestore;
+using Firebase.Auth.Providers;
+
 
 
 namespace LAMA.Auth;
@@ -9,19 +11,22 @@ namespace LAMA.Auth;
 public partial class SignUpPage : ContentPage
 {
     private readonly FirebaseAuthClient _authClient;
-    private readonly FirestoreDb firestoreDb;
     private readonly FirebaseAuthConfig fbConfig = new FirebaseAuthConfig
     {
         ApiKey = "AIzaSyDiAuutGePttuNIoUxGy2Ok6NDcqGoh74k",
-        AuthDomain = "LAMA.firebaseapp.com",
-    }; 
-	public SignUpPage()
-	{
-		InitializeComponent();
+        AuthDomain = "lama-60ddc.firebaseapp.com",
+        Providers = new FirebaseAuthProvider[] 
+        {
+        new EmailProvider()
+        }
+    };
+    public SignUpPage()
+    {
+        InitializeComponent();
 
         _authClient = new FirebaseAuthClient(fbConfig);
-        firestoreDb = FirestoreDb.Create("lama-60ddc");
-	}
+
+    }
 
     private async void OnSignInTapped(object sender, EventArgs e)
     {
@@ -32,37 +37,52 @@ public partial class SignUpPage : ContentPage
     {
         try
         {
-            // 1. Create user with email & password
-            UserCredential MPCredential = await _authClient.CreateUserWithEmailAndPasswordAsync(
+            UserCredential mpCredential = await _authClient.CreateUserWithEmailAndPasswordAsync(
                 _email.Text, _password.Text);
 
-            string MpId = MPCredential.User.Uid;
+            string uid = mpCredential.User.Uid;
 
-            // 2. Build Firestore document data
-            Dictionary<string, object> userProfile = new Dictionary<string, object>
+            // ID token for authentication
+            string idToken = await mpCredential.User.GetIdTokenAsync();
+
+            // Usser fields for profile - Database
+            object userData = new
             {
-                { "Email", _email.Text },
-                { "Username", _username.Text },
-                { "FirstName", FirstNameE.Text },
-                { "LastName", LastNameE.Text },
-                { "NPI", NPIE.Text },
-                { "State", StateE.Text },
-                { "LicenseNumber", LicNumber.Text },
-                { "ProfileImageUrl", "usermock.png" }, 
-                { "IsVerified", false },
-                { "CreatedAt", Timestamp.GetCurrentTimestamp() }
+                email = _email.Text,
+                username = _username.Text,
+                firstName = FirstNameE.Text,
+                lastName = LastNameE.Text,
+                npi = NPIE.Text,
+                state = StateE.Text,
+                licenseNumber = LicNumber.Text,
+                profileImageUrl = "usermock.png",
+                isVerified = false,
+                createdAt = DateTime.UtcNow.ToString("o")
             };
 
-            // 3. Save to Firestore
-            DocumentReference docRef = firestoreDb.Collection("medical_providers").Document(MpId);
-            await docRef.SetAsync(userProfile);
+            string json = JsonSerializer.Serialize(userData);
 
-            await DisplayAlert("Success", "Your Medical Professional Account Has Been Created. Awaiting verification.", "OK");
+            //  Firebase RT Database url 
+            string url = $"https://lama-60ddc-default-rtdb.firebaseio.com/medical_providers/{uid}.json?auth={idToken}";
+
+            
+            HttpClient client = new HttpClient();
+            StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
+
+            HttpResponseMessage response = await client.PutAsync(url, content);
+            if (!response.IsSuccessStatusCode)
+            {
+                string errorBody = await response.Content.ReadAsStringAsync();
+                throw new Exception($"Firebase Error: {response.StatusCode}\n\n{errorBody}");
+            }
+
+            //  Success msg shown to proceed 
+            await DisplayAlert("Success", "Your Account Has Been created, Now Awaiting verification.", "OK");
             await Shell.Current.GoToAsync($"//{nameof(MPDashBoard)}");
         }
         catch 
         {
-            await DisplayAlert("Error", "Account Not Created", "OK");
+            await DisplayAlert("Error","Something Crashed Try Again", "OK");
         }
     }
 }
