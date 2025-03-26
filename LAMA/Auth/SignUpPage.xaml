@@ -9,32 +9,52 @@
             Spacing="25"
             HorizontalOptions="Center">
             <Image
-                Source="lama_logo.png"
-                WidthRequest="{Binding AppIconSize}"
-                HeightRequest="{Binding AppIconSize}"
-                Aspect="AspectFit"
+                x:Name="ProfileUpload"
+                WidthRequest="120"
+                HeightRequest="120"
+                Background="LightSkyBlue"
+                Aspect="AspectFill"
                 HorizontalOptions="Center"
-                SemanticProperties.Description="Live Anonymous Medical Advice Logo" />
+                VerticalOptions="Center"
+                Margin="0,10"
+                Source="usermock.png"
+                 />
 
             <Entry
+                x:Name="_email"
               Placeholder="Email Address..."
                 
               ></Entry>
 
             <Entry
+                x:Name="_username"
                 Placeholder="Username"
+                ></Entry>
+            <Entry
+                x:Name="FirstNameE"
+                Placeholder="First Name"
                 ></Entry>
 
             <Entry
+                x:Name="LastNameE"
+                Placeholder="Last Name"
+                ></Entry>
+
+            <Entry
+                x:Name="_password"
                Placeholder="Password"
+                IsPassword="True"
             ></Entry>
             <Entry
+                x:Name="NPIE"
                 Placeholder="NPI"
             ></Entry>
             <Entry
+                x:Name="StateE"
              Placeholder="State"   
             ></Entry>
             <Entry
+                x:Name="LicNumber"
              Placeholder="License Number"   
              ></Entry>
 
@@ -44,7 +64,6 @@
                 SemanticProperties.Hint="Counts the number of times you click"
                 HorizontalOptions="Fill"
                 Clicked="OnSignUpTapped"/>
-
 
             <Label
                 Text="Have An Account Already? Sign In"
