@@ -14,31 +14,32 @@ public partial class SavedFacts : ContentPage
 
 public class SavedFactsViewModel : BindableObject
 {
-	private ObservableCollection<MedFact> _savedFacts;
-	public ObservableCollection<MedFact> SavedFacts
-	{
-		get => _savedFacts;
-		set
-		{
-			_savedFacts = value;
-			OnPropertyChanged();
-		}
-	}
+	private ObservableCollection<MedFact> _savedFacts = new();
+	public ObservableCollection<MedFact> SavedFacts => _savedFacts;
 
-	public ICommand RemoveFactCommand { get; }
+	public Command<MedFact> RemoveFactCommand { get; }
 
-	public SavedFactsViewModel()
+    public SavedFactsViewModel()
 	{
-		SavedFacts = new ObservableCollection<MedFact>(LoadFacts());
+		_savedFacts = new ObservableCollection<MedFact>(LoadFacts());
 
 		RemoveFactCommand = new Command<MedFact>(RemoveFact);
-	}
+    }
 
 	private void RemoveFact(MedFact medFact)
 	{
 		if (medFact != null)
 		{
 			SavedFacts.Remove(medFact);
+
+            var tempFacts = new ObservableCollection<MedFact>(SavedFacts);
+            SavedFacts.Clear();
+            foreach (var fact in tempFacts)
+            {
+                SavedFacts.Add(fact);
+            }
+
+            OnPropertyChanged(nameof(SavedFacts));
 			SaveFacts();
 		} 
 	}
@@ -52,7 +53,8 @@ public class SavedFactsViewModel : BindableObject
 	{
 		return new ObservableCollection<MedFact>
 		{
-		new MedFact { Text = "Generic Fact", IsBookmarked = true }
+		new MedFact { Text = "The human brain contains about 86 billion neurons.", IsBookmarked = true },
+		new MedFact { Text = "The average adult human body is made up of 60% water.", IsBookmarked = true}
 		};
 	}
 }
