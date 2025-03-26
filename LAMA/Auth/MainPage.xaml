@@ -25,7 +25,8 @@
                     <Button Text="Ask"
                             BackgroundColor="#26c7b6"
                             TextColor="Black"
-                            FontAttributes="Bold"/>
+                            FontAttributes="Bold"
+                            Clicked="OnAskQuestion"/>
                 </VerticalStackLayout>
             </Frame>
 
