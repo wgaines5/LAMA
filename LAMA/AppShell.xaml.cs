@@ -20,6 +20,7 @@ namespace LAMA
             Routing.RegisterRoute(nameof(MessagePage), typeof(MessagePage));
             Routing.RegisterRoute(nameof(SettingsPage), typeof(SettingsPage));
             Routing.RegisterRoute(nameof(SignUpPage), typeof(SignUpPage));
+            Routing.RegisterRoute(nameof(UsrSignUp), typeof(UsrSignUp));
             Routing.RegisterRoute(nameof(MPDashBoard), typeof(MPDashBoard));
             Routing.RegisterRoute(nameof(About), typeof(About));
 

@@ -43,6 +43,13 @@
         FlyoutItemIsVisible="False"
         />
 
+    <ShellContent
+     Title="User Sign Up"
+     ContentTemplate="{DataTemplate auth:UsrSignUp}"
+     Route="UsrSignUp" 
+     FlyoutItemIsVisible="False"
+     />
+
 
     <ShellContent
         Title="💬 Messages"

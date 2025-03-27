@@ -36,5 +36,18 @@ namespace LAMA.Auth
         {
             await Shell.Current.GoToAsync("//TestSignUp");
         }
+
+        [RelayCommand]
+        public async Task UserActive()
+        {
+            string email = Preferences.Get("userEmail", string.Empty);
+            string password = Preferences.Get("userPassword", string.Empty);
+
+            if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password))
+                return;
+
+            UserCredential uCredential = await _authClient.SignInWithEmailAndPasswordAsync(email, password);
+            UserSession.Credential = uCredential;
+        }
     }
 }
