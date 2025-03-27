@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using LAMA.Core;
 
 namespace LAMA.Services
 {
@@ -55,6 +56,37 @@ namespace LAMA.Services
                 }).ToList();
             return sampleModels;
         }
+
+        public async Task<List<Doctor>> GetPreferredDoctorsAsync()
+        {
+            await SetupFirestore();
+            var snapshot = await db.Collection("SampleModels").GetSnapshotAsync();
+
+            var doctors = snapshot.Documents.Select(doc =>
+            {
+                var model = doc.ConvertTo<SampleModel>();
+                return new Doctor
+                {
+                    Name = model.Name,
+                    IsSelected = false
+                };
+            }).ToList();
+
+            return doctors;
+        }
+
+        public async Task DeleteDoctorByNameAsync(string name)
+        {
+            await SetupFirestore();
+            var snapshot = await db.Collection("SampleModels")
+                .WhereEqualTo("Name", name)
+                .GetSnapshotAsync();
+
+            foreach (var doc in snapshot.Documents)
+            {
+                await doc.Reference.DeleteAsync();
+            }
+        }
     }
     [FirestoreData]
     public class SampleModel
@@ -82,4 +114,6 @@ namespace LAMA.Services
             throw new ArgumentException("Invalid value");
         }
     }
+
+
 }
