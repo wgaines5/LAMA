@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.13.35806.99 d17.13
+VisualStudioVersion = 17.13.35806.99
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LAMA", "LAMA\LAMA.csproj", "{D4508B6E-4F7B-469A-B117-53A2F0955BCD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LAMA", "LAMA\LAMA.csproj", "{D4508B6E-4F7B-469A-B117-53A2F0955BCD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SignalRHub", "SignalRHub\SignalRHub.csproj", "{89BD2936-DBC5-433C-8C6E-85D9D96D00E3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,6 +19,10 @@ Global
 		{D4508B6E-4F7B-469A-B117-53A2F0955BCD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D4508B6E-4F7B-469A-B117-53A2F0955BCD}.Release|Any CPU.Build.0 = Release|Any CPU
 		{D4508B6E-4F7B-469A-B117-53A2F0955BCD}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{89BD2936-DBC5-433C-8C6E-85D9D96D00E3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{89BD2936-DBC5-433C-8C6E-85D9D96D00E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{89BD2936-DBC5-433C-8C6E-85D9D96D00E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{89BD2936-DBC5-433C-8C6E-85D9D96D00E3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

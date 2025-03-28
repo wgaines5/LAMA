@@ -1,5 +1,6 @@
 using Microsoft.Maui.Controls;
 using System.Collections.ObjectModel;
+using LAMA.Core.Categories;
 
 namespace LAMA.Core
 {
