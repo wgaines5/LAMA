@@ -2,6 +2,7 @@
 using Android.App;
 using AndroidX.Lifecycle;
 #endif
+using Google.Cloud.Firestore;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -10,6 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using LAMA.Services;
 
 namespace LAMA.Core.Messages;
 
@@ -18,7 +20,7 @@ public partial class MessagePage : ContentPage
 	public MessagePage()
 	{
 		InitializeComponent();
-		BindingContext = new ChatViewModel(new MessageService("https://localhost:5001/chathub"));
+		BindingContext = new ChatViewModel(new FirestoreServices());
 
 		(BindingContext as ChatViewModel).Messages.CollectionChanged += (sender, e) =>
 		{
@@ -51,7 +53,7 @@ public partial class MessagePage : ContentPage
 
 public class ChatViewModel : BindableObject
 {
-	private MessageService _messageService;
+	private FirestoreServices _services;
 	private string _newMessage;
 	public ObservableCollection<ChatMessage> Messages { get; set; } = new ObservableCollection<ChatMessage>();
 	public string NewMessage
@@ -69,24 +71,25 @@ public class ChatViewModel : BindableObject
 	}
 	public ICommand SendMessageCommand { get; }
 
-	public ChatViewModel(MessageService messageService)
+	public ChatViewModel(FirestoreServices firestoreServices)
 	{
-		_messageService = messageService;
+		_services = firestoreServices;
 		SendMessageCommand = new Command(async () => await SendMessage());
-
-		_messageService.MessageReceived += (message) =>
-		{
-			Messages.Add(new ChatMessage { Content = message, IsUserMessage = false });
-		};
-
-		Task.Run(async () => await _messageService.ConnectAsync());
 	}
 
 	private async Task SendMessage()
 	{
 		if (!string.IsNullOrWhiteSpace(NewMessage))
 		{
-			await _messageService.SendMessageAsync(NewMessage);
+			ChatMessage message = new ChatMessage
+			{
+				SenderId = "User1",
+				ReceiverId = "User2",
+				Content = NewMessage,
+				IsUserMessage = true,
+				SentAt = Timestamp.FromDateTime(DateTime.UtcNow)
+			};
+			await _services.SendMessage(message);
 			Messages.Add(new ChatMessage { Content = NewMessage, IsUserMessage = true});
 			NewMessage = string.Empty;
 			OnPropertyChanged(nameof(NewMessage));
@@ -94,10 +97,23 @@ public class ChatViewModel : BindableObject
 	}
 }
 
+[FirestoreData(ConverterType = typeof(ChatMessageConverter))]
 public class ChatMessage
 {
+	[FirestoreProperty]
+	public string SenderId { get; set; }
+
+	[FirestoreProperty]
+	public string ReceiverId { get; set; }
+
+	[FirestoreProperty]
 	public string Content { get; set; }
+
+	[FirestoreProperty]
 	public bool IsUserMessage { get; set; }
+
+	[FirestoreProperty]
+	public Timestamp SentAt { get; set; } = Timestamp.FromDateTime(DateTime.UtcNow);
 
 }
 

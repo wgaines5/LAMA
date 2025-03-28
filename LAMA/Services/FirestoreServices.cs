@@ -1,4 +1,6 @@
-﻿using Google.Cloud.Firestore;
+﻿using Google.Api;
+using Google.Cloud.Firestore;
+using LAMA.Core.Messages;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +12,7 @@ namespace LAMA.Services
 {
     public class FirestoreServices
     {
-        private FirestoreDb db;
+        public FirestoreDb db;
 
         private async Task SetupFirestore()
         {
@@ -55,6 +57,28 @@ namespace LAMA.Services
                 }).ToList();
             return sampleModels;
         }
+
+        public async Task SendMessage(ChatMessage message)
+        {
+            await SetupFirestore();
+            DocumentReference docRef = db.Collection("messages").Document();
+            await docRef.SetAsync(message);
+        }
+
+        public async void ListenForMessages(string userId, Action<List<ChatMessage>> onMessageUpdated)
+        {
+            await SetupFirestore();
+            var query = db.Collection("messages")
+                .WhereEqualTo("ReceiverId", userId)
+                .OrderBy("SentAt");
+
+            query.Listen(snapshot =>
+            {
+                var messages = snapshot.Documents.Select(doc => doc.ConvertTo<ChatMessage>()).ToList();
+
+                onMessageUpdated(messages);
+            });
+        }
     }
     [FirestoreData]
     public class SampleModel
@@ -80,6 +104,34 @@ namespace LAMA.Services
                 return timestamp.ToDateTime();
             }
             throw new ArgumentException("Invalid value");
+        }
+    }
+
+    public class ChatMessageConverter : IFirestoreConverter<ChatMessage>
+    {
+        public ChatMessage FromFirestore(object value)
+        {
+            var data = value as Dictionary<string, object>;
+            return new ChatMessage
+            {
+                SenderId = data["SenderId"] as string,
+                ReceiverId = data["ReceiverId"] as string,
+                Content = data["Content"] as string,
+                IsUserMessage = (bool)data["IsUserMessage"],
+                SentAt = (Timestamp)data["SentAt"]
+            };
+        }
+
+        public object ToFirestore(ChatMessage message)
+        {
+            return new Dictionary<string, object>
+        {
+            { "SenderId", message.SenderId },
+            { "ReceiverId", message.ReceiverId },
+            { "Content", message.Content },
+            { "IsUserMessage", message.IsUserMessage },
+            { "SentAt", message.SentAt }
+        };
         }
     }
 }
