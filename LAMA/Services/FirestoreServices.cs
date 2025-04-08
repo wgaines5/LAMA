@@ -13,6 +13,8 @@ namespace LAMA.Services
     public class FirestoreServices
     {
         public FirestoreDb db;
+        private readonly HttpClient _httpClient;
+        private readonly string _url;
 
         private async Task SetupFirestore()
         {
@@ -118,7 +120,6 @@ namespace LAMA.Services
                 ReceiverId = data["ReceiverId"] as string,
                 Content = data["Content"] as string,
                 IsUserMessage = (bool)data["IsUserMessage"],
-                SentAt = (Timestamp)data["SentAt"]
             };
         }
 
@@ -130,7 +131,6 @@ namespace LAMA.Services
             { "ReceiverId", message.ReceiverId },
             { "Content", message.Content },
             { "IsUserMessage", message.IsUserMessage },
-            { "SentAt", message.SentAt }
         };
         }
     }

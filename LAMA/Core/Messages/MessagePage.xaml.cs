@@ -20,7 +20,7 @@ public partial class MessagePage : ContentPage
 	public MessagePage()
 	{
 		InitializeComponent();
-		BindingContext = new ChatViewModel(new FirestoreServices());
+		BindingContext = new ChatViewModel(new FirebaseService());
 
 		(BindingContext as ChatViewModel).Messages.CollectionChanged += (sender, e) =>
 		{
@@ -53,7 +53,7 @@ public partial class MessagePage : ContentPage
 
 public class ChatViewModel : BindableObject
 {
-	private FirestoreServices _services;
+	private FirebaseService _services;
 	private string _newMessage;
 	public ObservableCollection<ChatMessage> Messages { get; set; } = new ObservableCollection<ChatMessage>();
 	public string NewMessage
@@ -71,9 +71,9 @@ public class ChatViewModel : BindableObject
 	}
 	public ICommand SendMessageCommand { get; }
 
-	public ChatViewModel(FirestoreServices firestoreServices)
+	public ChatViewModel(FirebaseService firebaseService)
 	{
-		_services = firestoreServices;
+		_services = firebaseService;
 		SendMessageCommand = new Command(async () => await SendMessage());
 	}
 
@@ -86,10 +86,9 @@ public class ChatViewModel : BindableObject
 				SenderId = "User1",
 				ReceiverId = "User2",
 				Content = NewMessage,
-				IsUserMessage = true,
-				SentAt = Timestamp.FromDateTime(DateTime.UtcNow)
+				IsUserMessage = true
 			};
-			await _services.SendMessage(message);
+			await _services.SendMessageAsync(message);
 			Messages.Add(new ChatMessage { Content = NewMessage, IsUserMessage = true});
 			NewMessage = string.Empty;
 			OnPropertyChanged(nameof(NewMessage));
@@ -111,10 +110,6 @@ public class ChatMessage
 
 	[FirestoreProperty]
 	public bool IsUserMessage { get; set; }
-
-	[FirestoreProperty]
-	public Timestamp SentAt { get; set; } = Timestamp.FromDateTime(DateTime.UtcNow);
-
 }
 
 
