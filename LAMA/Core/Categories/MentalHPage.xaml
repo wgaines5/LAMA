@@ -6,10 +6,21 @@
 
     <ScrollView>
         <VerticalStackLayout Padding="20" Spacing="15">
-            <Label Text="Mental Health Awareness" FontSize="24" FontAttributes="Bold"/>
-            <Image Source="mental_health_info.png" HeightRequest="200" HorizontalOptions="Center"/>
             <Label Text="You're not alone. Every step you take toward mental wellness is a victory. We’re here to listen, support, and guide you."
-                   FontSize="16" TextColor="Black" FontAttributes="Bold" BackgroundColor="White" HorizontalOptions="Center"/>
+                   FontSize="20" TextColor="Black" FontAttributes="Bold"  HorizontalOptions="Center"/>
+            <Label Text="Common Disorders - Includes depression, anxiety disorders, bipolar disorder, PTSD, schizophrenia, and more."
+                   FontSize="15" TextColor="Black" FontAttributes="Bold"/>
+            <Label Text="Importance of Early Intervention - Addressing issues early can lead to better outcomes and reduce the severity of conditions."
+                   FontSize="15" TextColor="Black" FontAttributes="Bold"/>
+            <Label Text="The Brain and Neurotransmitters - Mental health is influenced by chemicals like serotonin, dopamine, and norepinephrine."
+                   FontSize="15" TextColor="Black" FontAttributes="Bold"/>
+            <Label Text="Work and Mental Health - Burnout, toxic environments, and job stress can impact mental well-being."
+                   FontSize="15" TextColor="Black" FontAttributes="Bold"/>
+            <Label Text="Crisis Resources - Hotlines, emergency therapy, and crisis centers are essential for urgent care."
+                   FontSize="15" TextColor="Black" FontAttributes="Bold"/>
+            <Label Text="Recovery is Possible - Many people recover and thrive with proper care, support, and lifestyle changes."
+                   FontSize="15" TextColor="Black" FontAttributes="Bold"/>
+
 
             <Frame Padding="10" BackgroundColor="#0188ff" CornerRadius="10">
                 <VerticalStackLayout>

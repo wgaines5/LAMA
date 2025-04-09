@@ -6,10 +6,8 @@
 
     <ScrollView>
         <VerticalStackLayout Padding="20" Spacing="15">
-            <Label Text="Medication and Drug Interactions" FontSize="24" FontAttributes="Bold"/>
-            <Image Source="medication_info.png" HeightRequest="200" HorizontalOptions="Center"/>
             <Label Text="Understand medication usage and potential interactions."
-                   FontSize="16" TextColor="Black" FontAttributes="Bold" HorizontalOptions="Center"/>
+                   FontSize="20" TextColor="Black" FontAttributes="Bold" HorizontalOptions="Center"/>
 
             <Frame Padding="10" BackgroundColor="#0188ff" CornerRadius="10">
                 <VerticalStackLayout>

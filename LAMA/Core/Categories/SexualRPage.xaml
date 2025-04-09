@@ -7,10 +7,20 @@
 
     <ScrollView>
         <VerticalStackLayout Padding="20" Spacing="15">
-            <Label Text="Sexual and Reproductive Health" FontSize="24" FontAttributes="Bold"/>
-            <Image Source="sexual_health_info.png" HeightRequest="200" HorizontalOptions="Center"/>
-            <Label Text="Your health, your comfort. No judgment, just support. Ask anything."
-                   FontSize="16" TextColor="Black" FontAttributes="Bold" BackgroundColor="LightGray" HorizontalOptions="Center"/>
+            <Label Text="Your Health, Your Comfort. No Judgment, Just Support. Ask Anything."
+                   FontSize="20" TextColor="Black" FontAttributes="Bold" HorizontalOptions="Center"/>
+            <Label Text=" Menstrual Health - Understanding the menstrual cycle, hygiene practices, and common issues like PMS and PCOS."
+                   FontSize="15" TextColor="Black" FontAttributes="Bold"/>
+            <Label Text="Sexually Transmitted Infections (STIs) - What they are, how they spread, symptoms, prevention, and treatment."
+                   FontSize="15" TextColor="Black" FontAttributes="Bold"/>
+            <Label Text="Sexual Consent and Rights - Understanding boundaries, consent laws, and human rights related to sexuality and reproduction."
+                   FontSize="15" TextColor="Black" FontAttributes="Bold"/>
+            <Label Text="Sexual Orientation and Gender Identity - Awareness and respect for diversity in orientation (LGBTQ+) and identity."
+                   FontSize="15" TextColor="Black" FontAttributes="Bold"/>
+            <Label Text="Emergency Contraception - What it is, when to use it, and how it works (e.g., Plan B or the morning-after pill)."
+                   FontSize="15" TextColor="Black" FontAttributes="Bold"/>
+            <Label Text=" Puberty Education - What changes to expect during adolescence — physically, emotionally, and socially."
+                   FontSize="15" TextColor="Black" FontAttributes="Bold"/>
 
             <Frame Padding="10" BackgroundColor="#0188ff" CornerRadius="10">
                 <VerticalStackLayout>

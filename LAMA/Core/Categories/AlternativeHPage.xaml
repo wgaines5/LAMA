@@ -6,10 +6,21 @@
 
     <ScrollView>
         <VerticalStackLayout Padding="20" Spacing="15">
-            <Label Text="Alternative and Holistic Medicine" FontSize="24" FontAttributes="Bold"/>
-            <Image Source="holistic_medicine_info.png" HeightRequest="200" HorizontalOptions="Center"/>
             <Label Text="“Your body hears everything your mind says. Embrace healing, balance, and natural wellness.”"
-                   FontSize="16" TextColor="Black" FontAttributes="Bold" HorizontalOptions="Center"/>
+                   FontSize="20" TextColor="Black" FontAttributes="Bold" HorizontalOptions="Center"/>
+            <Label Text="Definition of Alternative Medicine - Medical treatments used instead of traditional (Western) therapies. Often not widely taught in medical schools or used in hospitals."
+                   FontSize="15" TextColor="Black" FontAttributes="Bold"/>
+            <Label Text="Definition of Holistic Medicine - Focuses on treating the whole person—mind, body, spirit, and emotions—to achieve optimal health and wellness."
+                   FontSize="15" TextColor="Black" FontAttributes="Bold"/>
+            <Label Text="Herbal Medicine - Use of plants and plant extracts to treat illness or support health. Popular examples include ginger for nausea and echinacea for immune support."
+                   FontSize="15" TextColor="Black" FontAttributes="Bold"/>
+            <Label Text="Reiki and Energy Healing - Involves channeling energy into the patient to activate natural healing processes and restore physical and emotional well-being."
+                   FontSize="15" TextColor="Black" FontAttributes="Bold"/>
+            <Label Text="Naturopathy - Focuses on the body’s ability to heal itself using natural therapies like herbs, massage, acupuncture, and exercise."
+                   FontSize="15" TextColor="Black" FontAttributes="Bold"/>
+            <Label Text="Patient Empowerment - Encourages people to be active participants in their health journey and make informed decisions."
+                   FontSize="15" TextColor="Black" FontAttributes="Bold"/>
+            
             <Frame Padding="10" BackgroundColor="#0188ff" CornerRadius="10">
                 <VerticalStackLayout>
                     <Label Text="Ask a Question:" FontSize="18" FontAttributes="Bold"/>
