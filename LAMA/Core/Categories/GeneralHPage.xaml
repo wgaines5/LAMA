@@ -1,136 +1,147 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="LAMA.Core.Categories.GeneralHPage"
-             Title="General Health"
-             BackgroundImageSource="generalbck.png">
+             Title="General Health">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
 
-    <ScrollView>
-        <VerticalStackLayout Padding="20" Spacing="15">
-            <Grid HorizontalOptions="Center">
-                <Label Text="Welcome! Taking care of your health is the first step to a better life. Ask any question and receive expert advice on your well-being."
-                       FontSize="20"  TextColor="#f9facd" TranslationX="-1" TranslationY="-1"/>
-                <Label Text="Welcome! Taking care of your health is the first step to a better life. Ask any question and receive expert advice on your well-being."
-                       FontSize="20"  TextColor="#f9facd" TranslationX="1" TranslationY="1"/>
-                <Label Text="Welcome! Taking care of your health is the first step to a better life. Ask any question and receive expert advice on your well-being."
-                       FontSize="20"  TextColor="White" TranslationX="-1" TranslationY="1"/>
-                <Label Text="Welcome! Taking care of your health is the first step to a better life. Ask any question and receive expert advice on your well-being."
-                       FontSize="20"  TextColor="White" TranslationX="1" TranslationY="-1"/>
-                <Label Text="Welcome! Taking care of your health is the first step to a better life. Ask any question and receive expert advice on your well-being."
-                   FontSize="20" TextColor="Black" FontAttributes="Bold"  HorizontalOptions="Center"/>
-            </Grid>
-            <Grid>
-                <Label Text="Nutrition – Eating a balanced diet rich in fruits, vegetables, whole grains, and lean proteins supports overall health."
-                       FontSize="15" TextColor="#f9facd" TranslationX="-1" TranslationY="-1"/>
-                <Label Text="Nutrition – Eating a balanced diet rich in fruits, vegetables, whole grains, and lean proteins supports overall health."
-                       FontSize="15" TextColor="#f9facd" TranslationX="1" TranslationY="1"/>
-                <Label Text="Nutrition – Eating a balanced diet rich in fruits, vegetables, whole grains, and lean proteins supports overall health."
-                       FontSize="15" TextColor="White" TranslationX="-1" TranslationY="1"/>
-                <Label Text="Nutrition – Eating a balanced diet rich in fruits, vegetables, whole grains, and lean proteins supports overall health."
-                       FontSize="15" TextColor="White" TranslationX="1" TranslationY="-1"/>
-                <Label Text="Nutrition – Eating a balanced diet rich in fruits, vegetables, whole grains, and lean proteins supports overall health."
-                       FontSize="15" TextColor="Black" FontAttributes="Bold"/>
-            </Grid>
-            <Grid>
-                <Label Text="Sleep – Getting 7–9 hours of quality sleep per night helps with recovery, immune function, and mood regulation."
-                       FontSize="15" TextColor="#f9facd" TranslationX="-1" TranslationY="-1"/>
-                <Label Text="Sleep – Getting 7–9 hours of quality sleep per night helps with recovery, immune function, and mood regulation."
-                       FontSize="15" TextColor="#f9facd" TranslationX="1" TranslationY="1"/>
-                <Label Text="Sleep – Getting 7–9 hours of quality sleep per night helps with recovery, immune function, and mood regulation."
-                       FontSize="15" TextColor="White" TranslationX="-1" TranslationY="1"/>
-                <Label Text="Sleep – Getting 7–9 hours of quality sleep per night helps with recovery, immune function, and mood regulation."
-                       FontSize="15" TextColor="White" TranslationX="1" TranslationY="-1"/>
-                <Label Text="Sleep – Getting 7–9 hours of quality sleep per night helps with recovery, immune function, and mood regulation."
-                       FontSize="15" TextColor="Black" FontAttributes="Bold"/>
-            </Grid>
-            <Grid>
-                <Label Text="Body Weight – Maintaining a healthy weight reduces the risk of chronic diseases like diabetes and hypertension."
-                       FontSize="15" TextColor="#f9facd" TranslationX="-1" TranslationY="-1"/>
-                <Label Text="Body Weight – Maintaining a healthy weight reduces the risk of chronic diseases like diabetes and hypertension."
-                       FontSize="15" TextColor="#f9facd" TranslationX="1" TranslationY="1"/>
-                <Label Text="Body Weight – Maintaining a healthy weight reduces the risk of chronic diseases like diabetes and hypertension."
-                       FontSize="15" TextColor="White" TranslationX="-1" TranslationY="1"/>
-                <Label Text="Body Weight – Maintaining a healthy weight reduces the risk of chronic diseases like diabetes and hypertension."
-                       FontSize="15" TextColor="White" TranslationX="1" TranslationY="-1"/>
-                <Label Text="Body Weight – Maintaining a healthy weight reduces the risk of chronic diseases like diabetes and hypertension."
-                       FontSize="15" TextColor="Black" FontAttributes="Bold"/>
-            </Grid>
-            <Grid>
-                <Label Text="Hygiene – Practicing personal hygiene (handwashing, oral care, etc.) prevents infections and promotes well-being."
-                       FontSize="15" TextColor="#f9facd" TranslationX="-1" TranslationY="-1"/>
-                <Label Text="Hygiene – Practicing personal hygiene (handwashing, oral care, etc.) prevents infections and promotes well-being."
-                       FontSize="15" TextColor="#f9facd" TranslationX="1" TranslationY="1"/>
-                <Label Text="Hygiene – Practicing personal hygiene (handwashing, oral care, etc.) prevents infections and promotes well-being."
-                       FontSize="15" TextColor="White" TranslationX="-1" TranslationY="1"/>
-                <Label Text="Hygiene – Practicing personal hygiene (handwashing, oral care, etc.) prevents infections and promotes well-being."
-                       FontSize="15" TextColor="White" TranslationX="1" TranslationY="-1"/>
-                <Label Text="Hygiene – Practicing personal hygiene (handwashing, oral care, etc.) prevents infections and promotes well-being."
-                       FontSize="15" TextColor="Black" FontAttributes="Bold"/>
-            </Grid>
-            <Grid>
-                <Label Text="Environmental Factors – Clean air, safe housing, and reducing exposure to toxins contribute to health."
-                       FontSize="15" TextColor="#f9facd" TranslationX="-1" TranslationY="-1"/>
-                <Label Text="Environmental Factors – Clean air, safe housing, and reducing exposure to toxins contribute to health."
-                       FontSize="15" TextColor="#f9facd" TranslationX="1" TranslationY="1"/>
-                <Label Text="Environmental Factors – Clean air, safe housing, and reducing exposure to toxins contribute to health."
-                       FontSize="15" TextColor="White" TranslationX="-1" TranslationY="1"/>
-                <Label Text="Environmental Factors – Clean air, safe housing, and reducing exposure to toxins contribute to health."
-                       FontSize="15" TextColor="White" TranslationX="1" TranslationY="-1"/>
-                <Label Text="Environmental Factors – Clean air, safe housing, and reducing exposure to toxins contribute to health."
-                       FontSize="15" TextColor="Black" FontAttributes="Bold"/>
-            </Grid>
-            <Grid>
-                <Label Text="Work-Life Balance – Managing time between work, family, and personal care can prevent burnout."
-                       FontSize="15" TextColor="#f9facd" TranslationX="-1" TranslationY="-1"/>
-                <Label Text="Work-Life Balance – Managing time between work, family, and personal care can prevent burnout."
-                       FontSize="15" TextColor="#f9facd" TranslationX="1" TranslationY="1"/>
-                <Label Text="Work-Life Balance – Managing time between work, family, and personal care can prevent burnout."
-                       FontSize="15" TextColor="White" TranslationX="-1" TranslationY="1"/>
-                <Label Text="Work-Life Balance – Managing time between work, family, and personal care can prevent burnout."
-                       FontSize="15" TextColor="White" TranslationX="1" TranslationY="-1"/>
-                <Label Text="Work-Life Balance – Managing time between work, family, and personal care can prevent burnout."
-                       FontSize="15" TextColor="Black" FontAttributes="Bold"/>
-            </Grid>
-            <Grid>
-                <Label Text="Health Literacy – Understanding basic health information helps people make informed decisions."
-                       FontSize="15" TextColor="#f9facd" TranslationX="-1" TranslationY="-1"/>
-                <Label Text="Health Literacy – Understanding basic health information helps people make informed decisions."
-                       FontSize="15" TextColor="#f9facd" TranslationX="1" TranslationY="1"/>
-                <Label Text="Health Literacy – Understanding basic health information helps people make informed decisions."
-                       FontSize="15" TextColor="White" TranslationX="-1" TranslationY="1"/>
-                <Label Text="Health Literacy – Understanding basic health information helps people make informed decisions."
-                       FontSize="15" TextColor="White" TranslationX="1" TranslationY="-1"/>
-                <Label Text="Health Literacy – Understanding basic health information helps people make informed decisions."
-                       FontSize="15" TextColor="Black" FontAttributes="Bold"/>
-            </Grid>
-            <Grid>
-                <Label Text="Mindfulness and Meditation – Practices that improve focus, reduce stress, and enhance emotional regulation."
-                       FontSize="15" TextColor="#f9facd" TranslationX="-1" TranslationY="-1"/>
-                <Label Text="Mindfulness and Meditation – Practices that improve focus, reduce stress, and enhance emotional regulation."
-                       FontSize="15" TextColor="#f9facd" TranslationX="1" TranslationY="1"/>
-                <Label Text="Mindfulness and Meditation – Practices that improve focus, reduce stress, and enhance emotional regulation."
-                       FontSize="15" TextColor="White" TranslationX="-1" TranslationY="1"/>
-                <Label Text="Mindfulness and Meditation – Practices that improve focus, reduce stress, and enhance emotional regulation."
-                       FontSize="15" TextColor="White" TranslationX="1" TranslationY="-1"/>
-                <Label Text="Mindfulness and Meditation – Practices that improve focus, reduce stress, and enhance emotional regulation."
-                       FontSize="15" TextColor="Black" FontAttributes="Bold"/>
-            </Grid>
+        <Image Source="generalbck.png"
+           Grid.Row="0"
+           Aspect="AspectFill" />
 
-            <Frame Padding="10" BackgroundColor="#0188ff" CornerRadius="10">
-                <VerticalStackLayout>
-                    <Label Text="Ask a General Health Question:" FontSize="18" FontAttributes="Bold"/>
-                    <Entry x:Name="QuestionEntry"
+        <BoxView Grid.Row="0"
+             Color="Black"
+             Opacity="0.3" />
+
+        <ScrollView Grid.Row="0">
+            <VerticalStackLayout Padding="20" Spacing="15">
+                <Grid HorizontalOptions="Center">
+                    <Label Text="Welcome! Taking care of your health is the first step to a better life. Ask any question and receive expert advice on your well-being."
+                   FontSize="20" TextColor="Black" TranslationX="-1" TranslationY="-1"/>
+                    <Label Text="Welcome! Taking care of your health is the first step to a better life. Ask any question and receive expert advice on your well-being."
+                   FontSize="20" TextColor="Black" TranslationX="1" TranslationY="1"/>
+                    <Label Text="Welcome! Taking care of your health is the first step to a better life. Ask any question and receive expert advice on your well-being."
+                   FontSize="20" TextColor="Black" TranslationX="-1" TranslationY="1"/>
+                    <Label Text="Welcome! Taking care of your health is the first step to a better life. Ask any question and receive expert advice on your well-being."
+                   FontSize="20" TextColor="Black" TranslationX="1" TranslationY="-1"/>
+                    <Label Text="Welcome! Taking care of your health is the first step to a better life. Ask any question and receive expert advice on your well-being."
+                   FontSize="20" TextColor="White" FontAttributes="Bold"/>
+                </Grid>
+                <Grid>
+                    <Label Text="Nutrition - Eating a balanced diet rich in fruits, vegetables, whole grains, and lean proteins supports overall health."
+                   FontSize="15" TextColor="Black" TranslationX="-1" TranslationY="-1"/>
+                    <Label Text="Nutrition - Eating a balanced diet rich in fruits, vegetables, whole grains, and lean proteins supports overall health."
+                   FontSize="15" TextColor="Black" TranslationX="1" TranslationY="1"/>
+                    <Label Text="Nutrition - Eating a balanced diet rich in fruits, vegetables, whole grains, and lean proteins supports overall health."
+                   FontSize="15" TextColor="Black" TranslationX="-1" TranslationY="1"/>
+                    <Label Text="Nutrition - Eating a balanced diet rich in fruits, vegetables, whole grains, and lean proteins supports overall health."
+                   FontSize="15" TextColor="Black" TranslationX="1" TranslationY="-1"/>
+                    <Label Text="Nutrition - Eating a balanced diet rich in fruits, vegetables, whole grains, and lean proteins supports overall health."
+                   FontSize="15" TextColor="White" FontAttributes="Bold"/>
+                </Grid>
+                <Grid>
+                    <Label Text="Sleep - Getting 7-9 hours of quality sleep per night helps with recovery, immune function, and mood regulation."
+                   FontSize="15" TextColor="Black" TranslationX="-1" TranslationY="-1"/>
+                    <Label Text="Sleep - Getting 7-9 hours of quality sleep per night helps with recovery, immune function, and mood regulation."
+                   FontSize="15" TextColor="Black" TranslationX="1" TranslationY="1"/>
+                    <Label Text="Sleep - Getting 7-9 hours of quality sleep per night helps with recovery, immune function, and mood regulation."
+                   FontSize="15" TextColor="Black" TranslationX="-1" TranslationY="1"/>
+                    <Label Text="Sleep - Getting 7-9 hours of quality sleep per night helps with recovery, immune function, and mood regulation."
+                   FontSize="15" TextColor="Black" TranslationX="1" TranslationY="-1"/>
+                    <Label Text="Sleep - Getting 7-9 hours of quality sleep per night helps with recovery, immune function, and mood regulation."
+                   FontSize="15" TextColor="White" FontAttributes="Bold"/>
+                </Grid>
+                <Grid>
+                    <Label Text="Body Weight - Maintaining a healthy weight reduces the risk of chronic diseases like diabetes and hypertension."
+                   FontSize="15" TextColor="Black" TranslationX="-1" TranslationY="-1"/>
+                    <Label Text="Body Weight - Maintaining a healthy weight reduces the risk of chronic diseases like diabetes and hypertension."
+                   FontSize="15" TextColor="Black" TranslationX="1" TranslationY="1"/>
+                    <Label Text="Body Weight - Maintaining a healthy weight reduces the risk of chronic diseases like diabetes and hypertension."
+                   FontSize="15" TextColor="Black" TranslationX="-1" TranslationY="1"/>
+                    <Label Text="Body Weight - Maintaining a healthy weight reduces the risk of chronic diseases like diabetes and hypertension."
+                   FontSize="15" TextColor="Black" TranslationX="1" TranslationY="-1"/>
+                    <Label Text="Body Weight - Maintaining a healthy weight reduces the risk of chronic diseases like diabetes and hypertension."
+                   FontSize="15" TextColor="White" FontAttributes="Bold"/>
+                </Grid>
+                <Grid>
+                    <Label Text="Hygiene - Practicing personal hygiene (handwashing, oral care, etc.) prevents infections and promotes well-being."
+                   FontSize="15" TextColor="Black" TranslationX="-1" TranslationY="-1"/>
+                    <Label Text="Hygiene - Practicing personal hygiene (handwashing, oral care, etc.) prevents infections and promotes well-being."
+                   FontSize="15" TextColor="Black" TranslationX="1" TranslationY="1"/>
+                    <Label Text="Hygiene - Practicing personal hygiene (handwashing, oral care, etc.) prevents infections and promotes well-being."
+                   FontSize="15" TextColor="Black" TranslationX="-1" TranslationY="1"/>
+                    <Label Text="Hygiene - Practicing personal hygiene (handwashing, oral care, etc.) prevents infections and promotes well-being."
+                   FontSize="15" TextColor="Black" TranslationX="1" TranslationY="-1"/>
+                    <Label Text="Hygiene - Practicing personal hygiene (handwashing, oral care, etc.) prevents infections and promotes well-being."
+                   FontSize="15" TextColor="White" FontAttributes="Bold"/>
+                </Grid>
+                <Grid>
+                    <Label Text="Environmental Factors - Clean air, safe housing, and reducing exposure to toxins contribute to health."
+                   FontSize="15" TextColor="Black" TranslationX="-1" TranslationY="-1"/>
+                    <Label Text="Environmental Factors - Clean air, safe housing, and reducing exposure to toxins contribute to health."
+                   FontSize="15" TextColor="Black" TranslationX="1" TranslationY="1"/>
+                    <Label Text="Environmental Factors - Clean air, safe housing, and reducing exposure to toxins contribute to health."
+                   FontSize="15" TextColor="Black" TranslationX="-1" TranslationY="1"/>
+                    <Label Text="Environmental Factors - Clean air, safe housing, and reducing exposure to toxins contribute to health."
+                   FontSize="15" TextColor="Black" TranslationX="1" TranslationY="-1"/>
+                    <Label Text="Environmental Factors - Clean air, safe housing, and reducing exposure to toxins contribute to health."
+                   FontSize="15" TextColor="White" FontAttributes="Bold"/>
+                </Grid>
+                <Grid>
+                    <Label Text="Work-Life Balance - Managing time between work, family, and personal care can prevent burnout."
+                   FontSize="15" TextColor="Black" TranslationX="-1" TranslationY="-1"/>
+                    <Label Text="Work-Life Balance - Managing time between work, family, and personal care can prevent burnout."
+                   FontSize="15" TextColor="Black" TranslationX="1" TranslationY="1"/>
+                    <Label Text="Work-Life Balance - Managing time between work, family, and personal care can prevent burnout."
+                   FontSize="15" TextColor="Black" TranslationX="-1" TranslationY="1"/>
+                    <Label Text="Work-Life Balance - Managing time between work, family, and personal care can prevent burnout."
+                   FontSize="15" TextColor="Black" TranslationX="1" TranslationY="-1"/>
+                    <Label Text="Work-Life Balance - Managing time between work, family, and personal care can prevent burnout."
+                   FontSize="15" TextColor="White" FontAttributes="Bold"/>
+                </Grid>
+                <Grid>
+                    <Label Text="Health Literacy - Understanding basic health information helps people make informed decisions."
+                   FontSize="15" TextColor="Black" TranslationX="-1" TranslationY="-1"/>
+                    <Label Text="Health Literacy - Understanding basic health information helps people make informed decisions."
+                   FontSize="15" TextColor="Black" TranslationX="1" TranslationY="1"/>
+                    <Label Text="Health Literacy - Understanding basic health information helps people make informed decisions."
+                   FontSize="15" TextColor="Black" TranslationX="-1" TranslationY="1"/>
+                    <Label Text="Health Literacy - Understanding basic health information helps people make informed decisions."
+                   FontSize="15" TextColor="Black" TranslationX="1" TranslationY="-1"/>
+                    <Label Text="Health Literacy - Understanding basic health information helps people make informed decisions."
+                   FontSize="15" TextColor="White" FontAttributes="Bold"/>
+                </Grid>
+                <Grid>
+                    <Label Text="Mindfulness and Meditation - Practices that improve focus, reduce stress, and enhance emotional regulation."
+                   FontSize="15" TextColor="Black" TranslationX="-1" TranslationY="-1"/>
+                    <Label Text="Mindfulness and Meditation - Practices that improve focus, reduce stress, and enhance emotional regulation."
+                   FontSize="15" TextColor="Black" TranslationX="1" TranslationY="1"/>
+                    <Label Text="Mindfulness and Meditation - Practices that improve focus, reduce stress, and enhance emotional regulation."
+                   FontSize="15" TextColor="Black" TranslationX="-1" TranslationY="1"/>
+                    <Label Text="Mindfulness and Meditation - Practices that improve focus, reduce stress, and enhance emotional regulation."
+                   FontSize="15" TextColor="Black" TranslationX="1" TranslationY="-1"/>
+                    <Label Text="Mindfulness and Meditation - Practices that improve focus, reduce stress, and enhance emotional regulation."
+                   FontSize="15" TextColor="White" FontAttributes="Bold"/>
+                </Grid>
+
+                <Frame Padding="10" BackgroundColor="#0188ff" CornerRadius="10">
+                    <VerticalStackLayout>
+                        <Label Text="Ask a General Health Question:" FontSize="18" FontAttributes="Bold"/>
+                        <Entry x:Name="QuestionEntry"
                            Placeholder="Type your question here..."
                            BackgroundColor="White"
                            HeightRequest="40"/>
-                    <Button Text="Ask"
+                        <Button Text="Ask"
                             BackgroundColor="#30cfcb"
                             TextColor="Black"
                             Clicked="OnAskQuestion"/>
-                </VerticalStackLayout>
-            </Frame>
-            
+                    </VerticalStackLayout>
+                </Frame>
 
-        </VerticalStackLayout>
-    </ScrollView>
 
+            </VerticalStackLayout>
+        </ScrollView>
+    </Grid>
 </ContentPage>

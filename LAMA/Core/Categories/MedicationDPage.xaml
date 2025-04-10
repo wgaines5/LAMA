@@ -1,13 +1,107 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="LAMA.Core.Categories.MedicationDPage"
-             Title="Medication and Drug Interactions"
-             BackgroundImageSource="medbck.png">
+             Title="Medication and Drug Interactions">
 
-    <ScrollView>
+    <Grid>
+    <Grid.RowDefinitions>
+        <RowDefinition Height="*" />
+    </Grid.RowDefinitions>
+
+    <Image Source="medbck.png"
+               Grid.Row="0"
+               Aspect="AspectFill" />
+
+    <BoxView Grid.Row="0"
+                 Color="Black"
+                 Opacity="0.3" />
+
+    <ScrollView Grid.Row="0">
         <VerticalStackLayout Padding="20" Spacing="15">
-            <Label Text="Understand medication usage and potential interactions."
-                   FontSize="20" TextColor="Black" FontAttributes="Bold" HorizontalOptions="Center"/>
+            <Grid HorizontalOptions="Center">
+                <Label Text="Understand medication usage and potential interactions."
+                       FontSize="20" TextColor="Black" TranslationX="-1" TranslationY="-1"/>
+                <Label Text="Understand medication usage and potential interactions."
+                       FontSize="20" TextColor="Black" TranslationX="1" TranslationY="1"/>
+                <Label Text="Understand medication usage and potential interactions."
+                       FontSize="20" TextColor="Black" TranslationX="-1" TranslationY="1"/>
+                <Label Text="Understand medication usage and potential interactions."
+                       FontSize="20" TextColor="Black" TranslationX="1" TranslationY="-1"/>
+                <Label Text="Understand medication usage and potential interactions."
+                       FontSize="20" TextColor="White" FontAttributes="Bold"/>
+            </Grid>
+            <Grid>
+                <Label Text="Definition of Drug Interactions - How medications can affect each other when taken together."
+                       FontSize="15" TextColor="Black" TranslationX="-1" TranslationY="-1"/>
+                <Label Text="Definition of Drug Interactions - How medications can affect each other when taken together."
+                       FontSize="15" TextColor="Black" TranslationX="1" TranslationY="1"/>
+                <Label Text="Definition of Drug Interactions - How medications can affect each other when taken together."
+                       FontSize="15" TextColor="Black" TranslationX="-1" TranslationY="1"/>
+                <Label Text="Definition of Drug Interactions - How medications can affect each other when taken together."
+                       FontSize="15" TextColor="Black" TranslationX="1" TranslationY="-1"/>
+                <Label Text="Definition of Drug Interactions - How medications can affect each other when taken together."
+                       FontSize="15" TextColor="White" FontAttributes="Bold"/>
+            </Grid>
+            <Grid>
+                <Label Text="Color-Coded Risk Levels - For example: Red = severe, Yellow = moderate, Green = low risk."
+                       FontSize="15" TextColor="Black" TranslationX="-1" TranslationY="-1"/>
+                <Label Text="Color-Coded Risk Levels - For example: Red = severe, Yellow = moderate, Green = low risk."
+                       FontSize="15" TextColor="Black" TranslationX="1" TranslationY="1"/>
+                <Label Text="Color-Coded Risk Levels - For example: Red = severe, Yellow = moderate, Green = low risk."
+                       FontSize="15" TextColor="Black" TranslationX="-1" TranslationY="1"/>
+                <Label Text="Color-Coded Risk Levels - For example: Red = severe, Yellow = moderate, Green = low risk."
+                       FontSize="15" TextColor="Black" TranslationX="1" TranslationY="-1"/>
+                <Label Text="Color-Coded Risk Levels - For example: Red = severe, Yellow = moderate, Green = low risk."
+                       FontSize="15" TextColor="White" FontAttributes="Bold"/>
+            </Grid>
+            <Grid>
+                <Label Text="Interaction Severity Explanation - What does a SEVERE vs. MODERATE interaction actually mean?"
+                       FontSize="15" TextColor="Black" TranslationX="-1" TranslationY="-1"/>
+                <Label Text="Interaction Severity Explanation - What does a SEVERE vs. MODERATE interaction actually mean?"
+                       FontSize="15" TextColor="Black" TranslationX="1" TranslationY="1"/>
+                <Label Text="Interaction Severity Explanation - What does a SEVERE vs. MODERATE interaction actually mean?"
+                       FontSize="15" TextColor="Black" TranslationX="-1" TranslationY="1"/>
+                <Label Text="Interaction Severity Explanation - What does a SEVERE vs. MODERATE interaction actually mean?"
+                       FontSize="15" TextColor="Black" TranslationX="1" TranslationY="-1"/>
+                <Label Text="Interaction Severity Explanation - What does a SEVERE vs. MODERATE interaction actually mean?"
+                       FontSize="15" TextColor="White" FontAttributes="Bold"/>
+            </Grid>
+            <Grid>
+                <Label Text="Alcohol and Drug Risks - How alcohol can amplify or dull medication effects."
+                       FontSize="15" TextColor="Black" TranslationX="-1" TranslationY="-1"/>
+                <Label Text="Alcohol and Drug Risks - How alcohol can amplify or dull medication effects."
+                       FontSize="15" TextColor="Black" TranslationX="1" TranslationY="1"/>
+                <Label Text="Alcohol and Drug Risks - How alcohol can amplify or dull medication effects."
+                       FontSize="15" TextColor="Black" TranslationX="-1" TranslationY="1"/>
+                <Label Text="Alcohol and Drug Risks - How alcohol can amplify or dull medication effects."
+                       FontSize="15" TextColor="Black" TranslationX="1" TranslationY="-1"/>
+                <Label Text="Alcohol and Drug Risks - How alcohol can amplify or dull medication effects."
+                       FontSize="15" TextColor="White" FontAttributes="Bold"/>
+            </Grid>
+            <Grid>
+                <Label Text="Mechanism of Interactions - How absorption, metabolism, or elimination can be affected."
+                       FontSize="15" TextColor="Black" TranslationX="-1" TranslationY="-1"/>
+                <Label Text="Mechanism of Interactions - How absorption, metabolism, or elimination can be affected."
+                       FontSize="15" TextColor="Black" TranslationX="1" TranslationY="1"/>
+                <Label Text="Mechanism of Interactions - How absorption, metabolism, or elimination can be affected."
+                       FontSize="15" TextColor="Black" TranslationX="-1" TranslationY="1"/>
+                <Label Text="Mechanism of Interactions - How absorption, metabolism, or elimination can be affected."
+                       FontSize="15" TextColor="Black" TranslationX="1" TranslationY="-1"/>
+                <Label Text="Mechanism of Interactions - How absorption, metabolism, or elimination can be affected."
+                       FontSize="15" TextColor="White" FontAttributes="Bold"/>
+            </Grid>
+            <Grid>
+                <Label Text="Medication Timing Matters - Why it's important to take certain drugs at specific times."
+                       FontSize="15" TextColor="Black" TranslationX="-1" TranslationY="-1"/>
+                <Label Text="Medication Timing Matters - Why it's important to take certain drugs at specific times."
+                       FontSize="15" TextColor="Black" TranslationX="1" TranslationY="1"/>
+                <Label Text="Medication Timing Matters - Why it's important to take certain drugs at specific times."
+                       FontSize="15" TextColor="Black" TranslationX="-1" TranslationY="1"/>
+                <Label Text="Medication Timing Matters - Why it's important to take certain drugs at specific times."
+                       FontSize="15" TextColor="Black" TranslationX="1" TranslationY="-1"/>
+                <Label Text="Medication Timing Matters - Why it's important to take certain drugs at specific times."
+                       FontSize="15" TextColor="White" FontAttributes="Bold"/>
+            </Grid>
 
             <Frame Padding="10" BackgroundColor="#0188ff" CornerRadius="10">
                 <VerticalStackLayout>
@@ -18,5 +112,5 @@
             </Frame>
         </VerticalStackLayout>
     </ScrollView>
-
+    </Grid>
 </ContentPage>

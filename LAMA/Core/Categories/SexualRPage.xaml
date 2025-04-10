@@ -2,34 +2,116 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="LAMA.Core.Categories.SexualRPage"
-             Title="Sexual and Reproductive Health"
-             BackgroundImageSource="sexualbck.png">
+             Title="Sexual and Reproductive Health">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
 
-    <ScrollView>
-        <VerticalStackLayout Padding="20" Spacing="15">
-            <Label Text="Your Health, Your Comfort. No Judgment, Just Support. Ask Anything."
-                   FontSize="20" TextColor="Black" FontAttributes="Bold" HorizontalOptions="Center"/>
-            <Label Text=" Menstrual Health - Understanding the menstrual cycle, hygiene practices, and common issues like PMS and PCOS."
-                   FontSize="15" TextColor="Black" FontAttributes="Bold"/>
-            <Label Text="Sexually Transmitted Infections (STIs) - What they are, how they spread, symptoms, prevention, and treatment."
-                   FontSize="15" TextColor="Black" FontAttributes="Bold"/>
-            <Label Text="Sexual Consent and Rights - Understanding boundaries, consent laws, and human rights related to sexuality and reproduction."
-                   FontSize="15" TextColor="Black" FontAttributes="Bold"/>
-            <Label Text="Sexual Orientation and Gender Identity - Awareness and respect for diversity in orientation (LGBTQ+) and identity."
-                   FontSize="15" TextColor="Black" FontAttributes="Bold"/>
-            <Label Text="Emergency Contraception - What it is, when to use it, and how it works (e.g., Plan B or the morning-after pill)."
-                   FontSize="15" TextColor="Black" FontAttributes="Bold"/>
-            <Label Text=" Puberty Education - What changes to expect during adolescence — physically, emotionally, and socially."
-                   FontSize="15" TextColor="Black" FontAttributes="Bold"/>
+        <Image Source="sexualbck.png"
+           Grid.Row="0"
+           Aspect="AspectFill" />
 
-            <Frame Padding="10" BackgroundColor="#0188ff" CornerRadius="10">
-                <VerticalStackLayout>
-                    <Label Text="Ask a Question:" FontSize="18" FontAttributes="Bold"/>
-                    <Entry x:Name="QuestionEntry" Placeholder="Type your question..." BackgroundColor="White" HeightRequest="40"/>
-                    <Button Text="Ask" BackgroundColor="#30cfcb" TextColor="Black" FontAttributes="Bold" Clicked="OnAskQuestion"/>
-                </VerticalStackLayout>
-            </Frame>
-        </VerticalStackLayout>
-    </ScrollView>
+        <BoxView Grid.Row="0"
+             Color="Black"
+             Opacity="0.3" />
 
+        <ScrollView Grid.Row="0">
+            <VerticalStackLayout Padding="20" Spacing="15">
+                <Grid HorizontalOptions="Center">
+                    <Label Text="Your Health, Your Comfort. No Judgment, Just Support. Ask Anything."
+                       FontSize="20" TextColor="Black" TranslationX="-1" TranslationY="-1"/>
+                    <Label Text="Your Health, Your Comfort. No Judgment, Just Support. Ask Anything."
+                       FontSize="20" TextColor="Black" TranslationX="1" TranslationY="1"/>
+                    <Label Text="Your Health, Your Comfort. No Judgment, Just Support. Ask Anything."
+                       FontSize="20" TextColor="Black" TranslationX="-1" TranslationY="1"/>
+                    <Label Text="Your Health, Your Comfort. No Judgment, Just Support. Ask Anything."
+                       FontSize="20" TextColor="Black" TranslationX="1" TranslationY="-1"/>
+                    <Label Text="Your Health, Your Comfort. No Judgment, Just Support. Ask Anything."
+                       FontSize="20" TextColor="White" FontAttributes="Bold" />
+                </Grid>
+                <Grid>
+                    <Label Text="Menstrual Health - Understanding the menstrual cycle, hygiene practices, and common issues like PMS and PCOS."
+                       FontSize="15" TextColor="Black" TranslationX="-1" TranslationY="-1"/>
+                    <Label Text="Menstrual Health - Understanding the menstrual cycle, hygiene practices, and common issues like PMS and PCOS."
+                       FontSize="15" TextColor="Black" TranslationX="1" TranslationY="1"/>
+                    <Label Text="Menstrual Health - Understanding the menstrual cycle, hygiene practices, and common issues like PMS and PCOS."
+                       FontSize="15" TextColor="Black" TranslationX="-1" TranslationY="1"/>
+                    <Label Text="Menstrual Health - Understanding the menstrual cycle, hygiene practices, and common issues like PMS and PCOS."
+                       FontSize="15" TextColor="Black" TranslationX="1" TranslationY="-1"/>
+                    <Label Text="Menstrual Health - Understanding the menstrual cycle, hygiene practices, and common issues like PMS and PCOS."
+                       FontSize="15" TextColor="White" FontAttributes="Bold"/>
+                </Grid>
+                <Grid>
+                    <Label Text="Sexually Transmitted Infections (STIs) - What they are, how they spread, symptoms, prevention, and treatment."
+                       FontSize="15" TextColor="Black" TranslationX="-1" TranslationY="-1"/>
+                    <Label Text="Sexually Transmitted Infections (STIs) - What they are, how they spread, symptoms, prevention, and treatment."
+                       FontSize="15" TextColor="Black" TranslationX="1" TranslationY="1"/>
+                    <Label Text="Sexually Transmitted Infections (STIs) - What they are, how they spread, symptoms, prevention, and treatment."
+                       FontSize="15" TextColor="Black" TranslationX="-1" TranslationY="1"/>
+                    <Label Text="Sexually Transmitted Infections (STIs) - What they are, how they spread, symptoms, prevention, and treatment."
+                       FontSize="15" TextColor="Black" TranslationX="1" TranslationY="-1"/>
+                    <Label Text="Sexually Transmitted Infections (STIs) - What they are, how they spread, symptoms, prevention, and treatment."
+                       FontSize="15" TextColor="White" FontAttributes="Bold"/>
+                </Grid>
+                <Grid>
+                    <Label Text="Sexual Consent and Rights - Understanding boundaries, consent laws, and human rights related to sexuality and reproduction."
+                       FontSize="15" TextColor="Black" TranslationX="-1" TranslationY="-1"/>
+                    <Label Text="Sexual Consent and Rights - Understanding boundaries, consent laws, and human rights related to sexuality and reproduction."
+                       FontSize="15" TextColor="Black" TranslationX="1" TranslationY="1"/>
+                    <Label Text="Sexual Consent and Rights - Understanding boundaries, consent laws, and human rights related to sexuality and reproduction."
+                       FontSize="15" TextColor="Black" TranslationX="-1" TranslationY="1"/>
+                    <Label Text="Sexual Consent and Rights - Understanding boundaries, consent laws, and human rights related to sexuality and reproduction."
+                       FontSize="15" TextColor="Black" TranslationX="1" TranslationY="-1"/>
+                    <Label Text="Sexual Consent and Rights - Understanding boundaries, consent laws, and human rights related to sexuality and reproduction."
+                       FontSize="15" TextColor="White" FontAttributes="Bold"/>
+                </Grid>
+                <Grid>
+                    <Label Text="Sexual Orientation and Gender Identity - Awareness and respect for diversity in orientation (LGBTQ+) and identity."
+                       FontSize="15" TextColor="Black" TranslationX="-1" TranslationY="-1"/>
+                    <Label Text="Sexual Orientation and Gender Identity - Awareness and respect for diversity in orientation (LGBTQ+) and identity."
+                       FontSize="15" TextColor="Black" TranslationX="1" TranslationY="1"/>
+                    <Label Text="Sexual Orientation and Gender Identity - Awareness and respect for diversity in orientation (LGBTQ+) and identity."
+                       FontSize="15" TextColor="Black" TranslationX="-1" TranslationY="1"/>
+                    <Label Text="Sexual Orientation and Gender Identity - Awareness and respect for diversity in orientation (LGBTQ+) and identity."
+                       FontSize="15" TextColor="Black" TranslationX="1" TranslationY="-1"/>
+                    <Label Text="Sexual Orientation and Gender Identity - Awareness and respect for diversity in orientation (LGBTQ+) and identity."
+                       FontSize="15" TextColor="White" FontAttributes="Bold"/>
+                </Grid>
+                <Grid>
+                    <Label Text="Emergency Contraception - What it is, when to use it, and how it works (e.g., Plan B or the morning-after pill)."
+                       FontSize="15" TextColor="Black" TranslationX="-1" TranslationY="-1"/>
+                    <Label Text="Emergency Contraception - What it is, when to use it, and how it works (e.g., Plan B or the morning-after pill)."
+                       FontSize="15" TextColor="Black" TranslationX="1" TranslationY="1"/>
+                    <Label Text="Emergency Contraception - What it is, when to use it, and how it works (e.g., Plan B or the morning-after pill)."
+                       FontSize="15" TextColor="Black" TranslationX="-1" TranslationY="1"/>
+                    <Label Text="Emergency Contraception - What it is, when to use it, and how it works (e.g., Plan B or the morning-after pill)."
+                       FontSize="15" TextColor="Black" TranslationX="1" TranslationY="-1"/>
+                    <Label Text="Emergency Contraception - What it is, when to use it, and how it works (e.g., Plan B or the morning-after pill)."
+                       FontSize="15" TextColor="White" FontAttributes="Bold"/>
+                </Grid>
+                <Grid>
+                    <Label Text="Puberty Education - What changes to expect during adolescence — physically, emotionally, and socially."
+                       FontSize="15" TextColor="Black" TranslationX="-1" TranslationY="-1"/>
+                    <Label Text="Puberty Education - What changes to expect during adolescence — physically, emotionally, and socially."
+                       FontSize="15" TextColor="Black" TranslationX="1" TranslationY="1"/>
+                    <Label Text="Puberty Education - What changes to expect during adolescence — physically, emotionally, and socially."
+                       FontSize="15" TextColor="Black" TranslationX="-1" TranslationY="1"/>
+                    <Label Text="Puberty Education - What changes to expect during adolescence — physically, emotionally, and socially."
+                       FontSize="15" TextColor="Black" TranslationX="1" TranslationY="-1"/>
+                    <Label Text="Puberty Education - What changes to expect during adolescence — physically, emotionally, and socially."
+                       FontSize="15" TextColor="White" FontAttributes="Bold"/>
+                </Grid>
+
+
+                <Frame Padding="10" BackgroundColor="#0188ff" CornerRadius="10">
+                    <VerticalStackLayout>
+                        <Label Text="Ask a Question:" FontSize="18" FontAttributes="Bold"/>
+                        <Entry x:Name="QuestionEntry" Placeholder="Type your question..." BackgroundColor="White" HeightRequest="40"/>
+                        <Button Text="Ask" BackgroundColor="#30cfcb" TextColor="Black" FontAttributes="Bold" Clicked="OnAskQuestion"/>
+                    </VerticalStackLayout>
+                </Frame>
+            </VerticalStackLayout>
+        </ScrollView>
+    </Grid>
 </ContentPage>
