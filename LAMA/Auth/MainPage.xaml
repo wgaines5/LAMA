@@ -25,7 +25,8 @@
                     <Button Text="Ask"
                             BackgroundColor="#26c7b6"
                             TextColor="Black"
-                            FontAttributes="Bold"/>
+                            FontAttributes="Bold"
+                            Clicked="OnAskQuestion"/>
                 </VerticalStackLayout>
             </Frame>
 
@@ -105,6 +106,20 @@
                         BackgroundColor="#3cacae"
                         TextColor="Black"
                         Clicked="OnMPSignupClicked"/>
+                </VerticalStackLayout>
+            </Frame>
+
+            <Frame Padding="10" BackgroundColor="#004aad" CornerRadius="20" HasShadow="True">
+                <Label Text="User Sign Up" FontSize="20" FontAttributes="Bold" TextColor="White" HorizontalOptions="Center"/>
+            </Frame>
+
+            <Frame Padding="10" BackgroundColor="#01a4ff" CornerRadius="10">
+                <VerticalStackLayout>
+                    <Button 
+             Text="Join Now"
+             BackgroundColor="#30cfcb"
+             TextColor="Black"
+             Clicked="OnUserSignupClicked"/>
                 </VerticalStackLayout>
             </Frame>
 

@@ -19,6 +19,7 @@
 		<SingleProject>true</SingleProject>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
+		<NullabilityInfoContextSupport>true</NullabilityInfoContextSupport>
 
 		<!-- Display name -->
 		<ApplicationTitle>LAMA</ApplicationTitle>
@@ -61,14 +62,12 @@
 
 	<ItemGroup>
 	  <Compile Remove="Auth\NewPage1.cs" />
-	  <Compile Remove="Auth\NewPage1.xaml.cs" />
 	  <Compile Remove="Auth\NewPage2.xaml.cs" />
 	  <Compile Remove="Auth\SignInPage.xaml.cs" />
 	  <Compile Remove="SignUpPage.xaml.cs" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiXaml Remove="Auth\NewPage1.xaml" />
 	  <MauiXaml Remove="Auth\NewPage2.xaml" />
 	  <MauiXaml Remove="Auth\SignInPage.xaml" />
 	  <MauiXaml Remove="SignUpPage.xaml" />
@@ -110,6 +109,9 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Auth\SignUpPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Auth\UsrSignUp.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Core\About.xaml">

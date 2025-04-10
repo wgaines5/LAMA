@@ -1,26 +1,26 @@
-using LAMA.Core;
 using System.Text;
 using System.Text.Json;
 using Firebase.Auth;
 using Firebase.Auth.Providers;
+using LAMA.Core.Profile;
 
 
 
 namespace LAMA.Auth;
 
-public partial class SignUpPage : ContentPage
+public partial class UsrSignUp : ContentPage
 {
     private readonly FirebaseAuthClient _authClient;
     private readonly FirebaseAuthConfig fbConfig = new FirebaseAuthConfig
     {
         ApiKey = "AIzaSyDiAuutGePttuNIoUxGy2Ok6NDcqGoh74k",
         AuthDomain = "lama-60ddc.firebaseapp.com",
-        Providers = new FirebaseAuthProvider[] 
+        Providers = new FirebaseAuthProvider[]
         {
         new EmailProvider()
         }
     };
-    public SignUpPage()
+    public UsrSignUp()
     {
         InitializeComponent();
 
@@ -33,39 +33,34 @@ public partial class SignUpPage : ContentPage
         await Shell.Current.GoToAsync("//SignInPage");  // Navigate to SignInPage
     }
 
-    private async void OnSignUpTapped(object sender, EventArgs e)
+    private async void OnUserSignUpTapped(object sender, EventArgs e)
     {
         try
         {
-            UserCredential mpCredential = await _authClient.CreateUserWithEmailAndPasswordAsync(
-                _email.Text, _password.Text);
+            UserCredential userCredential = await _authClient.CreateUserWithEmailAndPasswordAsync(
+                email_.Text, password_.Text);
 
-            string uid = mpCredential.User.Uid;
+            string uid = userCredential.User.Uid;
 
             // ID token for authentication
-            string idToken = await mpCredential.User.GetIdTokenAsync();
+            string idToken = await userCredential.User.GetIdTokenAsync();
 
             // Usser fields for profile - Database
             object userData = new
             {
-                email = _email.Text,
-                username = _username.Text,
-                firstName = FirstNameE.Text,
-                lastName = LastNameE.Text,
-                npi = NPIE.Text,
-                state = StateE.Text,
-                licenseNumber = LicNumber.Text,
-                profileImageUrl = "usermock.png",
-                isVerified = false,
+                email = email_.Text,
+                username = username_.Text,
+                firstName = FirstName.Text,
+                profileImageUrl = "userpic.png",
                 createdAt = DateTime.UtcNow.ToString("o")
             };
 
             string json = JsonSerializer.Serialize(userData);
 
             //  Firebase RT Database url 
-            string url = $"https://lama-60ddc-default-rtdb.firebaseio.com/medical_providers/{uid}.json?auth={idToken}";
+            string url = $"https://lama-60ddc-default-rtdb.firebaseio.com/anynomous_users/{uid}.json?auth={idToken}";
 
-            
+
             HttpClient client = new HttpClient();
             StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
 
@@ -77,12 +72,12 @@ public partial class SignUpPage : ContentPage
             }
 
             //  Success msg shown to proceed 
-            await DisplayAlert("Success", "Your Account Has Been created, Now Awaiting verification.", "OK");
-            await Shell.Current.GoToAsync($"//{nameof(MPDashBoard)}");
+            await DisplayAlert("Success", "Your Account Has Been created", "OK");
+            await Shell.Current.GoToAsync($"//{nameof(ProfilePage)}");
         }
-        catch 
+        catch
         {
-            await DisplayAlert("Error","Something Crashed Try Again", "OK");
+            await DisplayAlert("Error", "Something Crashed Try Again", "OK");
         }
     }
 }
