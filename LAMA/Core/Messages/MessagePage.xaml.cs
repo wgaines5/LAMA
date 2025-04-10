@@ -21,14 +21,6 @@ public partial class MessagePage : ContentPage
 	{
 		InitializeComponent();
 		BindingContext = new ChatViewModel(new FirebaseService());
-
-		(BindingContext as ChatViewModel).Messages.CollectionChanged += (sender, e) =>
-		{
-			if (e.Action == System.Collections.Specialized.NotifyCollectionChangedAction.Add)
-			{
-				AutoScoll();
-			}
-		};
 	}
 
 	private void OnSendMessage(object sender, EventArgs e)
@@ -37,17 +29,6 @@ public partial class MessagePage : ContentPage
 		{
 			chatViewModel.SendMessageCommand.Execute(this);
 		}
-	}
-
-	private async void AutoScoll()
-	{
-		if (MessageList.ItemsSource is ObservableCollection<ChatMessage> messages && messages.Count > 0)
-		{
-			this.Dispatcher.Dispatch(() =>
-			{
-				MessageList.ScrollTo(messages[messages.Count - 1], position: ScrollToPosition.End, animate: true);
-			});
-        }
 	}
 }
 
@@ -75,6 +56,7 @@ public class ChatViewModel : BindableObject
 	{
 		_services = firebaseService;
 		SendMessageCommand = new Command(async () => await SendMessage());
+		Task.Run(async () => await RefreshMessageAsync());
 	}
 
 	private async Task SendMessage()
@@ -86,7 +68,8 @@ public class ChatViewModel : BindableObject
 				SenderId = "User1",
 				ReceiverId = "User2",
 				Content = NewMessage,
-				IsUserMessage = true
+				IsUserMessage = true,
+				SentAt = DateTime.UtcNow.ToString("o")
 			};
 			await _services.SendMessageAsync(message);
 			Messages.Add(new ChatMessage { Content = NewMessage, IsUserMessage = true});
@@ -94,22 +77,31 @@ public class ChatViewModel : BindableObject
 			OnPropertyChanged(nameof(NewMessage));
 		}
 	}
+
+	public async Task RefreshMessageAsync()
+	{
+		var messages = await _services.GetMessageAsync();
+
+		Messages.Clear();
+
+		foreach (var message in messages.OrderBy(m => DateTime.Parse(m.SentAt)))
+		{
+			Messages.Add(message);
+		}
+	}
 }
 
-[FirestoreData(ConverterType = typeof(ChatMessageConverter))]
 public class ChatMessage
-{
-	[FirestoreProperty]
+{ 
 	public string SenderId { get; set; }
 
-	[FirestoreProperty]
 	public string ReceiverId { get; set; }
 
-	[FirestoreProperty]
 	public string Content { get; set; }
 
-	[FirestoreProperty]
 	public bool IsUserMessage { get; set; }
+
+	public string SentAt { get; set; } = DateTime.UtcNow.ToString("o");
 }
 
 
