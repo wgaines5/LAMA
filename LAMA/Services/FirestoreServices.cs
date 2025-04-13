@@ -82,7 +82,6 @@ namespace LAMA.Services
                 onMessageUpdated(messages);
             });
         }
-    }
 
         public async Task<List<Doctor>> GetPreferredDoctorsAsync()
         {
