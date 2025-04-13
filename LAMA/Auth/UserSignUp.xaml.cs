@@ -49,8 +49,11 @@ public partial class UserSignUp : ContentPage
                 EmailAddress = email_.Text,
                 Username = username_.Text,
                 FirstName = FirstName.Text,
-                CreatedAt = DateTime.UtcNow
-            };
+                CreatedAt = DateTime.UtcNow,
+                FrequentCategory = "",
+                QueriesSubmitted = 0,
+                ProfilePictureUrl = ""
+            }; 
 
             // Serialize to Firestore format
             string json = ConvertUserToFirestoreJson(newUser);
@@ -88,7 +91,10 @@ public partial class UserSignUp : ContentPage
                 uid = new { stringValue = user.Uid },
                 emailAddress = new { stringValue = user.EmailAddress },
                 fullName = new { stringValue = user.FirstName },
-                createdAt = new { timestampValue = user.CreatedAt.ToString("o") }
+                createdAt = new { timestampValue = user.CreatedAt.ToString("o") },
+                queriesSubmitted = new { integerValue = user.QueriesSubmitted.ToString()},
+                frequentCategory = new { stringValue =  user.FrequentCategory},
+                profilePictureUrl = new { stringValue = user.ProfilePictureUrl}
             }
         };
 

@@ -32,11 +32,7 @@ public static class MauiProgram
 				new EmailProvider()
 			}
         }));
-
-		builder.Services.AddSingleton<AuthTestSignInPage>();
-        builder.Services.AddSingleton<SignInViewModel>();
      
-        builder.Services.AddSingleton<SignUpViewModel>();
 	
         return builder.Build();
 	}
