@@ -1,24 +1,115 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="LAMA.Core.Categories.ChronicAPage"
-             Title="Chronic Conditions and Autoimmune"
-             BackgroundImageSource="chronicbck.png">
+             Title="Chronic Conditions and Autoimmune">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
 
-    <ScrollView>
-        <VerticalStackLayout Padding="20" Spacing="15">
-            <Label Text="Chronic Conditions and Autoimmune Disorders" FontSize="24" FontAttributes="Bold"/>
-            <Image Source="chronic_conditions_info.png" HeightRequest="200" HorizontalOptions="Center"/>
-            <Label Text="💙 You are not alone. Managing a chronic condition can be challenging, but with the right knowledge and support, you can live a fulfilling life. Ask your questions, and let’s navigate this journey together. 💙"
-                   FontSize="16" TextColor="Black" FontAttributes="Bold" BackgroundColor="White" HorizontalOptions="Center"/>
+        <Image Source="chronicbck.png"
+           Grid.Row="0"
+           Aspect="AspectFill" />
 
-            <Frame Padding="10" BackgroundColor="#0188ff" CornerRadius="10">
-                <VerticalStackLayout>
-                    <Label Text="Ask a Question:" FontSize="18" FontAttributes="Bold"/>
-                    <Entry x:Name="QuestionEntry" Placeholder="Type your question..." BackgroundColor="White" HeightRequest="40"/>
-                    <Button Text="Ask" BackgroundColor="#30cfcb" TextColor="Black" Clicked="OnAskQuestion"/>
-                </VerticalStackLayout>
-            </Frame>
-        </VerticalStackLayout>
-    </ScrollView>
+        <BoxView Grid.Row="0"
+                 Opacity="0.3"
+                 Color="Black"/>
 
+        <ScrollView Grid.Row="0">
+            <VerticalStackLayout Padding="20" Spacing="15">
+                <Grid HorizontalOptions="Center">
+                    <Label Text="💙 You are not alone. Managing a chronic condition can be challenging, but with the right knowledge and support, you can live a fulfilling life. Ask your questions, and let’s navigate this journey together. 💙"
+                       FontSize="20" TextColor="Black" TranslationX="-1" TranslationY="-1"/>
+                    <Label Text="💙 You are not alone. Managing a chronic condition can be challenging, but with the right knowledge and support, you can live a fulfilling life. Ask your questions, and let’s navigate this journey together. 💙"
+                       FontSize="20" TextColor="Black" TranslationX="1" TranslationY="1"/>
+                    <Label Text="💙 You are not alone. Managing a chronic condition can be challenging, but with the right knowledge and support, you can live a fulfilling life. Ask your questions, and let’s navigate this journey together. 💙"
+                       FontSize="20" TextColor="Black" TranslationX="-1" TranslationY="1"/>
+                    <Label Text="💙 You are not alone. Managing a chronic condition can be challenging, but with the right knowledge and support, you can live a fulfilling life. Ask your questions, and let’s navigate this journey together. 💙"
+                       FontSize="20" TextColor="Black" TranslationX="1" TranslationY="-1"/>
+                    <Label Text="💙 You are not alone. Managing a chronic condition can be challenging, but with the right knowledge and support, you can live a fulfilling life. Ask your questions, and let’s navigate this journey together. 💙"
+                       FontSize="20" TextColor="White" FontAttributes="Bold"/>
+                </Grid>
+                <Grid>
+                    <Label Text="Definition of Chronic Conditions - Long-lasting health issues (typically lasting 1 year or more) that require ongoing medical attention."
+                       FontSize="15" TextColor="Black" TranslationX="-1" TranslationY="-1"/>
+                    <Label Text="Definition of Chronic Conditions - Long-lasting health issues (typically lasting 1 year or more) that require ongoing medical attention."
+                       FontSize="15" TextColor="Black" TranslationX="1" TranslationY="1"/>
+                    <Label Text="Definition of Chronic Conditions - Long-lasting health issues (typically lasting 1 year or more) that require ongoing medical attention."
+                       FontSize="15" TextColor="Black" TranslationX="-1" TranslationY="1"/>
+                    <Label Text="Definition of Chronic Conditions - Long-lasting health issues (typically lasting 1 year or more) that require ongoing medical attention."
+                       FontSize="15" TextColor="Black" TranslationX="1" TranslationY="-1"/>
+                    <Label Text="Definition of Chronic Conditions - Long-lasting health issues (typically lasting 1 year or more) that require ongoing medical attention."
+                       FontSize="15" TextColor="White" FontAttributes="Bold"/>
+                </Grid>
+                <Grid>
+                    <Label Text="Definition of Autoimmune Disorders - Conditions where the immune system mistakenly attacks healthy cells (e.g., Lupus, RA, MS)."
+                       FontSize="15" TextColor="Black" TranslationX="-1" TranslationY="-1"/>
+                    <Label Text="Definition of Autoimmune Disorders - Conditions where the immune system mistakenly attacks healthy cells (e.g., Lupus, RA, MS)."
+                       FontSize="15" TextColor="Black" TranslationX="1" TranslationY="1"/>
+                    <Label Text="Definition of Autoimmune Disorders - Conditions where the immune system mistakenly attacks healthy cells (e.g., Lupus, RA, MS)."
+                       FontSize="15" TextColor="Black" TranslationX="-1" TranslationY="1"/>
+                    <Label Text="Definition of Autoimmune Disorders - Conditions where the immune system mistakenly attacks healthy cells (e.g., Lupus, RA, MS)."
+                       FontSize="15" TextColor="Black" TranslationX="1" TranslationY="-1"/>
+                    <Label Text="Definition of Autoimmune Disorders - Conditions where the immune system mistakenly attacks healthy cells (e.g., Lupus, RA, MS)."
+                       FontSize="15" TextColor="White" FontAttributes="Bold"/>
+                </Grid>
+                <Grid>
+                    <Label Text="Managing Flare-Ups - Learn to recognize early signs and adapt daily routines accordingly."
+                       FontSize="15" TextColor="Black" TranslationX="-1" TranslationY="-1"/>
+                    <Label Text="Managing Flare-Ups - Learn to recognize early signs and adapt daily routines accordingly."
+                       FontSize="15" TextColor="Black" TranslationX="1" TranslationY="1"/>
+                    <Label Text="Managing Flare-Ups - Learn to recognize early signs and adapt daily routines accordingly."
+                       FontSize="15" TextColor="Black" TranslationX="-1" TranslationY="1"/>
+                    <Label Text="Managing Flare-Ups - Learn to recognize early signs and adapt daily routines accordingly."
+                       FontSize="15" TextColor="Black" TranslationX="1" TranslationY="-1"/>
+                    <Label Text="Managing Flare-Ups - Learn to recognize early signs and adapt daily routines accordingly."
+                       FontSize="15" TextColor="White" FontAttributes="Bold"/>
+                </Grid>
+                <Grid>
+                    <Label Text="Environmental Triggers - Toxins, infections, stress, or diet can trigger autoimmune flare-ups."
+                       FontSize="15" TextColor="Black" TranslationX="-1" TranslationY="-1"/>
+                    <Label Text="Environmental Triggers - Toxins, infections, stress, or diet can trigger autoimmune flare-ups."
+                       FontSize="15" TextColor="Black" TranslationX="1" TranslationY="1"/>
+                    <Label Text="Environmental Triggers - Toxins, infections, stress, or diet can trigger autoimmune flare-ups."
+                       FontSize="15" TextColor="Black" TranslationX="-1" TranslationY="1"/>
+                    <Label Text="Environmental Triggers - Toxins, infections, stress, or diet can trigger autoimmune flare-ups."
+                       FontSize="15" TextColor="Black" TranslationX="1" TranslationY="-1"/>
+                    <Label Text="Environmental Triggers - Toxins, infections, stress, or diet can trigger autoimmune flare-ups."
+                       FontSize="15" TextColor="White" FontAttributes="Bold"/>
+                </Grid>
+                <Grid>
+                    <Label Text="Symptoms That Often Overlap - Fatigue, joint pain, swelling, brain fog, skin rashes, digestive issues."
+                       FontSize="15" TextColor="Black" TranslationX="-1" TranslationY="-1"/>
+                    <Label Text="Symptoms That Often Overlap - Fatigue, joint pain, swelling, brain fog, skin rashes, digestive issues."
+                       FontSize="15" TextColor="Black" TranslationX="1" TranslationY="1"/>
+                    <Label Text="Symptoms That Often Overlap - Fatigue, joint pain, swelling, brain fog, skin rashes, digestive issues."
+                       FontSize="15" TextColor="Black" TranslationX="-1" TranslationY="1"/>
+                    <Label Text="Symptoms That Often Overlap - Fatigue, joint pain, swelling, brain fog, skin rashes, digestive issues."
+                       FontSize="15" TextColor="Black" TranslationX="1" TranslationY="-1"/>
+                    <Label Text="Symptoms That Often Overlap - Fatigue, joint pain, swelling, brain fog, skin rashes, digestive issues."
+                       FontSize="15" TextColor="White" FontAttributes="Bold"/>
+                </Grid>
+                <Grid>
+                    <Label Text="Difference Between Chronic and Autoimmune Conditions - Chronic = long-term illness (e.g., diabetes); Autoimmune = immune system malfunction (can also be chronic)."
+                       FontSize="15" TextColor="Black" TranslationX="-1" TranslationY="-1"/>
+                    <Label Text="Difference Between Chronic and Autoimmune Conditions - Chronic = long-term illness (e.g., diabetes); Autoimmune = immune system malfunction (can also be chronic)."
+                       FontSize="15" TextColor="Black" TranslationX="1" TranslationY="1"/>
+                    <Label Text="Difference Between Chronic and Autoimmune Conditions - Chronic = long-term illness (e.g., diabetes); Autoimmune = immune system malfunction (can also be chronic)."
+                       FontSize="15" TextColor="Black" TranslationX="-1" TranslationY="1"/>
+                    <Label Text="Difference Between Chronic and Autoimmune Conditions - Chronic = long-term illness (e.g., diabetes); Autoimmune = immune system malfunction (can also be chronic)."
+                       FontSize="15" TextColor="Black" TranslationX="1" TranslationY="-1"/>
+                    <Label Text="Difference Between Chronic and Autoimmune Conditions - Chronic = long-term illness (e.g., diabetes); Autoimmune = immune system malfunction (can also be chronic)."
+                       FontSize="15" TextColor="White" FontAttributes="Bold"/>
+                </Grid>
+
+                <Frame Padding="10" BackgroundColor="#0188ff" CornerRadius="10">
+                    <VerticalStackLayout>
+                        <Label Text="Ask a Question:" FontSize="18" FontAttributes="Bold"/>
+                        <Entry x:Name="QuestionEntry" Placeholder="Type your question..." BackgroundColor="White" HeightRequest="40"/>
+                        <Button Text="Ask" BackgroundColor="#30cfcb" TextColor="Black" Clicked="OnAskQuestion"/>
+                    </VerticalStackLayout>
+                </Frame>
+            </VerticalStackLayout>
+        </ScrollView>
+    </Grid>
 </ContentPage>

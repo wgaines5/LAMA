@@ -2,6 +2,7 @@
 using Android.App;
 using AndroidX.Lifecycle;
 #endif
+using Google.Cloud.Firestore;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -10,6 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using LAMA.Services;
 
 namespace LAMA.Core.Messages;
 
@@ -18,15 +20,7 @@ public partial class MessagePage : ContentPage
 	public MessagePage()
 	{
 		InitializeComponent();
-		BindingContext = new ChatViewModel(new MessageService("https://localhost:5001/chathub"));
-
-		(BindingContext as ChatViewModel).Messages.CollectionChanged += (sender, e) =>
-		{
-			if (e.Action == System.Collections.Specialized.NotifyCollectionChangedAction.Add)
-			{
-				AutoScoll();
-			}
-		};
+		BindingContext = new ChatViewModel(new FirebaseService());
 	}
 
 	private void OnSendMessage(object sender, EventArgs e)
@@ -36,22 +30,11 @@ public partial class MessagePage : ContentPage
 			chatViewModel.SendMessageCommand.Execute(this);
 		}
 	}
-
-	private async void AutoScoll()
-	{
-		if (MessageList.ItemsSource is ObservableCollection<ChatMessage> messages && messages.Count > 0)
-		{
-			this.Dispatcher.Dispatch(() =>
-			{
-				MessageList.ScrollTo(messages[messages.Count - 1], position: ScrollToPosition.End, animate: true);
-			});
-        }
-	}
 }
 
 public class ChatViewModel : BindableObject
 {
-	private MessageService _messageService;
+	private FirebaseService _services;
 	private string _newMessage;
 	public ObservableCollection<ChatMessage> Messages { get; set; } = new ObservableCollection<ChatMessage>();
 	public string NewMessage
@@ -69,36 +52,56 @@ public class ChatViewModel : BindableObject
 	}
 	public ICommand SendMessageCommand { get; }
 
-	public ChatViewModel(MessageService messageService)
+	public ChatViewModel(FirebaseService firebaseService)
 	{
-		_messageService = messageService;
+		_services = firebaseService;
 		SendMessageCommand = new Command(async () => await SendMessage());
-
-		_messageService.MessageReceived += (message) =>
-		{
-			Messages.Add(new ChatMessage { Content = message, IsUserMessage = false });
-		};
-
-		Task.Run(async () => await _messageService.ConnectAsync());
+		Task.Run(async () => await RefreshMessageAsync());
 	}
 
 	private async Task SendMessage()
 	{
 		if (!string.IsNullOrWhiteSpace(NewMessage))
 		{
-			await _messageService.SendMessageAsync(NewMessage);
+			ChatMessage message = new ChatMessage
+			{
+				SenderId = "User1",
+				ReceiverId = "User2",
+				Content = NewMessage,
+				IsUserMessage = true,
+				SentAt = DateTime.UtcNow.ToString("o")
+			};
+			await _services.SendMessageAsync(message);
 			Messages.Add(new ChatMessage { Content = NewMessage, IsUserMessage = true});
 			NewMessage = string.Empty;
 			OnPropertyChanged(nameof(NewMessage));
 		}
 	}
+
+	public async Task RefreshMessageAsync()
+	{
+		var messages = await _services.GetMessageAsync();
+
+		Messages.Clear();
+
+		foreach (var message in messages.OrderBy(m => DateTime.Parse(m.SentAt)))
+		{
+			Messages.Add(message);
+		}
+	}
 }
 
 public class ChatMessage
-{
+{ 
+	public string SenderId { get; set; }
+
+	public string ReceiverId { get; set; }
+
 	public string Content { get; set; }
+
 	public bool IsUserMessage { get; set; }
 
+	public string SentAt { get; set; } = DateTime.UtcNow.ToString("o");
 }
 
 
