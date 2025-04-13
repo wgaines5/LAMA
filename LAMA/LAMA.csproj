@@ -86,11 +86,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Compile Update="Auth\AuthTestSignInPage.xaml.cs">
-	    <DependentUpon>AuthTestSignInPage.xaml</DependentUpon>
-	  </Compile>
-	  <Compile Update="Auth\AuthTestSignUpPage.xaml.cs">
-	    <DependentUpon>AuthTestSignUpPage.xaml</DependentUpon>
+	  <Compile Update="Auth\UserSignUp.xaml.cs">
+	    <DependentUpon>UserSignUp.xaml</DependentUpon>
 	  </Compile>
 	  <Compile Update="Core\Messages\InboxPage.xaml.cs">
 	    <DependentUpon>InboxPage.xaml</DependentUpon>
@@ -98,16 +95,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiXaml Update="Auth\AuthTestSignInPage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Auth\AuthTestSignUpPage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
 	  <MauiXaml Update="Auth\SignUpPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Auth\UsrSignUp.xaml">
+	  <MauiXaml Update="Auth\UserSignUp.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Core\About.xaml">

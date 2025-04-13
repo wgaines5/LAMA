@@ -2,6 +2,7 @@
 using Firebase.Auth;
 using Firebase.Auth.Providers;
 using LAMA.Auth;
+using LAMA.FireServices;
 
 namespace LAMA;
 
@@ -32,11 +33,11 @@ public static class MauiProgram
 			}
         }));
 
-		builder.Services.AddSingleton<AuthTestSignInPage>();
+	
         builder.Services.AddSingleton<SignInViewModel>();
-        builder.Services.AddSingleton<AuthTestSignUpPage>();
+     
         builder.Services.AddSingleton<SignUpViewModel>();
-
+	
         return builder.Build();
 	}
 }
