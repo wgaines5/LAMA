@@ -152,5 +152,10 @@ Route="SettingsPage" />
     ContentTemplate="{DataTemplate local:Sample}"
     Route="Sample"/>
 
+    <ShellContent
+        Title="Accessibility"
+        ContentTemplate="{DataTemplate core:AccessibilityPage}"
+        Route="AccessibilityPage"
+        FlyoutItemIsVisible="False"/>
 
 </Shell>
