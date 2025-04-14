@@ -102,6 +102,8 @@ public class ChatMessage
 	public bool IsUserMessage { get; set; }
 
 	public string SentAt { get; set; } = DateTime.UtcNow.ToString("o");
+
+	public string SessionId { get; set; }
 }
 
 
