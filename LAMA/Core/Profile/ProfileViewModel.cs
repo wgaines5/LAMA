@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LAMA.Auth
+namespace LAMA.Core.Profile
 {
-    internal class AuthTestViewModel
+    internal class ProfileViewModel
     {
     }
 }

@@ -4,8 +4,6 @@ using System.Text.Json;
 using Firebase.Auth;
 using Firebase.Auth.Providers;
 
-
-
 namespace LAMA.Auth;
 
 public partial class SignUpPage : ContentPage
