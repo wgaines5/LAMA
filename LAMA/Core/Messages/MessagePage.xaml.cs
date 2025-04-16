@@ -89,6 +89,18 @@ public class ChatViewModel : BindableObject
 			Messages.Add(message);
 		}
 	}
+
+	private static string GenerateSessionId(string user1, string user2)
+	{
+		if (string.Compare(user1, user2) < 0)
+		{
+			return $"{user1}_{user2}";
+		}
+		else
+		{
+			return $"{user2}_{user1}";
+		}
+	}
 }
 
 public class ChatMessage
