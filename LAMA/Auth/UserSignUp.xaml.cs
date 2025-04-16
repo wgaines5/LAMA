@@ -4,7 +4,7 @@ using Firebase.Auth;
 using Firebase.Auth.Providers;
 using Google.Cloud.Firestore;
 using LAMA.Core.Profile;
-
+using LAMA.Core.Messages;
 namespace LAMA.Auth;
 
 public partial class UserSignUp : ContentPage
@@ -52,7 +52,8 @@ public partial class UserSignUp : ContentPage
                 CreatedAt = DateTime.UtcNow,
                 FrequentCategory = "",
                 QueriesSubmitted = 0,
-                ProfilePictureUrl = ""
+                ProfilePictureUrl = "",
+                Conversations = new List<Conversation>()
             }; 
 
             // Serialize to Firestore format
@@ -94,7 +95,51 @@ public partial class UserSignUp : ContentPage
                 createdAt = new { timestampValue = user.CreatedAt.ToString("o") },
                 queriesSubmitted = new { integerValue = user.QueriesSubmitted.ToString()},
                 frequentCategory = new { stringValue =  user.FrequentCategory},
-                profilePictureUrl = new { stringValue = user.ProfilePictureUrl}
+                profilePictureUrl = new { stringValue = user.ProfilePictureUrl},
+                conversations = new
+                {
+                    arrayValue = new { values = new object[] { } }
+                }
+            }
+        };
+
+        return JsonSerializer.Serialize(firestoreJson);
+    }
+
+    private string ConvertConversationToFirestoreJson(Conversation conversation)
+    {
+        var firestoreJson = new
+        {
+            fields = new
+            {
+                conversationId = new { stringValue = conversation.ConversationId },
+                participantIds = new
+                {
+                    arrayValue = new
+                    {
+                        values = conversation.ParticipantIds.Select(id => new { stringValue = id }).ToList()
+                    }
+                },
+                messages = new
+                {
+                    arrayValue = new
+                    {
+                        values = conversation.Messages.Select(message => new
+                        {
+                            mapValue = new
+                            {
+                                fields = new
+                                {
+                                    senderId = new { stringValue = message.SenderId },
+                                    content = new { stringValue = message.Content },
+                                    timestamp = new { timestampValue = message.Timestamp.ToString("o") },
+                                    isRead = new { booleanValue = message.IsRead }
+                                }
+                            }
+                        }).ToList()
+                    }
+                },
+                lastUpdated = new { timestampValue = conversation.LastUpdated.ToString("o") }
             }
         };
 

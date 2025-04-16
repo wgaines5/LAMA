@@ -12,5 +12,7 @@ namespace LAMA.Core.Messages
         public List<string> ParticipantIds { get; set; }
         public List<Message> Messages { get; set; }
         public DateTime LastUpdated { get; set; }
+
+        public Conversation() { }
     }
 }
