@@ -1,4 +1,9 @@
 ﻿using System.Collections.ObjectModel;
+using Google.Cloud.Firestore;
+using Microsoft.Maui.Controls;
+using System.Linq;
+using System;
+using System.Text.Json;
 
 
 namespace LAMA.Auth
@@ -6,6 +11,7 @@ namespace LAMA.Auth
     public partial class MainPage : ContentPage
     {
         public ObservableCollection<string> Categories { get; set; }
+
 
         public MainPage()
         {
@@ -20,7 +26,58 @@ namespace LAMA.Auth
                 "Medication & Drug Interactions",
                 "Alternative & Holistic Medicine"
             };
+            
             BindingContext = this;
+
+            _ = LoadTipsFromFirestoreAsync();
+        }
+
+
+        private async Task LoadTipsFromFirestoreAsync()
+        {
+            HttpClient client = new HttpClient();
+
+            string url = "https://firestore.googleapis.com/v1/projects/lama-60ddc/databases/(default)/documents/medicaladvice/fcL8qgVXnlVeY7DIfiNk";
+
+            HttpResponseMessage response = await client.GetAsync(url);
+
+            if (response.IsSuccessStatusCode)
+            {
+                string json = await response.Content.ReadAsStringAsync();
+
+                JsonDocument doc = JsonDocument.Parse(json);
+                JsonElement fields;
+                if (doc.RootElement.TryGetProperty("fields", out fields))
+                {
+                    foreach (JsonProperty field in fields.EnumerateObject())
+                    {
+                        if (field.Value.TryGetProperty("stringValue", out JsonElement value))
+                        {
+                            string tip = value.GetString();
+
+                            Frame tipFrame = new Frame
+                            {
+                                CornerRadius = 10,
+                                BackgroundColor = Color.FromArgb("#30cfcb"),
+                                Padding = 10,
+                                WidthRequest = 180,
+                                Content = new Label
+                                {
+                                    Text = tip,
+                                    FontSize = 14,
+                                    TextColor = Colors.Black
+                                }
+                            };
+
+                            MedicalAdviceTipsLayout.Children.Add(tipFrame);
+                        }
+                    }
+                }
+            }
+            else
+            {
+                await DisplayAlert("Error", "Could not load medical tips from Firestore.", "OK");
+            }
         }
 
 
