@@ -12,6 +12,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using LAMA.Services;
+using LAMA.Auth;
+using Firebase.Auth;
 
 namespace LAMA.Core.Messages;
 
@@ -36,6 +38,8 @@ public class ChatViewModel : BindableObject
 {
 	private FirebaseService _services;
 	private string _newMessage;
+	private string _uid;
+
 	public ObservableCollection<ChatMessage> Messages { get; set; } = new ObservableCollection<ChatMessage>();
 	public string NewMessage
 	{
@@ -56,6 +60,12 @@ public class ChatViewModel : BindableObject
 	{
 		_services = firebaseService;
 		SendMessageCommand = new Command(async () => await SendMessage());
+
+		if (UserSession.Credential != null)
+		{
+            _uid = UserSession.Credential.User.Uid;
+        }
+		
 		Task.Run(async () => await RefreshMessageAsync());
 	}
 
@@ -69,7 +79,8 @@ public class ChatViewModel : BindableObject
 				ReceiverId = "User2",
 				Content = NewMessage,
 				IsUserMessage = true,
-				SentAt = DateTime.UtcNow.ToString("o")
+				SentAt = DateTime.UtcNow.ToString("o"),
+				SessionId = GenerateSessionId(_uid, "string")
 			};
 			await _services.SendMessageAsync(message);
 			Messages.Add(new ChatMessage { Content = NewMessage, IsUserMessage = true});
