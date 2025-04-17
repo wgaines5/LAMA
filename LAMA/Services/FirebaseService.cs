@@ -32,7 +32,7 @@ namespace LAMA.Services
 
         public async Task<List<ChatMessage>> GetMessageAsync()
         {
-            var response = await _httpClient.GetAsync(_url);
+            var response = await _httpClient.GetAsync($"{_url}?auth={_token}");
             if (response.IsSuccessStatusCode)
             {
                 string json = await response.Content.ReadAsStringAsync();

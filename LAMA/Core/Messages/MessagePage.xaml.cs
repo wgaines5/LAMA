@@ -75,7 +75,7 @@ public class ChatViewModel : BindableObject
 		{
 			ChatMessage message = new ChatMessage
 			{
-				SenderId = "User1",
+				SenderId = _uid,
 				ReceiverId = "User2",
 				Content = NewMessage,
 				IsUserMessage = true,
