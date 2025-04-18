@@ -22,7 +22,7 @@ public partial class MessagePage : ContentPage
 	public MessagePage()
 	{
 		InitializeComponent();
-		BindingContext = new ChatViewModel(new FirebaseService());
+		BindingContext = new ChatViewModel(new FirebaseService(), string.Empty);
 	}
 
 	private void OnSendMessage(object sender, EventArgs e)
@@ -39,6 +39,7 @@ public class ChatViewModel : BindableObject
 	private FirebaseService _services;
 	private string _newMessage;
 	private string _uid;
+	private string _sessionId;
 
 	public ObservableCollection<ChatMessage> Messages { get; set; } = new ObservableCollection<ChatMessage>();
 	public string NewMessage
@@ -56,9 +57,10 @@ public class ChatViewModel : BindableObject
 	}
 	public ICommand SendMessageCommand { get; }
 
-	public ChatViewModel(FirebaseService firebaseService)
+	public ChatViewModel(FirebaseService firebaseService, string sessionId)
 	{
 		_services = firebaseService;
+		_sessionId = sessionId;
 		SendMessageCommand = new Command(async () => await SendMessage());
 
 		if (UserSession.Credential != null)
@@ -73,14 +75,16 @@ public class ChatViewModel : BindableObject
 	{
 		if (!string.IsNullOrWhiteSpace(NewMessage))
 		{
+			string recieverId = UserSession.ProviderId ?? "unassigned";
+			//string sessionId = UserSession.SessionId ?? GenerateSessionId(_uid, recieverId);
 			ChatMessage message = new ChatMessage
 			{
 				SenderId = _uid,
-				ReceiverId = "User2",
+				ReceiverId = recieverId,
 				Content = NewMessage,
 				IsUserMessage = true,
 				SentAt = DateTime.UtcNow.ToString("o"),
-				SessionId = GenerateSessionId(_uid, "string")
+				SessionId = _sessionId
 			};
 			await _services.SendMessageAsync(message);
 			Messages.Add(new ChatMessage { Content = NewMessage, IsUserMessage = true});
@@ -93,9 +97,13 @@ public class ChatViewModel : BindableObject
 	{
 		var messages = await _services.GetMessageAsync();
 
+		var sessionMessages = messages
+			.Where(m => m.SessionId == UserSession.SessionId)
+			.OrderBy(m => DateTime.Parse(m.SentAt));
+
 		Messages.Clear();
 
-		foreach (var message in messages.OrderBy(m => DateTime.Parse(m.SentAt)))
+		foreach (var message in sessionMessages)
 		{
 			Messages.Add(message);
 		}

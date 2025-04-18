@@ -40,5 +40,21 @@ namespace LAMA.Services
             }
             return new List<ChatMessage>();
         }
+
+        public async Task AddUnassignedAsync(string sessionId, string message)
+        {
+            var data = new
+            {
+                sessionId = sessionId,
+                message = message,
+                sentAt = DateTime.UtcNow.ToString("o")
+            };
+
+            string json = JsonSerializer.Serialize(data);
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+            var response = await _httpClient.PostAsync($"{_url}/unassigned_sessions/{sessionId}.json", content);
+            response.EnsureSuccessStatusCode();
+        }
     }
 }
