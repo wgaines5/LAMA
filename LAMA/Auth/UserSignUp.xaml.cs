@@ -76,8 +76,11 @@ public partial class UserSignUp : ContentPage
             }
 
             await DisplayAlert("Success", "Account created successfully!", "OK");
+
             UserSession.CurrentUser = newUser;
-            await Shell.Current.GoToAsync("//profile");
+            AppShell.Instance.ProfileContent.FlyoutItemIsVisible = true;
+
+            await Shell.Current.GoToAsync("//ProfilePage");
         }
         catch (Exception ex)
         {

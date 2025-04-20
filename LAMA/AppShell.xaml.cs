@@ -9,11 +9,16 @@ namespace LAMA
 {
     public partial class AppShell : Shell
     {
+
+        public static AppShell Instance { get; private set; }
+
+
         public AppShell()
         {
-        
             InitializeComponent();
-         
+            Instance = this;
+            ProfileContent.FlyoutItemIsVisible = false;
+
             Routing.RegisterRoute(nameof(MedFactsPage), typeof(MedFactsPage));
             Routing.RegisterRoute(nameof(CategoryPage), typeof(CategoryPage));
             Routing.RegisterRoute(nameof(InboxPage), typeof(InboxPage));
@@ -30,9 +35,11 @@ namespace LAMA
             Routing.RegisterRoute(nameof(ChronicAPage), typeof(ChronicAPage));
             Routing.RegisterRoute(nameof(MedicationDPage), typeof(MedicationDPage));
             Routing.RegisterRoute(nameof(AlternativeHPage), typeof(AlternativeHPage));
-
-
-            Routing.RegisterRoute(nameof(ProfilePage), typeof(ProfilePage));
+          
         }
+
+        public ShellContent ProfileContent => ProfileShellContent;
+
+ 
     }
 }

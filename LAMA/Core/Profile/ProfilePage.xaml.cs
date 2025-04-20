@@ -6,6 +6,8 @@ namespace LAMA.Core.Profile;
 public partial class ProfilePage : ContentPage
 {
 
+    bool UserSignedIn = UserSession.CurrentUser != null;
+
     public ProfilePage()
     {
         InitializeComponent();
