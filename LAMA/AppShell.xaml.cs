@@ -2,7 +2,7 @@
 using LAMA.Auth;
 using LAMA.Core.Messages;
 using LAMA.Core.Categories;
-
+using LAMA.Core.Profile;
 
 
 namespace LAMA
@@ -30,6 +30,9 @@ namespace LAMA
             Routing.RegisterRoute(nameof(ChronicAPage), typeof(ChronicAPage));
             Routing.RegisterRoute(nameof(MedicationDPage), typeof(MedicationDPage));
             Routing.RegisterRoute(nameof(AlternativeHPage), typeof(AlternativeHPage));
+
+
+            Routing.RegisterRoute(nameof(ProfilePage), typeof(ProfilePage));
         }
     }
 }

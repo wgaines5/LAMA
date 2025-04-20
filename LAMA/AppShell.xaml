@@ -50,8 +50,9 @@
 
         <ShellContent
 Title="Profile"
+            Route="profile"
 ContentTemplate="{DataTemplate profile:ProfilePage}"
-Route="ProfilePage" />
+/>
         </ShellSection>
 
     <ShellSection Title="📖 Facts">
