@@ -39,20 +39,23 @@
       BorderColor="Cyan"
     BorderWidth="200"
       Aspect="AspectFill"
-      Source="usermock.png">
+      Source="usermock.png"
+       Clicked="OnProfileImageClicked"
+                        >
                     </ImageButton>
 
                 </Frame>
 
                 <Label
+                    x:Name="firstNameLabel"
                     Grid.Row="1"
                     VerticalOptions="Center"
                     HorizontalOptions="Center"
-                    Text="Hello, Username"
                     FontSize="24"
                  ></Label>
 
                 <Label
+          x:Name="createdAtLabel"
          Grid.Row="2"
          VerticalOptions="Center"
          HorizontalOptions="Center"
@@ -151,7 +154,6 @@ HorizontalOptions="Center"
                 HorizontalOptions="Fill"
                 VerticalOptions="Fill"
                 Source="lama_logo.png">
-
             </ImageButton>
 
 
