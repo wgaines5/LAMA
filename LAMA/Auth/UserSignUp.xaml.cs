@@ -54,7 +54,8 @@ public partial class UserSignUp : ContentPage
                 FrequentCategory = "",
                 QueriesSubmitted = 0,
                 ProfilePictureUrl = "",
-                Conversations = new List<Conversation>()
+                Conversations = new List<Conversation>(),
+                BookmarkedMedFacts = new List<string>()
             };
 
             // Serialize to Firestore format
