@@ -1,4 +1,5 @@
-﻿using LAMA.Auth;
+﻿using Android.SE.Omapi;
+using LAMA.Auth;
 using LAMA.Core.Messages;
 using System;
 using System.Collections.Generic;
@@ -41,19 +42,33 @@ namespace LAMA.Services
             return new List<ChatMessage>();
         }
 
-        public async Task AddUnassignedAsync(string sessionId, string message)
+        public async Task AddUnassignedAsync(Conversation conversation)
         {
-            var data = new
-            {
-                sessionId = sessionId,
-                message = message,
-                sentAt = DateTime.UtcNow.ToString("o")
-            };
-
-            string json = JsonSerializer.Serialize(data);
+            string json = JsonSerializer.Serialize(conversation);
             var content = new StringContent(json, Encoding.UTF8, "application/json");
 
-            var response = await _httpClient.PostAsync($"{_url}/unassigned_sessions/{sessionId}.json", content);
+            var response = await _httpClient.PutAsync($"{_url}/unassigned_sessions/{conversation.ConversationId}.json", content);
+            response.EnsureSuccessStatusCode();
+        }
+
+        public async Task<List<Conversation>> GetUnassignedAsync()
+        {
+            var response = await _httpClient.GetAsync($"{_url}/unassigned_sessions.json");
+            if (response.IsSuccessStatusCode)
+            {
+                var json = await response.Content.ReadAsStringAsync();
+                var messages = JsonSerializer.Deserialize<Dictionary<string,  Conversation>>(json);
+                return messages?.Values.ToList();
+            }
+            return new List<Conversation>();
+        }
+
+        public async Task AssignProviderAsync(Conversation conversation)
+        {
+            string json = JsonSerializer.Serialize(conversation);
+            var content = new StringContent(json, Encoding.UTF8 , "application/json");
+
+            var response = await _httpClient.PutAsync($"{_url}/unassigned_sessions/{conversation.ConversationId}.json", content);
             response.EnsureSuccessStatusCode();
         }
     }
