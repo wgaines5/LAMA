@@ -8,6 +8,7 @@ namespace LAMA.Auth;
 
 public partial class SignUpPage : ContentPage
 {
+    private FileResult _selectedImage;
     private readonly FirebaseAuthClient _authClient;
     private readonly FirebaseAuthConfig fbConfig = new FirebaseAuthConfig
     {
@@ -26,6 +27,21 @@ public partial class SignUpPage : ContentPage
 
     }
 
+    private async void OnImageTapped(object sender, EventArgs e)
+    {
+        FileResult result = await FilePicker.PickAsync(new PickOptions
+        {
+            PickerTitle = "Select a Profile Picture",
+            FileTypes = FilePickerFileType.Images
+        });
+
+        if (result != null)
+        {
+            _selectedImage = result;
+            ProfileUpload.Source = ImageSource.FromFile(result.FullPath);
+        }
+    }
+
     private async void OnSignInTapped(object sender, EventArgs e)
     {
         await Shell.Current.GoToAsync("//SignInPage");  // Navigate to SignInPage
@@ -39,6 +55,8 @@ public partial class SignUpPage : ContentPage
             string uid = mpCredential.User.Uid;
             string idToken = await mpCredential.User.GetIdTokenAsync();
 
+            string base64Image = await ConvertImageToBase64Async();
+
             object profile = new
             {
                 email = _email.Text,
@@ -48,7 +66,7 @@ public partial class SignUpPage : ContentPage
                 npi = NPIE.Text,
                 state = StateE.Text,
                 licenseNumber = LicNumber.Text,
-                profileImageUrl = "usermock.png",
+                profileImageBase64 = base64Image,
                 isVerified = false,
                 createdAt = DateTime.UtcNow.ToString("o")
             };
@@ -76,6 +94,18 @@ public partial class SignUpPage : ContentPage
         {
             await DisplayAlert("Error", $"Something Crashed\n{ex.Message}", "OK");
         }
+    }
+
+    private async Task<string> ConvertImageToBase64Async()
+    {
+        if (_selectedImage == null)
+            return string.Empty;
+
+        using Stream stream = await _selectedImage.OpenReadAsync();
+        using MemoryStream ms = new MemoryStream();
+        await stream.CopyToAsync(ms);
+        byte[] imageBytes = ms.ToArray();
+        return Convert.ToBase64String(imageBytes);
     }
 
     private string ConvertToFirestoreJson(object data)
