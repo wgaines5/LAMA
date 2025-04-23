@@ -81,19 +81,11 @@
             </Frame>
 
             <ScrollView Orientation="Horizontal" HeightRequest="120">
-                <HorizontalStackLayout Spacing="10">
-                    <Frame CornerRadius="10" BackgroundColor="#30cfcb" Padding="10" WidthRequest="180">
-                        <Label Text="Mental Health matters! Take 5 min in silence" FontSize="14"/>
-                    </Frame>
-                    <Frame CornerRadius="10" BackgroundColor="#30cfcb" Padding="10" WidthRequest="180">
-                        <Label Text="Be sure to eat healthy meals and stay hydrated" FontSize="14"/>
-                    </Frame>
-                    <Frame CornerRadius="10" BackgroundColor="#30cfcb" Padding="10" WidthRequest="180">
-                        <Label Text="Wash your hands regularly for 30 seconds" FontSize="14"/>
-                    </Frame>
+                <HorizontalStackLayout x:Name="MedicalAdviceTipsLayout" Spacing="10">
+                
                 </HorizontalStackLayout>
             </ScrollView>
-
+            
             <!-- medical professional sign up section -->
             <Frame Padding="10" BackgroundColor="#01a4ff" CornerRadius="20" HasShadow="True">
                 <Label Text="Medical Professional Sign Up" FontSize="20" FontAttributes="Bold" TextColor="White" HorizontalOptions="Center"/>

@@ -1,17 +1,32 @@
+using Firebase.Auth;
+using LAMA.Auth;
+
 namespace LAMA.Core.Profile;
 
 public partial class ProfilePage : ContentPage
 {
 
-	public ProfilePage()
-	{
-		InitializeComponent();
-        //AnimatePageEntry();
-	}
+    bool UserSignedIn = UserSession.CurrentUser != null;
 
-    private async void AnimatePageEntry()
+    public ProfilePage()
     {
-        this.TranslationX = 500; // Start off-screen (right side)
-        await this.TranslateTo(0, 0, 300, Easing.SinInOut); // Slide in smoothly
+        InitializeComponent();
+        var user = UserSession.CurrentUser;
+        if (user != null)
+        {
+            firstNameLabel.Text = $"Hello, {user.FirstName}";
+            createdAtLabel.Text = $"Joined {user.CreatedAt.ToString("MMMM d, yyyy")}";
+        }
+    
     }
+
+    private void OnProfileImageClicked(object sender, EventArgs e)
+    {
+        Console.WriteLine("ImageButton clicked!");
+    }
+
+
+
+
+
 }
