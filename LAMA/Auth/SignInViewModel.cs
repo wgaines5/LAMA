@@ -7,6 +7,8 @@ using CommunityToolkit.Mvvm;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Firebase.Auth;
+using Google.Cloud.Firestore;
+using LAMA.Core;
 
 namespace LAMA.Auth
 {
@@ -28,7 +30,25 @@ namespace LAMA.Auth
         [RelayCommand]
         private async Task SignIn()
         {
-        await   _authClient.SignInWithEmailAndPasswordAsync(Email, Password);
+            var credential = await _authClient.SignInWithEmailAndPasswordAsync(Email, Password);
+
+            UserSession.Credential = credential;
+            UserSession.UserId = credential.User.Uid;
+
+            // Load role from Firestore
+            FirestoreDb db = FirestoreDb.Create("lama-60ddc");
+            var doc = await db.Collection("users").Document(credential.User.Uid).GetSnapshotAsync();
+
+            if (doc.Exists && doc.TryGetValue("role", out string role))
+                UserSession.Role = role;
+            else
+                UserSession.Role = "guest";
+
+            // Navigate based on role
+            if (UserSession.Role == "user")
+                await Shell.Current.GoToAsync($"//{nameof(MPDashBoard)}");
+            else
+                await Shell.Current.GoToAsync($"//{nameof(MainPage)}");
         }
 
         [RelayCommand]

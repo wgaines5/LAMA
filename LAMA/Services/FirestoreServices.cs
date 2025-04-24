@@ -100,7 +100,6 @@ namespace LAMA.Services
 
             return doctors;
         }
-
         public async Task DeleteDoctorByNameAsync(string name)
         {
             await SetupFirestore();
