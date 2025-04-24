@@ -1,8 +1,4 @@
 ﻿using System.Collections.ObjectModel;
-using Google.Cloud.Firestore;
-using Microsoft.Maui.Controls;
-using System.Linq;
-using System;
 using System.Text.Json;
 
 

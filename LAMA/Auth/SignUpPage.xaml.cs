@@ -87,6 +87,9 @@ public partial class SignUpPage : ContentPage
                 throw new Exception($"Firestore Error: {response.StatusCode}\n\n{error}");
             }
 
+            Preferences.Set("userEmail", _email.Text);
+            Preferences.Set("userPassword", _password.Text);
+
             await DisplayAlert("Success", "Your Account Has Been created, Now Awaiting verification.", "OK");
             await Shell.Current.GoToAsync($"//{nameof(MPDashBoard)}");
         }
