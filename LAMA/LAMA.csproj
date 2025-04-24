@@ -135,6 +135,9 @@
 	  <MauiXaml Update="Core\MessagesPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Core\Messages\MPInbox.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Core\MPDashBoard.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
