@@ -41,6 +41,7 @@
 
 
     <ShellContent
+        x:Name="MPDashShellItem"
         Title="🥼 Medical Provider Dashboard"
         ContentTemplate="{DataTemplate core:MPDashBoard}"
         Route="MPDashBoard"/>

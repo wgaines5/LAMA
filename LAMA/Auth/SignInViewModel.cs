@@ -46,9 +46,9 @@ namespace LAMA.Auth
 
             // Navigate based on role
             if (UserSession.Role == "user")
-                await Shell.Current.GoToAsync($"//{nameof(MPDashBoard)}");
-            else
                 await Shell.Current.GoToAsync($"//{nameof(MainPage)}");
+            else
+                await Shell.Current.GoToAsync($"//{nameof(MPDashBoard)}");
         }
 
         [RelayCommand]

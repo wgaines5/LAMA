@@ -13,7 +13,7 @@ namespace LAMA
         {
         
             InitializeComponent();
-         
+
             Routing.RegisterRoute(nameof(MedFactsPage), typeof(MedFactsPage));
             Routing.RegisterRoute(nameof(CategoryPage), typeof(CategoryPage));
             Routing.RegisterRoute(nameof(InboxPage), typeof(InboxPage));
@@ -30,6 +30,12 @@ namespace LAMA
             Routing.RegisterRoute(nameof(ChronicAPage), typeof(ChronicAPage));
             Routing.RegisterRoute(nameof(MedicationDPage), typeof(MedicationDPage));
             Routing.RegisterRoute(nameof(AlternativeHPage), typeof(AlternativeHPage));
+
+            var mpShellItem = this.FindByName<ShellContent>("MPDashShellItem");
+            if (mpShellItem != null)
+            {
+                mpShellItem.FlyoutItemIsVisible = UserSession.IsMedPro || UserSession.IsUnverified;
+            }
         }
     }
 }
