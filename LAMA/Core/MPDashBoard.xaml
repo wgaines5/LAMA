@@ -71,6 +71,14 @@
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
+            
+            <Button
+                Text="LOGOUT"
+                Clicked="OnLogoutClicked"
+                BackgroundColor="#30cfcb"
+                TextColor="Black"
+                FontAttributes="Bold"
+                HorizontalOptions="Center" />
 
         </VerticalStackLayout>
     </ScrollView>

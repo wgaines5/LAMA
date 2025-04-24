@@ -19,6 +19,13 @@
                 Margin="0,10"
                 Source="usermock.png"
                  />
+            <Button
+                Text="Upload Profile Image"
+                Clicked="OnImageTapped"
+                BackgroundColor="#30cfcb"
+                TextColor="Black"
+                FontAttributes="Bold"
+                HorizontalOptions="Center" />
 
             <Entry
                 x:Name="_email"
