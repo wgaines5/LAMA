@@ -38,6 +38,9 @@
 		<TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'tizen'">6.5</SupportedOSPlatformVersion>
 	</PropertyGroup>
+	<PropertyGroup>
+		<NullabilityInfoContextSupport>true</NullabilityInfoContextSupport>
+	</PropertyGroup>
 
 	<ItemGroup>
 		<!-- App Icon -->
@@ -59,14 +62,12 @@
 
 	<ItemGroup>
 	  <Compile Remove="Auth\NewPage1.cs" />
-	  <Compile Remove="Auth\NewPage1.xaml.cs" />
 	  <Compile Remove="Auth\NewPage2.xaml.cs" />
 	  <Compile Remove="Auth\SignInPage.xaml.cs" />
 	  <Compile Remove="SignUpPage.xaml.cs" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiXaml Remove="Auth\NewPage1.xaml" />
 	  <MauiXaml Remove="Auth\NewPage2.xaml" />
 	  <MauiXaml Remove="Auth\SignInPage.xaml" />
 	  <MauiXaml Remove="SignUpPage.xaml" />
@@ -79,6 +80,7 @@
 	<ItemGroup>
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
 		<PackageReference Include="FirebaseAuthentication.net" Version="4.1.0" />
+		<PackageReference Include="FirebaseDatabase.net" Version="4.2.0" />
 		<PackageReference Include="Microsoft.AspNetCore.SignalR" Version="1.2.0" />
 		<PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="9.0.2" />
 		<PackageReference Include="Google.Cloud.Firestore" Version="3.10.0" />
@@ -88,11 +90,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Compile Update="Auth\AuthTestSignInPage.xaml.cs">
-	    <DependentUpon>AuthTestSignInPage.xaml</DependentUpon>
-	  </Compile>
-	  <Compile Update="Auth\AuthTestSignUpPage.xaml.cs">
-	    <DependentUpon>AuthTestSignUpPage.xaml</DependentUpon>
+	  <Compile Update="Auth\UserSignUp.xaml.cs">
+	    <DependentUpon>UserSignUp.xaml</DependentUpon>
 	  </Compile>
 	  <Compile Update="Core\Messages\InboxPage.xaml.cs">
 	    <DependentUpon>InboxPage.xaml</DependentUpon>
@@ -100,13 +99,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiXaml Update="Auth\AuthTestSignInPage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Auth\AuthTestSignUpPage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
 	  <MauiXaml Update="Auth\SignUpPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Auth\UserSignUp.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Core\About.xaml">

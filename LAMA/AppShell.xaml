@@ -15,23 +15,6 @@
     <!--Authentication Pages-->
 
     <ShellContent
-    Title="Test Sign In"
-    ContentTemplate="{DataTemplate auth:AuthTestSignUpPage}"
-    Route="TestSignUp"
-        FlyoutItemIsVisible="False"
-    />
-
-
-    <ShellContent
-    Title="Test Sign Up"
-    ContentTemplate="{DataTemplate auth:AuthTestSignInPage}"
-    Route="TestSignIn"
-        FlyoutItemIsVisible="False"
-    />
-
-
-
-    <ShellContent
         Title="🏠 Home"
         ContentTemplate="{DataTemplate auth:MainPage}"
         Route="MainPage"/>
@@ -43,6 +26,13 @@
         FlyoutItemIsVisible="False"
         />
 
+    <ShellContent
+     Title="User Sign Up"
+     ContentTemplate="{DataTemplate auth:UserSignUp}"
+     Route="UsrSignUp" 
+     FlyoutItemIsVisible="False"
+     />
+
 
     <ShellContent
         Title="💬 Messages"
@@ -51,6 +41,7 @@
 
 
     <ShellContent
+        x:Name="MPDashShellItem"
         Title="🥼 Medical Provider Dashboard"
         ContentTemplate="{DataTemplate core:MPDashBoard}"
         Route="MPDashBoard"/>

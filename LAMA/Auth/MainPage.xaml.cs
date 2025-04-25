@@ -29,6 +29,11 @@ namespace LAMA.Auth
             await Shell.Current.GoToAsync("//SignUpPage");
         }
 
+        private async void OnUserSignupClicked(object sender, EventArgs e)
+        {
+            await Shell.Current.GoToAsync("//UsrSignUp");
+        }
+
         private async void OnAskQuestion(object sender, EventArgs e)
         {
             string questionText = QuestionEntry.Text;
