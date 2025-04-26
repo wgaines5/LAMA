@@ -65,6 +65,7 @@ public class ChatViewModel : BindableObject
 			}
 		}
 	}
+
 	public ICommand SendMessageCommand { get; }
 
 	public ChatViewModel(FirebaseService firebaseService, string sessionId)

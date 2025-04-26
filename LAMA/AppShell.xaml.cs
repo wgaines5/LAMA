@@ -21,7 +21,6 @@ namespace LAMA
 
             Routing.RegisterRoute(nameof(MedFactsPage), typeof(MedFactsPage));
             Routing.RegisterRoute(nameof(CategoryPage), typeof(CategoryPage));
-            Routing.RegisterRoute(nameof(InboxPage), typeof(InboxPage));
             Routing.RegisterRoute(nameof(MessagePage), typeof(MessagePage));
             Routing.RegisterRoute(nameof(SettingsPage), typeof(SettingsPage));
             Routing.RegisterRoute(nameof(SignUpPage), typeof(SignUpPage));

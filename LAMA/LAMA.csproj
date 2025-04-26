@@ -93,9 +93,6 @@
 	  <Compile Update="Auth\UserSignUp.xaml.cs">
 	    <DependentUpon>UserSignUp.xaml</DependentUpon>
 	  </Compile>
-	  <Compile Update="Core\Messages\InboxPage.xaml.cs">
-	    <DependentUpon>InboxPage.xaml</DependentUpon>
-	  </Compile>
 	</ItemGroup>
 
 	<ItemGroup>
