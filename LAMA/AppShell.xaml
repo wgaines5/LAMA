@@ -129,9 +129,9 @@ Route="SettingsPage" />
         Route="SavedFacts"/>
 
     <ShellContent
-    Title='Firestore Test'
-    ContentTemplate="{DataTemplate local:Sample}"
-    Route="Sample"/>
+    Title='Med Provider Inbox'
+    ContentTemplate="{DataTemplate messages:MPInbox}"
+    Route="MpInbox"/>
 
 
 </Shell>
