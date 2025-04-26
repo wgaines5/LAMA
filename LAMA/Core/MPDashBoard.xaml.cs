@@ -130,7 +130,7 @@ namespace LAMA.Core
         {
             if (sender is Button button && button.BindingContext is MessageItem message)
             {
-                await Shell.Current.GoToAsync($"{nameof(InboxPage)}?Question={Uri.EscapeDataString(message.Message)}");
+                await Shell.Current.GoToAsync($"{nameof(MessagePage)}?Question={Uri.EscapeDataString(message.Message)}");
                 PendingMessages.Remove(message);
             }
         }

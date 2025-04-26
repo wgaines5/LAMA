@@ -63,16 +63,6 @@
     </ShellSection>
 
 
-    <ShellSection Title="📥 Inbox">
-        <ShellContent
-Title="Messages"
-ContentTemplate="{DataTemplate messages:InboxPage}"
-Route="InboxPage" />
-
-
-    </ShellSection>
-
-
     <ShellSection Title="📂 Categories" >
         <ShellContent
 Title="Categories"
