@@ -32,7 +32,7 @@ public partial class MessagePage : ContentPage
         {
             fields = new
             {
-                content = new { stringValue = messageText },
+                message = new { stringValue = messageText },
                 timestamp = new { timestampValue = DateTime.UtcNow.ToString("o") },
                 senderId = new { stringValue = _currentUser.Uid },
                 isAssigned = new { booleanValue = false }
@@ -41,7 +41,7 @@ public partial class MessagePage : ContentPage
 
         var realtimeMessage = new
         {
-            content = messageText,
+            message = messageText,
             timestamp = DateTime.UtcNow.ToString("o"),
             senderId = _currentUser.Uid,
             isAssigned = false

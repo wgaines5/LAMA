@@ -4,6 +4,8 @@ using System.Text.Json;
 using LAMA.Auth;
 using System.ComponentModel;
 using System.Text;
+using Newtonsoft.Json;
+
 
 namespace LAMA.Core
 {
@@ -28,12 +30,14 @@ namespace LAMA.Core
                 new() { Name = "Alternative & Holistic Medicine", IsSelected = false }
             ];
 
-            PendingMessages = new ObservableCollection<MessageItem>
-            {
-                new MessageItem { Message = "Patient: I need help with anxiety." },
-                new MessageItem { Message = "Patient: What are the side effects of my medication?" },
-                new MessageItem { Message = "Patient: How do I manage my diabetes better?" }
-            };
+            //PendingMessages = new ObservableCollection<MessageItem>
+            //{
+            //    new MessageItem { Message = "Patient: I need help with anxiety." },
+            //    new MessageItem { Message = "Patient: What are the side effects of my medication?" },
+            //    new MessageItem { Message = "Patient: How do I manage my diabetes better?" }
+            //};
+
+        
 
             UsersAnswered = 0; // example count
 
@@ -47,6 +51,7 @@ namespace LAMA.Core
             UsersAnsweredCount.Text = UsersAnswered.ToString();
 
             _ = LoadUserProfileAsync();
+            _ = LoadMessagesFromFirebaseAsync();
         }
 
         private async Task LoadUserProfileAsync()
@@ -159,7 +164,7 @@ namespace LAMA.Core
                 }
             };
 
-            string jsonPatch = JsonSerializer.Serialize(new { fields = updateFields });
+            string jsonPatch = System.Text.Json.JsonSerializer.Serialize(new { fields = updateFields });
 
             string url = $"https://firestore.googleapis.com/v1/projects/lama-60ddc/databases/(default)/documents/medical_providers/{uid}?access_token={idToken}&updateMask.fieldPaths=categories";
 
@@ -171,7 +176,31 @@ namespace LAMA.Core
 
             await client.SendAsync(request);
         }
+
+        public async Task LoadMessagesFromFirebaseAsync()
+        {
+            try
+            {
+                var client = new HttpClient();
+                var response = await client.GetStringAsync("https://lama-60ddc-default-rtdb.firebaseio.com/unassigned_queries.json");
+
+                // Deserialize JSON response
+                var messages = JsonConvert.DeserializeObject<Dictionary<string, MessageItem>>(response);
+
+                // Update the ObservableCollection (this will notify the UI automatically)
+                PendingMessages = new ObservableCollection<MessageItem>(messages.Values);
+
+                // Bind to the ListView (in case you need to explicitly set the ItemsSource)
+                PendingMessagesList.ItemsSource = PendingMessages;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error loading messages: {ex.Message}");
+            }
+        }
+
     }
+
 
     public class CategoryItem : INotifyPropertyChanged
     {
@@ -200,5 +229,9 @@ namespace LAMA.Core
     public class MessageItem
     {
         public string Message { get; set; }
+        public bool IsAssigned { get; set; }
+        public string SenderId { get; set; }
+        public string Timestamp { get; set; }
+
     }
 }
