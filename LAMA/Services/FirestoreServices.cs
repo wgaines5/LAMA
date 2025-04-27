@@ -12,126 +12,126 @@ namespace LAMA.Services
 {
     public class FirestoreServices
     {
-        public FirestoreDb db;
-        private readonly HttpClient _httpClient;
-        private readonly string _url;
+    //    public FirestoreDb db;
+    //    private readonly HttpClient _httpClient;
+    //    private readonly string _url;
 
-        private async Task SetupFirestore()
-        {
-            if (db == null)
-            {
-                var stream = await FileSystem.OpenAppPackageFileAsync("admin-sdk.json");
-                var reader = new StreamReader(stream);
-                var contents = reader.ReadToEnd();
+    //    private async Task SetupFirestore()
+    //    {
+    //        if (db == null)
+    //        {
+    //            var stream = await FileSystem.OpenAppPackageFileAsync("admin-sdk.json");
+    //            var reader = new StreamReader(stream);
+    //            var contents = reader.ReadToEnd();
 
-                db = new FirestoreDbBuilder
-                {
-                    ProjectId = "lama-7054a",
+    //            db = new FirestoreDbBuilder
+    //            {
+    //                ProjectId = "lama-7054a",
 
-                    ConverterRegistry = new ConverterRegistry
-                    {
-                        new DateTimeToTimeStampConverter()
-                    },
-                    JsonCredentials = contents
-                }.Build();
-            }
-        }
+    //                ConverterRegistry = new ConverterRegistry
+    //                {
+    //                    new DateTimeToTimeStampConverter()
+    //                },
+    //                JsonCredentials = contents
+    //            }.Build();
+    //        }
+    //    }
 
-        public async Task InsertSampleModel(SampleModel sample)
-        {
-            await SetupFirestore();
-            await db.Collection("SampleModels").AddAsync(sample);
-        }
+    //    public async Task InsertSampleModel(SampleModel sample)
+    //    {
+    //        await SetupFirestore();
+    //        await db.Collection("SampleModels").AddAsync(sample);
+    //    }
 
-        public async Task<List<SampleModel>> GetSampleModel()
-        {
-            await SetupFirestore();
-            var data = await db
-                .Collection("SampleModels")
-                .GetSnapshotAsync();
+    //    public async Task<List<SampleModel>> GetSampleModel()
+    //    {
+    //        await SetupFirestore();
+    //        var data = await db
+    //            .Collection("SampleModels")
+    //            .GetSnapshotAsync();
 
-            var sampleModels = data.Documents
-                .Select(doc =>
-                {
-                    var sampleModel = doc.ConvertTo<SampleModel>();
-                    sampleModel.Id = doc.Id;
-                    return sampleModel;
-                }).ToList();
-            return sampleModels;
-        }
+    //        var sampleModels = data.Documents
+    //            .Select(doc =>
+    //            {
+    //                var sampleModel = doc.ConvertTo<SampleModel>();
+    //                sampleModel.Id = doc.Id;
+    //                return sampleModel;
+    //            }).ToList();
+    //        return sampleModels;
+    //    }
 
-        public async Task SendMessage(ChatMessage message)
-        {
-            await SetupFirestore();
-            DocumentReference docRef = db.Collection("messages").Document();
-            await docRef.SetAsync(message);
-        }
+    //    public async Task SendMessage(ChatMessage message)
+    //    {
+    //        await SetupFirestore();
+    //        DocumentReference docRef = db.Collection("messages").Document();
+    //        await docRef.SetAsync(message);
+    //    }
 
-        public async void ListenForMessages(string userId, Action<List<ChatMessage>> onMessageUpdated)
-        {
-            await SetupFirestore();
-            var query = db.Collection("messages")
-                .WhereEqualTo("ReceiverId", userId)
-                .OrderBy("SentAt");
+    //    public async void ListenForMessages(string userId, Action<List<ChatMessage>> onMessageUpdated)
+    //    {
+    //        await SetupFirestore();
+    //        var query = db.Collection("messages")
+    //            .WhereEqualTo("ReceiverId", userId)
+    //            .OrderBy("SentAt");
 
-            query.Listen(snapshot =>
-            {
-                var messages = snapshot.Documents.Select(doc => doc.ConvertTo<ChatMessage>()).ToList();
+    //        query.Listen(snapshot =>
+    //        {
+    //            var messages = snapshot.Documents.Select(doc => doc.ConvertTo<ChatMessage>()).ToList();
 
-                onMessageUpdated(messages);
-            });
-        }
-    }
-    [FirestoreData]
-    public class SampleModel
-    {
-        [FirestoreProperty]
-        public string Id { get; set; }
-        [FirestoreProperty]
-        public string Name { get; set; }
-        [FirestoreProperty]
-        public string Description { get; set; }
-        [FirestoreProperty]
-        public DateTime Created { get; set; }
-    }
+    //            onMessageUpdated(messages);
+    //        });
+    //    }
+    //}
+    //[FirestoreData]
+    //public class SampleModel
+    //{
+    //    [FirestoreProperty]
+    //    public string Id { get; set; }
+    //    [FirestoreProperty]
+    //    public string Name { get; set; }
+    //    [FirestoreProperty]
+    //    public string Description { get; set; }
+    //    [FirestoreProperty]
+    //    public DateTime Created { get; set; }
+    //}
 
-    public class DateTimeToTimeStampConverter : IFirestoreConverter<DateTime>
-    {
-        public object ToFirestore(DateTime value) => Timestamp.FromDateTime(value.ToUniversalTime());
+    //public class DateTimeToTimeStampConverter : IFirestoreConverter<DateTime>
+    //{
+    //    public object ToFirestore(DateTime value) => Timestamp.FromDateTime(value.ToUniversalTime());
 
-        public DateTime FromFirestore(object value)
-        {
-            if (value is Timestamp timestamp)
-            {
-                return timestamp.ToDateTime();
-            }
-            throw new ArgumentException("Invalid value");
-        }
-    }
+    //    public DateTime FromFirestore(object value)
+    //    {
+    //        if (value is Timestamp timestamp)
+    //        {
+    //            return timestamp.ToDateTime();
+    //        }
+    //        throw new ArgumentException("Invalid value");
+    //    }
+    //}
 
-    public class ChatMessageConverter : IFirestoreConverter<ChatMessage>
-    {
-        public ChatMessage FromFirestore(object value)
-        {
-            var data = value as Dictionary<string, object>;
-            return new ChatMessage
-            {
-                SenderId = data["SenderId"] as string,
-                ReceiverId = data["ReceiverId"] as string,
-                Content = data["Content"] as string,
-                IsUserMessage = (bool)data["IsUserMessage"],
-            };
-        }
+    //public class ChatMessageConverter : IFirestoreConverter<ChatMessage>
+    //{
+    //    public ChatMessage FromFirestore(object value)
+    //    {
+    //        var data = value as Dictionary<string, object>;
+    //        return new ChatMessage
+    //        {
+    //            SenderId = data["SenderId"] as string,
+    //            ReceiverId = data["ReceiverId"] as string,
+    //            Content = data["Content"] as string,
+    //            IsUserMessage = (bool)data["IsUserMessage"],
+    //        };
+    //    }
 
-        public object ToFirestore(ChatMessage message)
-        {
-            return new Dictionary<string, object>
-        {
-            { "SenderId", message.SenderId },
-            { "ReceiverId", message.ReceiverId },
-            { "Content", message.Content },
-            { "IsUserMessage", message.IsUserMessage },
-        };
-        }
+    //    public object ToFirestore(ChatMessage message)
+    //    {
+    //        return new Dictionary<string, object>
+    //    {
+    //        { "SenderId", message.SenderId },
+    //        { "ReceiverId", message.ReceiverId },
+    //        { "Content", message.Content },
+    //        { "IsUserMessage", message.IsUserMessage },
+    //    };
+    //    }
     }
 }

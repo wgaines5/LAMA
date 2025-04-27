@@ -40,7 +40,8 @@
                    ReturnType="Send"
                    Completed="OnSendMessage"/>
             <Button Text="Send"
-                    Command="{Binding SendMessageCommand}" />
+                    Clicked="OnSendMessage"
+                   />
         </StackLayout>
     </Grid>
     </ScrollView>
