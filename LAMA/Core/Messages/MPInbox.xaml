@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="LAMA.Core.Messages.MPInbox"
+             Title="MPInbox">
+    <ContentPage.Content>
+        <StackLayout Padding="20">
+            <Label Text="Pending Messages"
+                   FontSize="24"
+                   HorizontalOptions="Center"/>
+
+            <CollectionView x:Name="ConversationList"
+                            ItemsSource="{Binding Conversations}"
+                            SelectionMode="Single"
+                            SelectionChanged="OnSessionSelected">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame BorderColor="Gray" CornerRadius="10" Padding="10" Margin="5">
+                            <Label Text="{Binding LastMessage.Content}" LineBreakMode="TailTruncation"/>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

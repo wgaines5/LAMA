@@ -20,7 +20,7 @@ namespace LAMA.Core.Profile
         public DateTime CreatedAt { get; set; }
         public List<Conversation> Conversations { get; set; } = new List<Conversation>();
 
-
+        public User() { }
     }
 }
 

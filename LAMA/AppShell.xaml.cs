@@ -2,21 +2,25 @@
 using LAMA.Auth;
 using LAMA.Core.Messages;
 using LAMA.Core.Categories;
-
+using LAMA.Core.Profile;
 
 
 namespace LAMA
 {
     public partial class AppShell : Shell
     {
+
+        public static AppShell Instance { get; private set; }
+
+
         public AppShell()
         {
-        
             InitializeComponent();
-         
+            Instance = this;
+            ProfileContent.FlyoutItemIsVisible = false;
+
             Routing.RegisterRoute(nameof(MedFactsPage), typeof(MedFactsPage));
             Routing.RegisterRoute(nameof(CategoryPage), typeof(CategoryPage));
-            Routing.RegisterRoute(nameof(InboxPage), typeof(InboxPage));
             Routing.RegisterRoute(nameof(MessagePage), typeof(MessagePage));
             Routing.RegisterRoute(nameof(SettingsPage), typeof(SettingsPage));
             Routing.RegisterRoute(nameof(SignUpPage), typeof(SignUpPage));
@@ -30,6 +34,11 @@ namespace LAMA
             Routing.RegisterRoute(nameof(ChronicAPage), typeof(ChronicAPage));
             Routing.RegisterRoute(nameof(MedicationDPage), typeof(MedicationDPage));
             Routing.RegisterRoute(nameof(AlternativeHPage), typeof(AlternativeHPage));
+          
         }
+
+        public ShellContent ProfileContent => ProfileShellContent;
+
+ 
     }
 }

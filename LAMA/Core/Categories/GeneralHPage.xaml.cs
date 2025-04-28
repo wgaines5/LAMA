@@ -17,7 +17,7 @@ namespace LAMA.Core.Categories
                 return;
             }
 
-            await Shell.Current.GoToAsync(nameof(InboxPage), true,
+            await Shell.Current.GoToAsync(nameof(MessagePage), true,
                 new Dictionary<string, object> { { "Question", question } });
 
             QuestionEntry.Text = ""; // clear input

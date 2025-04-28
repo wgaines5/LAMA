@@ -5,6 +5,7 @@ using Firebase.Auth.Providers;
 using Google.Cloud.Firestore;
 using LAMA.Core.Profile;
 using LAMA.Core.Messages;
+
 namespace LAMA.Auth;
 
 public partial class UserSignUp : ContentPage
@@ -54,10 +55,11 @@ public partial class UserSignUp : ContentPage
                 QueriesSubmitted = 0,
                 ProfilePictureUrl = "",
                 Conversations = new List<Conversation>()
-            }; 
+            };
 
             // Serialize to Firestore format
-            string json = ConvertUserToFirestoreJson(newUser);
+            var storageServices = new UserStorageServices();
+            string json = storageServices.ConvertUserToFirestoreJson(newUser);
             string url = $"https://firestore.googleapis.com/v1/projects/lama-60ddc/databases/(default)/documents/users?documentId={uid}&access_token={idToken}";
 
             using var client = new HttpClient();
@@ -74,77 +76,16 @@ public partial class UserSignUp : ContentPage
             }
 
             await DisplayAlert("Success", "Account created successfully!", "OK");
-            await Shell.Current.GoToAsync($"//{nameof(ProfilePage)}");
+
+            UserSession.CurrentUser = newUser;
+            AppShell.Instance.ProfileContent.FlyoutItemIsVisible = true;
+
+            await Shell.Current.GoToAsync("//ProfilePage");
         }
         catch (Exception ex)
         {
             await DisplayAlert("Error", $"An error occurred:\n{ex.Message}", "OK");
         }
     }
-
-
-    private string ConvertUserToFirestoreJson(LAMA.Core.Profile.User user)
-    {
-        var firestoreJson = new
-        {
-            fields = new
-            {
-                uid = new { stringValue = user.Uid },
-                emailAddress = new { stringValue = user.EmailAddress },
-                fullName = new { stringValue = user.FirstName },
-                createdAt = new { timestampValue = user.CreatedAt.ToString("o") },
-                queriesSubmitted = new { integerValue = user.QueriesSubmitted.ToString()},
-                frequentCategory = new { stringValue =  user.FrequentCategory},
-                profilePictureUrl = new { stringValue = user.ProfilePictureUrl},
-                conversations = new
-                {
-                    arrayValue = new { values = new object[] { } }
-                }
-            }
-        };
-
-        return JsonSerializer.Serialize(firestoreJson);
-    }
-
-    private string ConvertConversationToFirestoreJson(Conversation conversation)
-    {
-        var firestoreJson = new
-        {
-            fields = new
-            {
-                conversationId = new { stringValue = conversation.ConversationId },
-                participantIds = new
-                {
-                    arrayValue = new
-                    {
-                        values = conversation.ParticipantIds.Select(id => new { stringValue = id }).ToList()
-                    }
-                },
-                messages = new
-                {
-                    arrayValue = new
-                    {
-                        values = conversation.Messages.Select(message => new
-                        {
-                            mapValue = new
-                            {
-                                fields = new
-                                {
-                                    senderId = new { stringValue = message.SenderId },
-                                    content = new { stringValue = message.Content },
-                                    timestamp = new { timestampValue = message.Timestamp.ToString("o") },
-                                    isRead = new { booleanValue = message.IsRead }
-                                }
-                            }
-                        }).ToList()
-                    }
-                },
-                lastUpdated = new { timestampValue = conversation.LastUpdated.ToString("o") }
-            }
-        };
-
-        return JsonSerializer.Serialize(firestoreJson);
-    }
-
-
+   
 }
