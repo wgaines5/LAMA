@@ -11,6 +11,7 @@ namespace LAMA.Core
     {
         public ObservableCollection<CategoryItem> Categories { get; set; }
         public ObservableCollection<MessageItem> PendingMessages { get; set; }
+        public ObservableCollection<Conversation> UnassignedMessages { get; set; }
         public int UsersAnswered { get; set; }
 
         public MPDashBoard()
@@ -28,12 +29,14 @@ namespace LAMA.Core
                 new() { Name = "Alternative & Holistic Medicine", IsSelected = false }
             ];
 
-            PendingMessages = new ObservableCollection<MessageItem>
-            {
-                new MessageItem { Message = "Patient: I need help with anxiety." },
-                new MessageItem { Message = "Patient: What are the side effects of my medication?" },
-                new MessageItem { Message = "Patient: How do I manage my diabetes better?" }
-            };
+            //PendingMessages = new ObservableCollection<MessageItem>
+            //{
+            //    new MessageItem { Message = "Patient: I need help with anxiety." },
+            //    new MessageItem { Message = "Patient: What are the side effects of my medication?" },
+            //    new MessageItem { Message = "Patient: How do I manage my diabetes better?" }
+            //};
+
+            UnassignedMessages = new ObservableCollection<Conversation> { new Conversation() };
 
             UsersAnswered = 0; // example count
 
