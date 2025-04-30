@@ -178,10 +178,9 @@
                    Margin="10"
                    Grid.Column="2"/>
             </Grid>
-            <!--<Frame.GestureRecognizers>
+            <Frame.GestureRecognizers>
                 <TapGestureRecognizer Tapped="OnChangeAccountsClicked"/>
             </Frame.GestureRecognizers>
-            -->
         </Frame>
 
         <!-- Logout Button -->
@@ -208,10 +207,9 @@
                    Margin="10"
                    Grid.Column="2"/>
             </Grid>
-            <!--<Frame.GestureRecognizers>
+            <Frame.GestureRecognizers>
                 <TapGestureRecognizer Tapped="OnLogoutClicked"/>
             </Frame.GestureRecognizers>
-            -->
         </Frame>
     </VerticalStackLayout>
 </ContentPage>

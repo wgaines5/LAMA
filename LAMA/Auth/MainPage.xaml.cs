@@ -26,11 +26,19 @@ namespace LAMA.Auth
 
         private async void OnMPSignupClicked(object sender, EventArgs e) 
         {
+            var animationTask = this.TranslateTo(-500, 0, 300, Easing.SinInOut);
+            var navigationDelay = Task.Delay(500); // slight overlap
+
+            await Task.WhenAll(animationTask, navigationDelay);
             await Shell.Current.GoToAsync("//SignUpPage");
         }
 
         private async void OnUserSignupClicked(object sender, EventArgs e)
         {
+            var animationTask = this.TranslateTo(-500, 0, 300, Easing.SinInOut);
+            var navigationDelay = Task.Delay(500); // slight overlap
+
+            await Task.WhenAll(animationTask, navigationDelay);
             await Shell.Current.GoToAsync("//UsrSignUp");
         }
 

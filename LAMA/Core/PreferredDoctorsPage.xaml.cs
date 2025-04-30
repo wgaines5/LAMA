@@ -10,11 +10,7 @@ namespace LAMA.Core
         private readonly FirestoreServices _firestoreService = new FirestoreServices();
 
         public ObservableCollection<Doctor> PreferredDoctors { get; set; } = new ObservableCollection<Doctor>();
-        public ObservableCollection<string> AllDoctors { get; set; } = new ObservableCollection<string>
-        {
-            "Dr. John Smith", "Dr. Sarah Johnson", "Dr. Emily Davis",
-            "Dr. Michael Brown", "Dr. James Wilson", "Dr. Anna Lee"
-        };
+        public ObservableCollection<Doctor> AllDoctors { get; set; } = new ObservableCollection<Doctor>();
 
         private string searchQuery = "";
 
@@ -32,13 +28,14 @@ namespace LAMA.Core
 
         private async Task LoadDoctorsFromFirestore()
         {
-            var doctors = await _firestoreService.GetPreferredDoctorsAsync();
-            PreferredDoctors.Clear();
+            var doctors = await _firestoreService.GetAllMedicalProvidersAsync();
+            AllDoctors.Clear();
             foreach (var doc in doctors)
             {
-                PreferredDoctors.Add(doc);
+                AllDoctors.Add(doc);
             }
         }
+
 
         private void OnSearchTextChanged(object sender, TextChangedEventArgs e)
         {
@@ -49,20 +46,16 @@ namespace LAMA.Core
         {
             if (!string.IsNullOrWhiteSpace(searchQuery))
             {
-                var matchingDoctor = AllDoctors.FirstOrDefault(d => d.ToLower().Contains(searchQuery.ToLower()));
-                if (matchingDoctor != null && !PreferredDoctors.Any(d => d.Name == matchingDoctor))
-                {
-                    var doctor = new Doctor { Name = matchingDoctor };
-                    PreferredDoctors.Add(doctor);
+                var matchingDoctor = AllDoctors.FirstOrDefault(d =>
+                    d.FullName.ToLower().Contains(searchQuery.ToLower()));
 
-                    // Save to Firestore
-                    var sampleModel = new SampleModel
+                if (matchingDoctor != null && !PreferredDoctors.Any(d => d.FullName == matchingDoctor.FullName))
+                {
+                    PreferredDoctors.Add(new Doctor
                     {
-                        Name = doctor.Name,
-                        Description = "",
-                        Created = DateTime.UtcNow
-                    };
-                    await _firestoreService.InsertSampleModel(sampleModel);
+                        FirstName = matchingDoctor.FirstName,
+                        LastName = matchingDoctor.LastName
+                    });
                 }
             }
         }
@@ -74,14 +67,19 @@ namespace LAMA.Core
             {
                 PreferredDoctors.Remove(doctor);
                 // Remove from Firestore by name (assuming name is unique)
-                await _firestoreService.DeleteDoctorByNameAsync(doctor.Name);
+                await _firestoreService.DeleteMedicalProviderAsync(doctor.FirstName, doctor.LastName);
+
             }
         }
     }
 
     public class Doctor
     {
-        public string Name { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
         public bool IsSelected { get; set; }
+
+        public string FullName => $"{FirstName} {LastName}";
     }
+
 }

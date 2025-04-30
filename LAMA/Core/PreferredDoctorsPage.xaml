@@ -25,7 +25,7 @@
                            Margin="5">
                         <HorizontalStackLayout>
                             <CheckBox IsChecked="{Binding IsSelected, Mode=TwoWay}"/>
-                            <Label Text="{Binding Name}" FontSize="16" VerticalOptions="Center"/>
+                            <Label Text="{Binding FullName}" FontSize="16" VerticalOptions="Center"/>
                         </HorizontalStackLayout>
                     </Frame>
                 </DataTemplate>

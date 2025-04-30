@@ -83,28 +83,50 @@ namespace LAMA.Services
             });
         }
 
-        public async Task<List<Doctor>> GetPreferredDoctorsAsync()
+        public async Task<List<Doctor>> GetAllMedicalProvidersAsync()
         {
             await SetupFirestore();
-            var snapshot = await db.Collection("SampleModels").GetSnapshotAsync();
+            var snapshot = await db.Collection("medical_providers").GetSnapshotAsync();
 
             var doctors = snapshot.Documents.Select(doc =>
             {
-                var model = doc.ConvertTo<SampleModel>();
+                var data = doc.ToDictionary();
                 return new Doctor
                 {
-                    Name = model.Name,
+                    FirstName = data.ContainsKey("firstName") ? data["firstName"].ToString() : "",
+                    LastName = data.ContainsKey("lastName") ? data["lastName"].ToString() : "",
                     IsSelected = false
                 };
             }).ToList();
 
             return doctors;
         }
-        public async Task DeleteDoctorByNameAsync(string name)
+
+
+        //public async Task<List<Doctor>> GetPreferredDoctorsAsync()
+        //{
+        //await SetupFirestore();
+        //var snapshot = await db.Collection("SampleModels").GetSnapshotAsync();
+
+        //var doctors = snapshot.Documents.Select(doc =>
+        //{
+        //var model = doc.ConvertTo<SampleModel>();
+        //return new Doctor
+        //{
+        //Name = model.Name,
+        //IsSelected = false
+        //};
+        //}).ToList();
+
+        //return doctors;
+        //}
+        public async Task DeleteMedicalProviderAsync(string firstName, string lastName)
         {
             await SetupFirestore();
-            var snapshot = await db.Collection("SampleModels")
-                .WhereEqualTo("Name", name)
+
+            var snapshot = await db.Collection("medical_providers")
+                .WhereEqualTo("firstName", firstName)
+                .WhereEqualTo("lastName", lastName)
                 .GetSnapshotAsync();
 
             foreach (var doc in snapshot.Documents)
