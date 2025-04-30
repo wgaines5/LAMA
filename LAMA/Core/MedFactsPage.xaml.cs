@@ -70,7 +70,11 @@ public class MedFactsViewModel : BindableObject
         }
         else
         {
-            // fallback or error handling
+            medFacts.Add(new MedFact
+            {
+                Text = "Unable to load medical facts. Please check your connection or try again later.",
+                IsBookmarked = false
+            });
         }
     }
 
