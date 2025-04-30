@@ -35,7 +35,7 @@ namespace LAMA.Auth
             UserSession.Credential = credential;
             UserSession.UserId = credential.User.Uid;
 
-            // Load user role from Firestore
+            // Load role from Firestore
             FirestoreDb db = FirestoreDb.Create("lama-60ddc");
             var doc = await db.Collection("users").Document(credential.User.Uid).GetSnapshotAsync();
 
@@ -44,7 +44,7 @@ namespace LAMA.Auth
             else
                 UserSession.Role = "guest";
 
-            // Navigate page based on role
+            // Navigate based on role
             if (UserSession.Role == "user")
                 await Shell.Current.GoToAsync($"//{nameof(MainPage)}");
             else
