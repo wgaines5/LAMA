@@ -4,15 +4,17 @@ using System.Text.Json;
 using LAMA.Auth;
 using System.ComponentModel;
 using System.Text;
+using LAMA.Services;
 
 namespace LAMA.Core
 {
     public partial class MPDashBoard : ContentPage
     {
         public ObservableCollection<CategoryItem> Categories { get; set; }
-        public ObservableCollection<MessageItem> PendingMessages { get; set; }
+        public ObservableCollection<UnassignedMessage> PendingMessages { get; set; }
         public ObservableCollection<Conversation> UnassignedMessages { get; set; }
         public int UsersAnswered { get; set; }
+        FirestoreServices firestoreServices = new FirestoreServices();
 
         public MPDashBoard()
         {
@@ -36,7 +38,7 @@ namespace LAMA.Core
             //    new MessageItem { Message = "Patient: How do I manage my diabetes better?" }
             //};
 
-            UnassignedMessages = new ObservableCollection<Conversation> { new Conversation() };
+            PendingMessages = new ObservableCollection<UnassignedMessage>();
 
             UsersAnswered = 0; // example count
 
@@ -50,6 +52,8 @@ namespace LAMA.Core
             UsersAnsweredCount.Text = UsersAnswered.ToString();
 
             _ = LoadUserProfileAsync();
+            LoadUnassignedMessages();
+            
         }
 
         private async Task LoadUserProfileAsync()
@@ -131,11 +135,11 @@ namespace LAMA.Core
 
         private async void OnReplyClicked(object sender, EventArgs e)
         {
-            if (sender is Button button && button.BindingContext is MessageItem message)
-            {
-                await Shell.Current.GoToAsync($"{nameof(MessagePage)}?Question={Uri.EscapeDataString(message.Message)}");
-                PendingMessages.Remove(message);
-            }
+            //if (sender is Button button && button.BindingContext is MessageItem message)
+            //{
+            //    await Shell.Current.GoToAsync($"{nameof(MessagePage)}?Question={Uri.EscapeDataString(message.Message)}");
+            //    PendingMessages.Remove(message);
+            //}
         }
 
         private async Task UpdateSelectedCategoriesInFirestore()
@@ -175,9 +179,18 @@ namespace LAMA.Core
             await client.SendAsync(request);
         }
 
-        private async Task<List<Conversation>> GetConversationsFromFirestoreAsysnc()
+        private async void LoadUnassignedMessages()
         {
+            var messages = await firestoreServices.GetUnassignedAsync();
 
+            MainThread.BeginInvokeOnMainThread(() =>
+            {
+                PendingMessages.Clear();
+                foreach (var message in messages)
+                {
+                    PendingMessages.Add(message);
+                }
+            });
         }
     }
 

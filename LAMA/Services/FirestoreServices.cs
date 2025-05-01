@@ -1,7 +1,6 @@
 ﻿using Firebase.Auth.Requests;
 using Google.Api;
 using Google.Cloud.Firestore;
-using Java.Nio.Channels;
 using LAMA.Core.Messages;
 using System;
 using System.Collections.Generic;
@@ -16,12 +15,12 @@ namespace LAMA.Services
     public class FirestoreServices
     {
         public FirestoreDb db;
-        private readonly HttpClient _httpClient;
+        private HttpClient _httpClient;
         private readonly string _url;
 
         public async Task<List<Conversation>> GetUnassignedConversationsAsync()
         {
-            var url = "";
+            string url = "https://firestore.googleapis.com/v1/projects/lama-60ddc/databases/(default)/documents/unassigned_queries/fcL8qgVXnlVeY7DIfiNk";
 
             var client = new HttpClient();
             var response = await client.GetAsync(url);
@@ -120,6 +119,36 @@ namespace LAMA.Services
             }
             return messages;
         }
+
+        public async Task<List<UnassignedMessage>> GetUnassignedAsync()
+        {
+            string url = "https://firestore.googleapis.com/v1/projects/lama-60ddc/databases/(default)/documents/unassigned_queries";
+            _httpClient = new HttpClient();
+            var response = await _httpClient.GetAsync(url);
+            if (!response.IsSuccessStatusCode)
+            {
+                return new List<UnassignedMessage>();
+            }
+
+            string json = await response.Content.ReadAsStringAsync();
+            var document = JsonDocument.Parse(json);
+
+            List<UnassignedMessage> unassignedMessages = new List<UnassignedMessage>();
+
+            foreach (var doc in document.RootElement.GetProperty("documents").EnumerateArray())
+            {
+                var fields = doc.GetProperty("fields");
+
+                unassignedMessages.Add(new UnassignedMessage
+                {
+                    IsAssigned = fields.GetProperty("isAssigned").GetProperty("booleanValue").GetBoolean(),
+                    Text = fields.GetProperty("message").GetProperty("stringValue").GetString(),
+                    SenderId = fields.GetProperty("senderId").GetProperty("stringValue").GetString(),
+                    Timestamp = DateTime.Parse(fields.GetProperty("timestamp").GetProperty("timestampValue").GetString())
+                });
+            }
+            return unassignedMessages;
+        }
     }
     [FirestoreData]
     public class SampleModel
@@ -136,11 +165,11 @@ namespace LAMA.Services
 
     public class DateTimeToTimeStampConverter : IFirestoreConverter<DateTime>
     {
-        public object ToFirestore(DateTime value) => Timestamp.FromDateTime(value.ToUniversalTime());
+        public object ToFirestore(DateTime value) => Google.Cloud.Firestore.Timestamp.FromDateTime(value.ToUniversalTime());
 
         public DateTime FromFirestore(object value)
         {
-            if (value is Timestamp timestamp)
+            if (value is Google.Cloud.Firestore.Timestamp timestamp)
             {
                 return timestamp.ToDateTime();
             }
