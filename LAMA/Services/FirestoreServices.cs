@@ -27,7 +27,7 @@ namespace LAMA.Services
 
                 db = new FirestoreDbBuilder
                 {
-                    ProjectId = "lama-7054a",
+                    ProjectId = "lama-60ddc",
 
                     ConverterRegistry = new ConverterRegistry
                     {
@@ -88,16 +88,41 @@ namespace LAMA.Services
             await SetupFirestore();
             var snapshot = await db.Collection("medical_providers").GetSnapshotAsync();
 
-            var doctors = snapshot.Documents.Select(doc =>
+            Console.WriteLine($"Firestore returned {snapshot.Count} docs");
+
+            var doctors = new List<Doctor>();
+
+            foreach (var doc in snapshot.Documents)
             {
                 var data = doc.ToDictionary();
-                return new Doctor
+
+                try
                 {
-                    FirstName = data.ContainsKey("firstName") ? data["firstName"].ToString() : "",
-                    LastName = data.ContainsKey("lastName") ? data["lastName"].ToString() : "",
-                    IsSelected = false
-                };
-            }).ToList();
+                    var firstName = data.ContainsKey("firstName") ? data["firstName"].ToString() : null;
+                    var lastName = data.ContainsKey("lastName") ? data["lastName"].ToString() : null;
+
+                    if (!string.IsNullOrEmpty(firstName) && !string.IsNullOrEmpty(lastName))
+                    {
+                        doctors.Add(new Doctor
+                        {
+                            Id = doc.Id,
+                            FirstName = firstName,
+                            LastName = lastName,
+                            IsSelected = false
+                        });
+
+                        Console.WriteLine($"✅ Loaded: {firstName} {lastName}");
+                    }
+                    else
+                    {
+                        Console.WriteLine($"⚠️ Missing name fields in doc: {doc.Id}");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"❌ Failed to parse doctor doc {doc.Id}: {ex.Message}");
+                }
+            }
 
             return doctors;
         }
@@ -134,6 +159,13 @@ namespace LAMA.Services
                 await doc.Reference.DeleteAsync();
             }
         }
+
+        public async Task DeleteMedicalProviderByIdAsync(string doctorId)
+        {
+            await SetupFirestore();
+            await db.Collection("medical_providers").Document(doctorId).DeleteAsync();
+        }
+
     }
     [FirestoreData]
     public class SampleModel

@@ -8,9 +8,25 @@
         <!-- Search Box (For adding new doctors) -->
         <Label Text="Search and Add a Doctor:" FontSize="18" FontAttributes="Bold"/>
         <Entry x:Name="SearchEntry"
-               Placeholder="Search for a doctor..."
-               TextChanged="OnSearchTextChanged"/>
+       Placeholder="Search for a doctor..."
+       TextChanged="OnSearchTextChanged" />
+
+        <!-- Autocomplete Dropdown -->
+        <CollectionView x:Name="SearchSuggestionsList"
+                ItemsSource="{Binding FilteredDoctors}"
+                IsVisible="{Binding IsSuggestionsVisible}"
+                SelectionMode="Single">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Frame Padding="5" Margin="2" BackgroundColor="White" BorderColor="LightGray">
+                        <Label Text="{Binding FullName}" />
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
         <Button Text="Add Doctor" Clicked="OnAddDoctorClicked"/>
+
 
         <!-- Selected Doctors Section -->
         <Label Text="Your Preferred Doctors:" FontSize="18" FontAttributes="Bold"/>

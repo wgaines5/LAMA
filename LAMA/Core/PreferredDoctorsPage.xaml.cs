@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Linq;
 using LAMA.Services;
+using CommunityToolkit.Mvvm.DependencyInjection;
 
 namespace LAMA.Core
 {
@@ -12,27 +13,63 @@ namespace LAMA.Core
         public ObservableCollection<Doctor> PreferredDoctors { get; set; } = new ObservableCollection<Doctor>();
         public ObservableCollection<Doctor> AllDoctors { get; set; } = new ObservableCollection<Doctor>();
 
+        public ObservableCollection<Doctor> FilteredDoctors { get; set; } = new();
+        public bool IsSuggestionsVisible { get; set; }
+
+
         private string searchQuery = "";
 
         public PreferredDoctorsPage()
         {
             InitializeComponent();
             BindingContext = this;
+
+            SearchSuggestionsList.SelectionChanged += async (s, e) =>
+            {
+                if (e.CurrentSelection.FirstOrDefault() is Doctor selectedDoctor)
+                {
+                    if (!PreferredDoctors.Any(d => d.Id == selectedDoctor.Id))
+                    {
+                        PreferredDoctors.Add(new Doctor
+                        {
+                            Id = selectedDoctor.Id,
+                            FirstName = selectedDoctor.FirstName,
+                            LastName = selectedDoctor.LastName
+                        });
+                    }
+
+                    // Clear search box & dropdown
+                    SearchEntry.Text = "";
+                    FilteredDoctors.Clear();
+                    IsSuggestionsVisible = false;
+
+                    OnPropertyChanged(nameof(FilteredDoctors));
+                    OnPropertyChanged(nameof(IsSuggestionsVisible));
+                }
+            };
+
         }
 
         protected override async void OnAppearing()
         {
             base.OnAppearing();
+            Console.WriteLine("OnAppearing triggered ✅"); // <- DEBUG
             await LoadDoctorsFromFirestore();
         }
 
         private async Task LoadDoctorsFromFirestore()
         {
+            Console.WriteLine("Fetching doctors from Firestore...");
+
             var doctors = await _firestoreService.GetAllMedicalProvidersAsync();
+
+            Console.WriteLine($"Fetched {doctors.Count} doctors from Firestore");
+
             AllDoctors.Clear();
             foreach (var doc in doctors)
             {
                 AllDoctors.Add(doc);
+                Console.WriteLine($"Loaded doctor: {doc.FullName}");
             }
         }
 
@@ -40,7 +77,28 @@ namespace LAMA.Core
         private void OnSearchTextChanged(object sender, TextChangedEventArgs e)
         {
             searchQuery = e.NewTextValue?.Trim() ?? "";
+
+            FilteredDoctors.Clear();
+            if (!string.IsNullOrWhiteSpace(searchQuery))
+            {
+                var matches = AllDoctors
+                    .Where(d => d.FullName.ToLower().Contains(searchQuery.ToLower()))
+                    .Take(5); // limit
+
+                foreach (var doctor in matches)
+                    FilteredDoctors.Add(doctor);
+
+                IsSuggestionsVisible = FilteredDoctors.Any();
+            }
+            else
+            {
+                IsSuggestionsVisible = false;
+            }
+
+            OnPropertyChanged(nameof(FilteredDoctors));
+            OnPropertyChanged(nameof(IsSuggestionsVisible));
         }
+
 
         private async void OnAddDoctorClicked(object sender, EventArgs e)
         {
@@ -53,6 +111,7 @@ namespace LAMA.Core
                 {
                     PreferredDoctors.Add(new Doctor
                     {
+                        Id = matchingDoctor.Id,
                         FirstName = matchingDoctor.FirstName,
                         LastName = matchingDoctor.LastName
                     });
@@ -67,19 +126,41 @@ namespace LAMA.Core
             {
                 PreferredDoctors.Remove(doctor);
                 // Remove from Firestore by name (assuming name is unique)
-                await _firestoreService.DeleteMedicalProviderAsync(doctor.FirstName, doctor.LastName);
+                await _firestoreService.DeleteMedicalProviderByIdAsync(doctor.Id);
+            }
+        }
 
+        private void OnSuggestionSelected(object sender, SelectionChangedEventArgs e)
+        {
+            if (e.CurrentSelection.FirstOrDefault() is Doctor selectedDoctor)
+            {
+                if (!PreferredDoctors.Any(d => d.Id == selectedDoctor.Id))
+                {
+                    PreferredDoctors.Add(new Doctor
+                    {
+                        Id = selectedDoctor.Id,
+                        FirstName = selectedDoctor.FirstName,
+                        LastName = selectedDoctor.LastName
+                    });
+                }
+
+                // Reset UI
+                SearchEntry.Text = "";
+                FilteredDoctors.Clear();
+                IsSuggestionsVisible = false;
+
+                OnPropertyChanged(nameof(FilteredDoctors));
+                OnPropertyChanged(nameof(IsSuggestionsVisible));
             }
         }
     }
 
     public class Doctor
     {
+        public string Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public bool IsSelected { get; set; }
-
         public string FullName => $"{FirstName} {LastName}";
     }
-
 }
