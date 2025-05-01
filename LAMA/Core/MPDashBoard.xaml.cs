@@ -174,6 +174,11 @@ namespace LAMA.Core
 
             await client.SendAsync(request);
         }
+
+        private async Task<List<Conversation>> GetConversationsFromFirestoreAsysnc()
+        {
+
+        }
     }
 
     public class CategoryItem : INotifyPropertyChanged

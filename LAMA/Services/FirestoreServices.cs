@@ -1,11 +1,14 @@
-﻿using Google.Api;
+﻿using Firebase.Auth.Requests;
+using Google.Api;
 using Google.Cloud.Firestore;
+using Java.Nio.Channels;
 using LAMA.Core.Messages;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace LAMA.Services
@@ -16,70 +19,106 @@ namespace LAMA.Services
         private readonly HttpClient _httpClient;
         private readonly string _url;
 
-        private async Task SetupFirestore()
+        public async Task<List<Conversation>> GetUnassignedConversationsAsync()
         {
-            if (db == null)
+            var url = "";
+
+            var client = new HttpClient();
+            var response = await client.GetAsync(url);
+
+            if (!response.IsSuccessStatusCode)
             {
-                var stream = await FileSystem.OpenAppPackageFileAsync("admin-sdk.json");
-                var reader = new StreamReader(stream);
-                var contents = reader.ReadToEnd();
-
-                db = new FirestoreDbBuilder
-                {
-                    ProjectId = "lama-7054a",
-
-                    ConverterRegistry = new ConverterRegistry
-                    {
-                        new DateTimeToTimeStampConverter()
-                    },
-                    JsonCredentials = contents
-                }.Build();
+                return new List<Conversation>();
             }
-        }
 
-        public async Task InsertSampleModel(SampleModel sample)
-        {
-            await SetupFirestore();
-            await db.Collection("SampleModels").AddAsync(sample);
-        }
+            var json = await response.Content.ReadAsStringAsync();
+            var parsed = JsonDocument.Parse(json);
 
-        public async Task<List<SampleModel>> GetSampleModel()
-        {
-            await SetupFirestore();
-            var data = await db
-                .Collection("SampleModels")
-                .GetSnapshotAsync();
+            var conversations = new List<Conversation>();
 
-            var sampleModels = data.Documents
-                .Select(doc =>
-                {
-                    var sampleModel = doc.ConvertTo<SampleModel>();
-                    sampleModel.Id = doc.Id;
-                    return sampleModel;
-                }).ToList();
-            return sampleModels;
-        }
-
-        public async Task SendMessage(ChatMessage message)
-        {
-            await SetupFirestore();
-            DocumentReference docRef = db.Collection("messages").Document();
-            await docRef.SetAsync(message);
-        }
-
-        public async void ListenForMessages(string userId, Action<List<ChatMessage>> onMessageUpdated)
-        {
-            await SetupFirestore();
-            var query = db.Collection("messages")
-                .WhereEqualTo("ReceiverId", userId)
-                .OrderBy("SentAt");
-
-            query.Listen(snapshot =>
+            if (parsed.RootElement.TryGetProperty("documents", out var documents))
             {
-                var messages = snapshot.Documents.Select(doc => doc.ConvertTo<ChatMessage>()).ToList();
+                foreach (var doc in documents.EnumerateArray())
+                {
+                    var fields = doc.GetProperty("fields");
+                    Conversation conversation = new Conversation
+                    {
+                        ConversationId = fields.GetProperty("conversationId").GetProperty("stringValue").GetString(),
+                        ProviderId = fields.GetProperty("providerId").GetProperty("stringValue").GetString(),
+                        LastUpdated = DateTime.Parse(fields.GetProperty("lastUpdated").GetProperty("timestampValue").GetString()),
+                        LastMessage = ParseChatMessage(fields.GetProperty("lastMessage").GetProperty("mapValue").GetProperty("fields")),
+                        ParticipantIds = ParseParticipantIds(fields),
+                        ChatMessages = ParseChatMessages(fields),
+                        Messages = ParseMessages(fields)
+                    };
+                    conversations.Add(conversation);
+                }
+            }
+            return conversations;
+        }
 
-                onMessageUpdated(messages);
-            });
+        private ChatMessage ParseChatMessage(JsonElement fields)
+        {
+            return new ChatMessage
+            {
+                Content = fields.GetProperty("content").GetProperty("stringValue").GetString(),
+                SenderId = fields.GetProperty("senderId").GetProperty("stringValue").GetString(),
+                ReceiverId = fields.GetProperty("recieverId").GetProperty("stringValue").GetString(),
+                SentAt = fields.GetProperty("sentAt").GetProperty("timestampValue").GetString(),
+                SessionId = fields.GetProperty("sessionId").GetProperty("stringValue").GetString()
+            };
+        }
+
+        private List<ChatMessage> ParseChatMessages(JsonElement fields)
+        {
+            List<ChatMessage> chatMessages = new List<ChatMessage>();
+
+            if (fields.TryGetProperty("chatMessages", out var chatMessagesField))
+            {
+                foreach (var field in chatMessagesField.GetProperty("arrayValue").GetProperty("values").EnumerateArray())
+                {
+                    var messageFields = field.GetProperty("mapValue").GetProperty("fields");
+                    chatMessages.Add(ParseChatMessage(messageFields));
+                }
+            }
+            return chatMessages;
+        }
+
+        private List<string> ParseParticipantIds(JsonElement fields) 
+        {
+            List<string> participantIds = new List<string>();
+
+            if (fields.TryGetProperty("participantIds", out var participantField))
+            {
+                foreach (var idField in participantField.GetProperty("arrayValue").GetProperty("values").EnumerateArray())
+                {
+                    participantIds.Add(idField.GetProperty("stringValue").GetString());
+                }
+            }
+            return participantIds;
+        }
+
+        private List<Message> ParseMessages(JsonElement fields)
+        {
+            List<Message> messages = new List<Message>();
+
+            if (fields.TryGetProperty("messages", out var messagesField))
+            {
+                foreach (var messageField in messagesField.GetProperty("arrayValue").GetProperty("values").EnumerateArray())
+                {
+                    var msgFields = messageField.GetProperty("mapValue").GetProperty("fields");
+
+                    Message message = new Message
+                    {
+                        SenderId = msgFields.GetProperty("senderId").GetProperty("stringValue").GetString(),
+                        Content = msgFields.GetProperty("content").GetProperty("stringValue").GetString(),
+                        Timestamp = DateTime.Parse(msgFields.GetProperty("timestamp").GetProperty("timestampValue").GetString()),
+                        IsRead = msgFields.GetProperty("isRead").GetProperty("booleanValue").GetBoolean()
+                    };
+                    messages.Add(message);
+                }
+            }
+            return messages;
         }
     }
     [FirestoreData]
