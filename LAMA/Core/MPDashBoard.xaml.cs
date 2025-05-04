@@ -30,15 +30,6 @@ namespace LAMA.Core
                 new() { Name = "Alternative & Holistic Medicine", IsSelected = false }
             ];
 
-            //PendingMessages = new ObservableCollection<MessageItem>
-            //{
-            //    new MessageItem { Message = "Patient: I need help with anxiety." },
-            //    new MessageItem { Message = "Patient: What are the side effects of my medication?" },
-            //    new MessageItem { Message = "Patient: How do I manage my diabetes better?" }
-            //};
-
-        
-
             UsersAnswered = 0; // example count
 
             foreach (CategoryItem categoryI in Categories)
@@ -135,10 +126,17 @@ namespace LAMA.Core
         {
             if (sender is Button button && button.BindingContext is MessageItem message)
             {
-                await Shell.Current.GoToAsync($"{nameof(MessagePage)}?Question={Uri.EscapeDataString(message.Message)}");
+                var senderId = message.SenderId;
+                var navigationUrl = $"{nameof(MessagePage)}?SenderId={senderId}";
+
+                await Shell.Current.GoToAsync(navigationUrl);
                 PendingMessages.Remove(message);
+        
             }
+
         }
+
+
 
         private async Task UpdateSelectedCategoriesInFirestore()
         {
@@ -232,6 +230,16 @@ namespace LAMA.Core
         public bool IsAssigned { get; set; }
         public string SenderId { get; set; }
         public string Timestamp { get; set; }
+        public bool IsUserMessage { get; set; }
 
     }
 }
+
+
+
+//PendingMessages = new ObservableCollection<MessageItem>
+//{
+//    new MessageItem { Message = "Patient: I need help with anxiety." },
+//    new MessageItem { Message = "Patient: What are the side effects of my medication?" },
+//    new MessageItem { Message = "Patient: How do I manage my diabetes better?" }
+//};

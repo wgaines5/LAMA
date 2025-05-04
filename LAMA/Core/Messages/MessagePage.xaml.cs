@@ -4,21 +4,100 @@ using AndroidX.Lifecycle;
 #endif
 
 using LAMA.Auth;
+using Newtonsoft.Json;
+using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Text;
 using System.Text.Json;
 
 namespace LAMA.Core.Messages;
 
+[QueryProperty(nameof(SenderId), "SenderId")]
 public partial class MessagePage : ContentPage
 {
 
     LAMA.Core.Profile.User _currentUser = UserSession.CurrentUser;
 
-	public MessagePage()
-	{
-		InitializeComponent();
+    public string SenderId { get; set; }
 
-	}
+    public ObservableCollection<MessageItem> Messages { get; set; } = new();
+    
+    public MessagePage()
+    {
+        InitializeComponent();
+
+        BindingContext = this;
+
+    }
+
+    protected override async void OnAppearing()
+    {
+        base.OnAppearing();
+
+        // Debug output to ensure SenderId is properly passed to the page
+        Console.WriteLine($"Received SenderId: {SenderId}");
+
+        // Clear existing messages to avoid duplicates when navigating back to this page
+        Messages.Clear();
+
+        // Check that a valid SenderId was provided
+        if (!string.IsNullOrEmpty(SenderId))
+        {
+            try
+            {
+                // Attempt to load messages associated with the provided SenderId
+                var userMessages = await LoadMessagesForUserAsync(SenderId);
+
+                if (userMessages != null && userMessages.Any())
+                {
+                    // Add the messages to the bound ObservableCollection
+                    foreach (var msg in userMessages)
+                        Messages.Add(msg);
+
+                    // Debug output to confirm success
+                    Console.WriteLine($"Loaded {Messages.Count} message(s) for SenderId: {SenderId}");
+                }
+                else
+                {
+                    Console.WriteLine("No messages found for this SenderId.");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error retrieving messages: {ex.Message}");
+            }
+        }
+        else
+        {
+            Console.WriteLine("SenderId was null or empty.");
+        }
+    }
+
+    public async Task<List<MessageItem>> LoadMessagesForUserAsync(string senderId)
+    {
+        try
+        {
+            var response = await new HttpClient().GetStringAsync("https://lama-60ddc-default-rtdb.firebaseio.com/unassigned_queries.json");
+
+            var allMessages = JsonConvert.DeserializeObject<Dictionary<string, MessageItem>>(response);
+
+            if (allMessages == null)
+                return new List<MessageItem>();
+
+            var filtered = allMessages.Values
+                .Where(m => m.SenderId == senderId)
+                .OrderBy(m => DateTime.Parse(m.Timestamp))
+                .ToList();
+
+            return filtered;
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error loading user messages: {ex.Message}");
+            return new List<MessageItem>();
+        }
+    }
+
 
     private async void OnSendMessage(object sender, EventArgs e)
     {
@@ -48,8 +127,8 @@ public partial class MessagePage : ContentPage
         };
 
 
-        string jsonFirestoreBody = JsonSerializer.Serialize(messageData);
-        string jsonRealtimeBody = JsonSerializer.Serialize(realtimeMessage);
+        string jsonFirestoreBody = System.Text.Json.JsonSerializer.Serialize(messageData);
+        string jsonRealtimeBody = System.Text.Json.JsonSerializer.Serialize(realtimeMessage);
 
 
         string userConvoUrl = $"https://firestore.googleapis.com/v1/projects/lama-60ddc/databases/(default)/documents/users/{_currentUser.Uid}/conversations";
