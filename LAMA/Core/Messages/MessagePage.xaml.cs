@@ -27,15 +27,11 @@ public partial class MessagePage : ContentPage
         InitializeComponent();
 
         BindingContext = this;
-
     }
 
     protected override async void OnAppearing()
     {
         base.OnAppearing();
-
-        // Debug output to ensure SenderId is properly passed to the page
-        Console.WriteLine($"Received SenderId: {SenderId}");
 
         // Clear existing messages to avoid duplicates when navigating back to this page
         Messages.Clear();
@@ -98,7 +94,6 @@ public partial class MessagePage : ContentPage
         }
     }
 
-
     private async void OnSendMessage(object sender, EventArgs e)
     {
 
@@ -106,17 +101,6 @@ public partial class MessagePage : ContentPage
 
         if (string.IsNullOrEmpty(messageText))
             return;
-
-        var messageData = new
-        {
-            fields = new
-            {
-                message = new { stringValue = messageText },
-                timestamp = new { timestampValue = DateTime.UtcNow.ToString("o") },
-                senderId = new { stringValue = _currentUser.Uid },
-                isAssigned = new { booleanValue = false }
-            }
-        };
 
         var realtimeMessage = new
         {
@@ -126,11 +110,7 @@ public partial class MessagePage : ContentPage
             isAssigned = false
         };
 
-
-        string jsonFirestoreBody = System.Text.Json.JsonSerializer.Serialize(messageData);
         string jsonRealtimeBody = System.Text.Json.JsonSerializer.Serialize(realtimeMessage);
-
-        string unassignedUrl = "https://firestore.googleapis.com/v1/projects/lama-60ddc/databases/(default)/documents/unassigned_queries";
         string unassignedUrlRealtime = "https://lama-60ddc-default-rtdb.firebaseio.com/unassigned_queries.json";
 
         try
@@ -148,7 +128,6 @@ public partial class MessagePage : ContentPage
 
     }
 
-
     private async Task PostToRealtimeDatabaseAsync(string url, string jsonBody)
     {
         using (var client = new HttpClient())
@@ -162,7 +141,6 @@ public partial class MessagePage : ContentPage
             }
         }
     }
-
 
 }
 
