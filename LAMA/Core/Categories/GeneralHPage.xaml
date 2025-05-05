@@ -13,7 +13,7 @@
 
         <BoxView Grid.Row="0"
              Color="Black"
-             Opacity="0.3" />
+             Opacity="0.4" />
 
         <ScrollView Grid.Row="0">
             <VerticalStackLayout Padding="20" Spacing="15">

@@ -12,24 +12,7 @@
   FlyoutBackgroundColor="#c1d9e0"
     Title="LAMA">
 
-    <!--Authentication Pages-->
-
-    <ShellContent
-    Title="Test Sign In"
-    ContentTemplate="{DataTemplate auth:AuthTestSignUpPage}"
-    Route="TestSignUp"
-        FlyoutItemIsVisible="False"
-    />
-
-
-    <ShellContent
-    Title="Test Sign Up"
-    ContentTemplate="{DataTemplate auth:AuthTestSignInPage}"
-    Route="TestSignIn"
-        FlyoutItemIsVisible="False"
-    />
-
-
+    <!--AUTH-->
 
     <ShellContent
         Title="🏠 Home"
@@ -45,12 +28,12 @@
 
     <ShellContent
      Title="User Sign Up"
-     ContentTemplate="{DataTemplate auth:UsrSignUp}"
+     ContentTemplate="{DataTemplate auth:UserSignUp}"
      Route="UsrSignUp" 
      FlyoutItemIsVisible="False"
      />
 
-
+    <!--CORE-->
     <ShellContent
         Title="💬 Messages"
         ContentTemplate="{DataTemplate messages:MessagePage}"
@@ -62,32 +45,20 @@
         ContentTemplate="{DataTemplate core:MPDashBoard}"
         Route="MPDashBoard"/>
 
-    <ShellSection Title="👤 Profile">
+    <!--Profile Page-->
+    <ShellContent
+        x:Name="ProfileShellContent"
+        Title="👤 Profile"
+        Route="ProfilePage"
+        ContentTemplate="{DataTemplate profile:ProfilePage}"
+/>
 
-
-        <ShellContent
-Title="Profile"
-ContentTemplate="{DataTemplate profile:ProfilePage}"
-Route="ProfilePage" />
-        </ShellSection>
 
     <ShellSection Title="📖 Facts">
-
-
         <ShellContent
  Title="Facts"
  ContentTemplate="{DataTemplate core:MedFactsPage}"
  Route="MedFactsPage" />
-
-        </ShellSection>
-
-
-    <ShellSection Title="📥 Inbox">
-        <ShellContent
-Title="Messages"
-ContentTemplate="{DataTemplate messages:InboxPage}"
-Route="InboxPage" />
-
 
     </ShellSection>
 
@@ -98,7 +69,7 @@ Title="Categories"
 ContentTemplate="{DataTemplate core:CategoryPage}"
 Route="CategoryPage" />
 
-        </ShellSection>
+    </ShellSection>
 
 
     <ShellSection Title="⚙️ Settings" >
@@ -108,7 +79,7 @@ Route="CategoryPage" />
 Title="Settings"
 ContentTemplate="{DataTemplate core:SettingsPage}"
 Route="SettingsPage" />
-        </ShellSection>
+    </ShellSection>
 
     <ShellSection Title="ℹ️⚠️ About" >
 
@@ -148,9 +119,9 @@ Route="SettingsPage" />
         Route="SavedFacts"/>
 
     <ShellContent
-    Title='Firestore Test'
-    ContentTemplate="{DataTemplate local:Sample}"
-    Route="Sample"/>
+    Title='Med Provider Inbox'
+    ContentTemplate="{DataTemplate messages:MPInbox}"
+    Route="MpInbox"/>
 
     <ShellContent
         Title="Accessibility"
