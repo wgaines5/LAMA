@@ -42,7 +42,7 @@
                     <DataTemplate>
                         <Frame Padding="10" BackgroundColor="#01a4ff" CornerRadius="10" HasShadow="True">
                             <VerticalStackLayout>
-                                <Label Text="{Binding Message}" FontSize="16"/>
+                                <Label Text="{Binding Text}" FontSize="16"/>
                                 <Button Text="Reply" Clicked="OnReplyClicked"/>
                             </VerticalStackLayout>
                         </Frame>
@@ -71,6 +71,14 @@
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
+            
+            <Button
+                Text="LOGOUT"
+                Clicked="OnLogoutClicked"
+                BackgroundColor="#30cfcb"
+                TextColor="Black"
+                FontAttributes="Bold"
+                HorizontalOptions="Center" />
 
         </VerticalStackLayout>
     </ScrollView>

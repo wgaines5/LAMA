@@ -36,43 +36,7 @@
             </Frame>
 
             <ScrollView Orientation="Horizontal" HeightRequest="140">
-                <HorizontalStackLayout Spacing="15" Padding="10">
-                    <Frame CornerRadius="15" BackgroundColor="#34485a" Padding="10">
-                        <VerticalStackLayout HorizontalOptions="Center" Spacing="5">
-                            <Image Source="mdamin.png" WidthRequest="90" HeightRequest="90"/>
-                            <Label Text="Dr.Amin" FontSize="16" FontAttributes="Bold" HorizontalOptions="Center"/>
-                        </VerticalStackLayout>
-                    </Frame>
-
-                    <Frame CornerRadius="15" BackgroundColor="#34485a" Padding="10">
-                        <VerticalStackLayout HorizontalOptions="Center" Spacing="5">
-                            <Image Source="mdcal.png" WidthRequest="90" HeightRequest="90"/>
-                            <Label Text="Dr.Calzado" FontSize="16" FontAttributes="Bold" HorizontalOptions="Center"/>
-                        </VerticalStackLayout>
-                    </Frame>
-
-                    <Frame CornerRadius="15" BackgroundColor="#34485a" Padding="10">
-                        <VerticalStackLayout HorizontalOptions="Center" Spacing="5">
-                            <Image Source="mdtaw.png" WidthRequest="90" HeightRequest="90"/>
-                            <Label Text="Dr.Tawadrous" FontSize="16" FontAttributes="Bold" HorizontalOptions="Center"/>
-                        </VerticalStackLayout>
-                    </Frame>
-
-                    <Frame CornerRadius="15" BackgroundColor="#34485a" Padding="10">
-                        <VerticalStackLayout HorizontalOptions="Center" Spacing="5">
-                            <Image Source="mdmaro.png" WidthRequest="90" HeightRequest="90"/>
-                            <Label Text="Dr.Maarouf" FontSize="16" FontAttributes="Bold" HorizontalOptions="Center"/>
-                        </VerticalStackLayout>
-                    </Frame>
-
-                    <Frame CornerRadius="15" BackgroundColor="#34485a" Padding="10">
-                        <VerticalStackLayout HorizontalOptions="Center" Spacing="5">
-                            <Image Source="mdmalk.png" WidthRequest="90" HeightRequest="90"/>
-                            <Label Text="Dr.Malki" FontSize="16" FontAttributes="Bold" HorizontalOptions="Center"/>
-                        </VerticalStackLayout>
-                    </Frame>
-
-                </HorizontalStackLayout>
+                <HorizontalStackLayout x:Name="MPLayout" Spacing="15" Padding="10" />
             </ScrollView>
 
             <!-- Medical advice section -->
@@ -81,19 +45,11 @@
             </Frame>
 
             <ScrollView Orientation="Horizontal" HeightRequest="120">
-                <HorizontalStackLayout Spacing="10">
-                    <Frame CornerRadius="10" BackgroundColor="#30cfcb" Padding="10" WidthRequest="180">
-                        <Label Text="Mental Health matters! Take 5 min in silence" FontSize="14"/>
-                    </Frame>
-                    <Frame CornerRadius="10" BackgroundColor="#30cfcb" Padding="10" WidthRequest="180">
-                        <Label Text="Be sure to eat healthy meals and stay hydrated" FontSize="14"/>
-                    </Frame>
-                    <Frame CornerRadius="10" BackgroundColor="#30cfcb" Padding="10" WidthRequest="180">
-                        <Label Text="Wash your hands regularly for 30 seconds" FontSize="14"/>
-                    </Frame>
+                <HorizontalStackLayout x:Name="MedicalAdviceTipsLayout" Spacing="10">
+                
                 </HorizontalStackLayout>
             </ScrollView>
-
+            
             <!-- medical professional sign up section -->
             <Frame Padding="10" BackgroundColor="#01a4ff" CornerRadius="20" HasShadow="True">
                 <Label Text="Medical Professional Sign Up" FontSize="20" FontAttributes="Bold" TextColor="White" HorizontalOptions="Center"/>

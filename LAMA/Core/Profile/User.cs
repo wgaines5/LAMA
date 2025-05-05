@@ -2,23 +2,27 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using Google.Cloud.Firestore;
+using LAMA.Core.Messages;
 
 namespace LAMA.Core.Profile
-{
-    class User
+{ 
+  
+    public class User
     {
+        public string Uid { get; set; }
+        public string EmailAddress { get; set; }
+        public string Username { get; set; }
+        public string FirstName { get; set; }
+        public int QueriesSubmitted { get; set; } = 0;
+        public string FrequentCategory { get; set; } = "";
+        public string ProfilePictureUrl { get; set; } = "";
+        public DateTime CreatedAt { get; set; }
+        public List<Conversation> Conversations { get; set; } = new List<Conversation>();
 
-        private string emailAddress;
+        public List<string> BookmarkedMedFacts { get; set; } = new List<string>();
 
-        private string fullName;
-
-        private int queriesSubmitted;
-
-        private string frequentCategory;
-
-        private string profilePIctureUrl;
-
-
+        public User() { }
     }
 }
+

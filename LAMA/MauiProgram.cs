@@ -32,14 +32,8 @@ public static class MauiProgram
 				new EmailProvider()
 			}
         }));
-
-		builder.Services.AddSingleton(new FirebaseClient("https://lama-7054a-default-rtdb.firebaseio.com/"));
-
-        builder.Services.AddSingleton<AuthTestSignInPage>();
-        builder.Services.AddSingleton<SignInViewModel>();
-        builder.Services.AddSingleton<AuthTestSignUpPage>();
-        builder.Services.AddSingleton<SignUpViewModel>();
-
+     
+	
         return builder.Build();
 	}
 }
