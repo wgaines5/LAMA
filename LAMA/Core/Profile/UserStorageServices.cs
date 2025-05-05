@@ -28,7 +28,12 @@ namespace LAMA.Core.Profile
                     conversations = new
                     {
                         arrayValue = new { values = new object[] { } }
-                    }
+                    },
+
+                      bookmarkedMedFacts = new
+                      {
+                          arrayValue = new { values = new object[] { } }
+                      }
                 }
             };
 

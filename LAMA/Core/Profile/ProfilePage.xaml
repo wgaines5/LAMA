@@ -7,7 +7,7 @@
     <Grid>
 
         <Grid.RowDefinitions>
-            <RowDefinition Height=".45*"/>
+            <RowDefinition Height=".4*"/>
             <RowDefinition Height=".2*"/>
             <RowDefinition Height=".4*"/>
         </Grid.RowDefinitions>
@@ -140,22 +140,25 @@ HorizontalOptions="Center"
   FontSize="18">
                 </Label>
 
-
             </Grid>
 
         </Frame>
 
-
         <Frame
-            Grid.Row="2"
-          >
+            Grid.Row="2">
+            <CollectionView 
+                x:Name="userMedFactsCollectionView">
+                <CollectionView.ItemTemplate>
 
-            <ImageButton
-                HorizontalOptions="Fill"
-                VerticalOptions="Fill"
-                Source="lama_logo.png">
-            </ImageButton>
-
+                    <DataTemplate>
+                        <Frame Padding="10" Margin="5" BackgroundColor="#e0f7fa" HasShadow="True">
+                            <Label Text="{Binding .}" FontSize="18" />
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+                
+                
+            </CollectionView>
 
         </Frame>
 
