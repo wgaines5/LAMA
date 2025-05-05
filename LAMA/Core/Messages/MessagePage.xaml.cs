@@ -130,15 +130,12 @@ public partial class MessagePage : ContentPage
         string jsonFirestoreBody = System.Text.Json.JsonSerializer.Serialize(messageData);
         string jsonRealtimeBody = System.Text.Json.JsonSerializer.Serialize(realtimeMessage);
 
-
-        string userConvoUrl = $"https://firestore.googleapis.com/v1/projects/lama-60ddc/databases/(default)/documents/users/{_currentUser.Uid}/conversations";
         string unassignedUrl = "https://firestore.googleapis.com/v1/projects/lama-60ddc/databases/(default)/documents/unassigned_queries";
         string unassignedUrlRealtime = "https://lama-60ddc-default-rtdb.firebaseio.com/unassigned_queries.json";
 
         try
         {
-            await PostToFirestoreAsync(userConvoUrl, jsonFirestoreBody);
-            await PostToFirestoreAsync(unassignedUrl, jsonFirestoreBody);
+           
             // Post to Realtime Database (for live delivery to providers)
             await PostToRealtimeDatabaseAsync(unassignedUrlRealtime, jsonRealtimeBody);
 
@@ -151,18 +148,6 @@ public partial class MessagePage : ContentPage
 
     }
 
-    private async Task PostToFirestoreAsync(string url, string jsonBody)
-    {
-        using var httpClient = new HttpClient();
-        var content = new StringContent(jsonBody, Encoding.UTF8, "application/json");
-
-        HttpResponseMessage response = await httpClient.PostAsync(url, content);
-
-        if (!response.IsSuccessStatusCode)
-        {
-            throw new Exception($"Firestore error: {response.StatusCode} -{await response.Content.ReadAsStringAsync()}");
-        }
-    }
 
     private async Task PostToRealtimeDatabaseAsync(string url, string jsonBody)
     {
