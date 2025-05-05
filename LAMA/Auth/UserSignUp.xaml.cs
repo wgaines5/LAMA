@@ -54,7 +54,8 @@ public partial class UserSignUp : ContentPage
                 FrequentCategory = "",
                 QueriesSubmitted = 0,
                 ProfilePictureUrl = "",
-                Conversations = new List<Conversation>()
+                Conversations = new List<Conversation>(),
+                BookmarkedMedFacts = new List<string>()
             };
 
             // Serialize to Firestore format
@@ -77,7 +78,10 @@ public partial class UserSignUp : ContentPage
 
             await DisplayAlert("Success", "Account created successfully!", "OK");
 
+            // Initalize LAMA User object at sign up 
             UserSession.CurrentUser = newUser;
+
+            // Toggle visibiility of Profile Flybar Menu Item on auth 
             AppShell.Instance.ProfileContent.FlyoutItemIsVisible = true;
 
             await Shell.Current.GoToAsync("//ProfilePage");

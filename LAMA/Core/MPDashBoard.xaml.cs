@@ -4,7 +4,10 @@ using System.Text.Json;
 using LAMA.Auth;
 using System.ComponentModel;
 using System.Text;
+using Newtonsoft.Json;
+using JsonSerializer = System.Text.Json.JsonSerializer;
 using LAMA.Services;
+
 
 namespace LAMA.Core
 {
@@ -31,15 +34,6 @@ namespace LAMA.Core
                 new() { Name = "Alternative & Holistic Medicine", IsSelected = false }
             ];
 
-            //PendingMessages = new ObservableCollection<MessageItem>
-            //{
-            //    new MessageItem { Message = "Patient: I need help with anxiety." },
-            //    new MessageItem { Message = "Patient: What are the side effects of my medication?" },
-            //    new MessageItem { Message = "Patient: How do I manage my diabetes better?" }
-            //};
-
-            PendingMessages = new ObservableCollection<UnassignedMessage>();
-
             UsersAnswered = 0; // example count
 
             foreach (CategoryItem categoryI in Categories)
@@ -52,8 +46,7 @@ namespace LAMA.Core
             UsersAnsweredCount.Text = UsersAnswered.ToString();
 
             _ = LoadUserProfileAsync();
-            LoadUnassignedMessages();
-            
+            _ = LoadMessagesFromFirebaseAsync();
         }
 
         private async Task LoadUserProfileAsync()
@@ -130,17 +123,67 @@ namespace LAMA.Core
         private async void OnOnlineToggleChanged(object sender, ToggledEventArgs e)
         {
             bool isOnline = e.Value;
-            await LoadUserProfileAsync();
+
+            if (UserSession.Credential == null || UserSession.Credential.User == null)
+                return;
+
+            try
+            {
+                string uid = UserSession.Credential.User.Uid;
+                string idToken = await UserSession.Credential.User.GetIdTokenAsync();
+
+                string url = $"https://firestore.googleapis.com/v1/projects/lama-60ddc/databases/(default)/documents/medical_providers/{uid}?updateMask.fieldPaths=isOnline&access_token={idToken}";
+
+                Dictionary<string, object> isOnlineField = new Dictionary<string, object>
+                {
+                    ["isOnline"] = new Dictionary<string, object>
+                    {
+                        ["booleanValue"] = isOnline
+                    }
+                };
+
+                Dictionary<string, object> requestBody = new Dictionary<string, object>
+                {
+                    ["fields"] = isOnlineField
+                };
+
+                string json = JsonSerializer.Serialize(requestBody);
+
+                HttpClient client = new HttpClient();
+                HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Patch, url)
+                {
+                    Content = new StringContent(json, Encoding.UTF8, "application/json")
+                };
+
+                HttpResponseMessage response = await client.SendAsync(request);
+                if (!response.IsSuccessStatusCode)
+                {
+                    await DisplayAlert("Error", "Failed to update online status.", "OK");
+                }
+
+                await LoadUserProfileAsync();
+            }
+            catch
+            {
+                await Shell.Current.GoToAsync($"//{nameof(MainPage)}");
+            }
         }
 
         private async void OnReplyClicked(object sender, EventArgs e)
         {
-            //if (sender is Button button && button.BindingContext is MessageItem message)
-            //{
-            //    await Shell.Current.GoToAsync($"{nameof(MessagePage)}?Question={Uri.EscapeDataString(message.Message)}");
-            //    PendingMessages.Remove(message);
-            //}
+            if (sender is Button button && button.BindingContext is MessageItem message)
+            {
+                var senderId = message.SenderId;
+                var navigationUrl = $"{nameof(MessagePage)}?SenderId={senderId}";
+
+                await Shell.Current.GoToAsync(navigationUrl);
+                PendingMessages.Remove(message);
+        
+            }
+
         }
+
+
 
         private async Task UpdateSelectedCategoriesInFirestore()
         {
@@ -166,7 +209,7 @@ namespace LAMA.Core
                 }
             };
 
-            string jsonPatch = JsonSerializer.Serialize(new { fields = updateFields });
+            string jsonPatch = System.Text.Json.JsonSerializer.Serialize(new { fields = updateFields });
 
             string url = $"https://firestore.googleapis.com/v1/projects/lama-60ddc/databases/(default)/documents/medical_providers/{uid}?access_token={idToken}&updateMask.fieldPaths=categories";
 
@@ -179,20 +222,30 @@ namespace LAMA.Core
             await client.SendAsync(request);
         }
 
-        private async void LoadUnassignedMessages()
+        public async Task LoadMessagesFromFirebaseAsync()
         {
-            var messages = await firestoreServices.GetUnassignedAsync();
-
-            MainThread.BeginInvokeOnMainThread(() =>
+            try
             {
-                PendingMessages.Clear();
-                foreach (var message in messages)
-                {
-                    PendingMessages.Add(message);
-                }
-            });
+                var client = new HttpClient();
+                var response = await client.GetStringAsync("https://lama-60ddc-default-rtdb.firebaseio.com/unassigned_queries.json");
+
+                // Deserialize JSON response
+                var messages = JsonConvert.DeserializeObject<Dictionary<string, MessageItem>>(response);
+
+                // Update the ObservableCollection (this will notify the UI automatically)
+                PendingMessages = new ObservableCollection<MessageItem>(messages.Values);
+
+                // Bind to the ListView (in case you need to explicitly set the ItemsSource)
+                PendingMessagesList.ItemsSource = PendingMessages;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error loading messages: {ex.Message}");
+            }
         }
+
     }
+
 
     public class CategoryItem : INotifyPropertyChanged
     {
@@ -221,5 +274,19 @@ namespace LAMA.Core
     public class MessageItem
     {
         public string Message { get; set; }
+        public bool IsAssigned { get; set; }
+        public string SenderId { get; set; }
+        public string Timestamp { get; set; }
+        public bool IsUserMessage { get; set; }
+
     }
 }
+
+
+
+//PendingMessages = new ObservableCollection<MessageItem>
+//{
+//    new MessageItem { Message = "Patient: I need help with anxiety." },
+//    new MessageItem { Message = "Patient: What are the side effects of my medication?" },
+//    new MessageItem { Message = "Patient: How do I manage my diabetes better?" }
+//};

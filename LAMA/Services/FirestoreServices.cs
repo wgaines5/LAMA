@@ -14,192 +14,126 @@ namespace LAMA.Services
 {
     public class FirestoreServices
     {
-        public FirestoreDb db;
-        private HttpClient _httpClient;
-        private readonly string _url;
+    //    public FirestoreDb db;
+    //    private readonly HttpClient _httpClient;
+    //    private readonly string _url;
 
-        public async Task<List<Conversation>> GetUnassignedConversationsAsync()
-        {
-            string url = "https://firestore.googleapis.com/v1/projects/lama-60ddc/databases/(default)/documents/unassigned_queries/fcL8qgVXnlVeY7DIfiNk";
+    //    private async Task SetupFirestore()
+    //    {
+    //        if (db == null)
+    //        {
+    //            var stream = await FileSystem.OpenAppPackageFileAsync("admin-sdk.json");
+    //            var reader = new StreamReader(stream);
+    //            var contents = reader.ReadToEnd();
 
-            var client = new HttpClient();
-            var response = await client.GetAsync(url);
+    //            db = new FirestoreDbBuilder
+    //            {
+    //                ProjectId = "lama-7054a",
 
-            if (!response.IsSuccessStatusCode)
-            {
-                return new List<Conversation>();
-            }
+    //                ConverterRegistry = new ConverterRegistry
+    //                {
+    //                    new DateTimeToTimeStampConverter()
+    //                },
+    //                JsonCredentials = contents
+    //            }.Build();
+    //        }
+    //    }
 
-            var json = await response.Content.ReadAsStringAsync();
-            var parsed = JsonDocument.Parse(json);
+    //    public async Task InsertSampleModel(SampleModel sample)
+    //    {
+    //        await SetupFirestore();
+    //        await db.Collection("SampleModels").AddAsync(sample);
+    //    }
 
-            var conversations = new List<Conversation>();
+    //    public async Task<List<SampleModel>> GetSampleModel()
+    //    {
+    //        await SetupFirestore();
+    //        var data = await db
+    //            .Collection("SampleModels")
+    //            .GetSnapshotAsync();
 
-            if (parsed.RootElement.TryGetProperty("documents", out var documents))
-            {
-                foreach (var doc in documents.EnumerateArray())
-                {
-                    var fields = doc.GetProperty("fields");
-                    Conversation conversation = new Conversation
-                    {
-                        ConversationId = fields.GetProperty("conversationId").GetProperty("stringValue").GetString(),
-                        ProviderId = fields.GetProperty("providerId").GetProperty("stringValue").GetString(),
-                        LastUpdated = DateTime.Parse(fields.GetProperty("lastUpdated").GetProperty("timestampValue").GetString()),
-                        LastMessage = ParseChatMessage(fields.GetProperty("lastMessage").GetProperty("mapValue").GetProperty("fields")),
-                        ParticipantIds = ParseParticipantIds(fields),
-                        ChatMessages = ParseChatMessages(fields),
-                        Messages = ParseMessages(fields)
-                    };
-                    conversations.Add(conversation);
-                }
-            }
-            return conversations;
-        }
+    //        var sampleModels = data.Documents
+    //            .Select(doc =>
+    //            {
+    //                var sampleModel = doc.ConvertTo<SampleModel>();
+    //                sampleModel.Id = doc.Id;
+    //                return sampleModel;
+    //            }).ToList();
+    //        return sampleModels;
+    //    }
 
-        private ChatMessage ParseChatMessage(JsonElement fields)
-        {
-            return new ChatMessage
-            {
-                Content = fields.GetProperty("content").GetProperty("stringValue").GetString(),
-                SenderId = fields.GetProperty("senderId").GetProperty("stringValue").GetString(),
-                ReceiverId = fields.GetProperty("recieverId").GetProperty("stringValue").GetString(),
-                SentAt = fields.GetProperty("sentAt").GetProperty("timestampValue").GetString(),
-                SessionId = fields.GetProperty("sessionId").GetProperty("stringValue").GetString()
-            };
-        }
+    //    public async Task SendMessage(ChatMessage message)
+    //    {
+    //        await SetupFirestore();
+    //        DocumentReference docRef = db.Collection("messages").Document();
+    //        await docRef.SetAsync(message);
+    //    }
 
-        private List<ChatMessage> ParseChatMessages(JsonElement fields)
-        {
-            List<ChatMessage> chatMessages = new List<ChatMessage>();
+    //    public async void ListenForMessages(string userId, Action<List<ChatMessage>> onMessageUpdated)
+    //    {
+    //        await SetupFirestore();
+    //        var query = db.Collection("messages")
+    //            .WhereEqualTo("ReceiverId", userId)
+    //            .OrderBy("SentAt");
 
-            if (fields.TryGetProperty("chatMessages", out var chatMessagesField))
-            {
-                foreach (var field in chatMessagesField.GetProperty("arrayValue").GetProperty("values").EnumerateArray())
-                {
-                    var messageFields = field.GetProperty("mapValue").GetProperty("fields");
-                    chatMessages.Add(ParseChatMessage(messageFields));
-                }
-            }
-            return chatMessages;
-        }
+    //        query.Listen(snapshot =>
+    //        {
+    //            var messages = snapshot.Documents.Select(doc => doc.ConvertTo<ChatMessage>()).ToList();
 
-        private List<string> ParseParticipantIds(JsonElement fields) 
-        {
-            List<string> participantIds = new List<string>();
+    //            onMessageUpdated(messages);
+    //        });
+    //    }
+    //}
+    //[FirestoreData]
+    //public class SampleModel
+    //{
+    //    [FirestoreProperty]
+    //    public string Id { get; set; }
+    //    [FirestoreProperty]
+    //    public string Name { get; set; }
+    //    [FirestoreProperty]
+    //    public string Description { get; set; }
+    //    [FirestoreProperty]
+    //    public DateTime Created { get; set; }
+    //}
 
-            if (fields.TryGetProperty("participantIds", out var participantField))
-            {
-                foreach (var idField in participantField.GetProperty("arrayValue").GetProperty("values").EnumerateArray())
-                {
-                    participantIds.Add(idField.GetProperty("stringValue").GetString());
-                }
-            }
-            return participantIds;
-        }
+    //public class DateTimeToTimeStampConverter : IFirestoreConverter<DateTime>
+    //{
+    //    public object ToFirestore(DateTime value) => Timestamp.FromDateTime(value.ToUniversalTime());
 
-        private List<Message> ParseMessages(JsonElement fields)
-        {
-            List<Message> messages = new List<Message>();
+    //    public DateTime FromFirestore(object value)
+    //    {
+    //        if (value is Timestamp timestamp)
+    //        {
+    //            return timestamp.ToDateTime();
+    //        }
+    //        throw new ArgumentException("Invalid value");
+    //    }
+    //}
 
-            if (fields.TryGetProperty("messages", out var messagesField))
-            {
-                foreach (var messageField in messagesField.GetProperty("arrayValue").GetProperty("values").EnumerateArray())
-                {
-                    var msgFields = messageField.GetProperty("mapValue").GetProperty("fields");
+    //public class ChatMessageConverter : IFirestoreConverter<ChatMessage>
+    //{
+    //    public ChatMessage FromFirestore(object value)
+    //    {
+    //        var data = value as Dictionary<string, object>;
+    //        return new ChatMessage
+    //        {
+    //            SenderId = data["SenderId"] as string,
+    //            ReceiverId = data["ReceiverId"] as string,
+    //            Content = data["Content"] as string,
+    //            IsUserMessage = (bool)data["IsUserMessage"],
+    //        };
+    //    }
 
-                    Message message = new Message
-                    {
-                        SenderId = msgFields.GetProperty("senderId").GetProperty("stringValue").GetString(),
-                        Content = msgFields.GetProperty("content").GetProperty("stringValue").GetString(),
-                        Timestamp = DateTime.Parse(msgFields.GetProperty("timestamp").GetProperty("timestampValue").GetString()),
-                        IsRead = msgFields.GetProperty("isRead").GetProperty("booleanValue").GetBoolean()
-                    };
-                    messages.Add(message);
-                }
-            }
-            return messages;
-        }
-
-        public async Task<List<UnassignedMessage>> GetUnassignedAsync()
-        {
-            string url = "https://firestore.googleapis.com/v1/projects/lama-60ddc/databases/(default)/documents/unassigned_queries";
-            _httpClient = new HttpClient();
-            var response = await _httpClient.GetAsync(url);
-            if (!response.IsSuccessStatusCode)
-            {
-                return new List<UnassignedMessage>();
-            }
-
-            string json = await response.Content.ReadAsStringAsync();
-            var document = JsonDocument.Parse(json);
-
-            List<UnassignedMessage> unassignedMessages = new List<UnassignedMessage>();
-
-            foreach (var doc in document.RootElement.GetProperty("documents").EnumerateArray())
-            {
-                var fields = doc.GetProperty("fields");
-
-                unassignedMessages.Add(new UnassignedMessage
-                {
-                    IsAssigned = fields.GetProperty("isAssigned").GetProperty("booleanValue").GetBoolean(),
-                    Text = fields.GetProperty("message").GetProperty("stringValue").GetString(),
-                    SenderId = fields.GetProperty("senderId").GetProperty("stringValue").GetString(),
-                    Timestamp = DateTime.Parse(fields.GetProperty("timestamp").GetProperty("timestampValue").GetString())
-                });
-            }
-            return unassignedMessages;
-        }
-    }
-    [FirestoreData]
-    public class SampleModel
-    {
-        [FirestoreProperty]
-        public string Id { get; set; }
-        [FirestoreProperty]
-        public string Name { get; set; }
-        [FirestoreProperty]
-        public string Description { get; set; }
-        [FirestoreProperty]
-        public DateTime Created { get; set; }
-    }
-
-    public class DateTimeToTimeStampConverter : IFirestoreConverter<DateTime>
-    {
-        public object ToFirestore(DateTime value) => Google.Cloud.Firestore.Timestamp.FromDateTime(value.ToUniversalTime());
-
-        public DateTime FromFirestore(object value)
-        {
-            if (value is Google.Cloud.Firestore.Timestamp timestamp)
-            {
-                return timestamp.ToDateTime();
-            }
-            throw new ArgumentException("Invalid value");
-        }
-    }
-
-    public class ChatMessageConverter : IFirestoreConverter<ChatMessage>
-    {
-        public ChatMessage FromFirestore(object value)
-        {
-            var data = value as Dictionary<string, object>;
-            return new ChatMessage
-            {
-                SenderId = data["SenderId"] as string,
-                ReceiverId = data["ReceiverId"] as string,
-                Content = data["Content"] as string,
-                IsUserMessage = (bool)data["IsUserMessage"],
-            };
-        }
-
-        public object ToFirestore(ChatMessage message)
-        {
-            return new Dictionary<string, object>
-        {
-            { "SenderId", message.SenderId },
-            { "ReceiverId", message.ReceiverId },
-            { "Content", message.Content },
-            { "IsUserMessage", message.IsUserMessage },
-        };
-        }
+    //    public object ToFirestore(ChatMessage message)
+    //    {
+    //        return new Dictionary<string, object>
+    //    {
+    //        { "SenderId", message.SenderId },
+    //        { "ReceiverId", message.ReceiverId },
+    //        { "Content", message.Content },
+    //        { "IsUserMessage", message.IsUserMessage },
+    //    };
+    //    }
     }
 }

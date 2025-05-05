@@ -9,32 +9,32 @@ namespace LAMA.Core.Messages
 {
     public class Conversation
     {
-        [JsonPropertyName("conversationId")]
-        public string ConversationId { get; set; }
+        //[JsonPropertyName("conversationId")]
+        //public string ConversationId { get; set; }
 
-        [JsonPropertyName("participantIds")]
-        public List<string> ParticipantIds { get; set; }
+        //[JsonPropertyName("participantIds")]
+        //public List<string> ParticipantIds { get; set; }
 
-        [JsonPropertyName("messages")]
-        public List<Message> Messages { get; set; }
+        //[JsonPropertyName("messages")]
+        //public List<Message> Messages { get; set; }
 
-        [JsonPropertyName("lastUpdated")]
-        public DateTime LastUpdated { get; set; }
+        //[JsonPropertyName("lastUpdated")]
+        //public DateTime LastUpdated { get; set; }
 
-        [JsonPropertyName("providerId")]
-        public string ProviderId { get; set; }
+        //[JsonPropertyName("providerId")]
+        //public string ProviderId { get; set; }
 
-        [JsonPropertyName("chatMessages")]
-        public List<ChatMessage> ChatMessages { get; set; }
+        //[JsonPropertyName("chatMessages")]
+        //public List<ChatMessage> ChatMessages { get; set; }
 
-        [JsonPropertyName("lastMessage")]
-        public ChatMessage LastMessage { get; set; }
+        //[JsonPropertyName("lastMessage")]
+        //public ChatMessage LastMessage { get; set; }
 
         
 
-        public Conversation() 
-        {
+        //public Conversation() 
+        //{
 
-        }
+        //}
     }
 }

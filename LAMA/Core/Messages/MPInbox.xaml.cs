@@ -1,4 +1,3 @@
-using Android.SE.Omapi;
 using LAMA.Auth;
 using LAMA.Services;
 using System.Collections.ObjectModel;
@@ -17,12 +16,12 @@ public partial class MPInbox : ContentPage
 
 	private async void OnSessionSelected(object sender, SelectionChangedEventArgs e)
 	{
-		if (e.CurrentSelection.FirstOrDefault() is Conversation selectedSession)
-		{
-			((CollectionView)sender).SelectedItems = null;
+		//if (e.CurrentSelection.FirstOrDefault() is Conversation selectedSession)
+		//{
+		//	((CollectionView)sender).SelectedItems = null;
 
-			await Navigation.PushAsync(new MessagePage(selectedSession));
-		}
+		//	await Navigation.PushAsync(new MessagePage(selectedSession));
+		//}
 	}
 }
 
@@ -45,22 +44,22 @@ public class MPInboxViewModel : BindableObject
 
 	private async Task LoadConversationsAsync()
 	{
-		var sessions = await _firebaseService.GetUnassignedAsync();
-		MainThread.BeginInvokeOnMainThread(() =>
-		{
-			Conversations.Clear();
-			foreach (var conversation in sessions)
-			{
-				Conversations.Add(conversation);
-			}
-		});
+		//var sessions = await _firebaseService.GetUnassignedAsync();
+		//MainThread.BeginInvokeOnMainThread(() =>
+		//{
+		//	Conversations.Clear();
+		//	foreach (var conversation in sessions)
+		//	{
+		//		Conversations.Add(conversation);
+		//	}
+		//});
 	}
 
 	private async Task ClaimConversationAsync(Conversation conversation)
 	{
-		conversation.ProviderId = UserSession.Credential.User.Uid;
-		await _firebaseService.AssignProviderAsync(conversation);
-		Conversations.Remove(conversation);
+		//conversation.ProviderId = UserSession.Credential.User.Uid;
+		//await _firebaseService.AssignProviderAsync(conversation);
+		//Conversations.Remove(conversation);
 
 		// Navigate to messages page
 
