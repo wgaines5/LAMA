@@ -20,6 +20,8 @@ namespace LAMA.Core.Profile
         public DateTime CreatedAt { get; set; }
         public List<Conversation> Conversations { get; set; } = new List<Conversation>();
 
+        public List<string> BookmarkedMedFacts { get; set; } = new List<string>();
+
         public User() { }
     }
 }

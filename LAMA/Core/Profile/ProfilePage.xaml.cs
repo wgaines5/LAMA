@@ -1,5 +1,6 @@
 using Firebase.Auth;
 using LAMA.Auth;
+using Microsoft.Maui.Controls;
 
 
 namespace LAMA.Core.Profile;
@@ -7,11 +8,28 @@ namespace LAMA.Core.Profile;
 public partial class ProfilePage : ContentPage
 {
 
-    bool UserSignedIn = UserSession.CurrentUser != null;
-
     public ProfilePage()
     {
         InitializeComponent();
+        SetUserInfo();
+
+        // Sample mock data
+        var facts = new List<string>
+        {
+            "The human body contains 206 bones.",
+            "Your heart beats around 100,000 times per day.",
+            "Laughing is good for your cardiovascular health.",
+            "The brain uses 20% of the body's oxygen.",
+            "Skin is the body's largest organ."
+        };
+
+        // Bind to the CollectionView
+        userMedFactsCollectionView.ItemsSource = facts;
+
+    }
+
+    public void SetUserInfo()
+    {
         var user = UserSession.CurrentUser;
         if (user != null)
         {
@@ -30,9 +48,6 @@ public partial class ProfilePage : ContentPage
     //{
     //    Console.WriteLine("ImageButton clicked!");
     //}
-
-
-
 
 
 }
