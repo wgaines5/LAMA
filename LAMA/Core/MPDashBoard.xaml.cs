@@ -14,7 +14,7 @@ namespace LAMA.Core
     public partial class MPDashBoard : ContentPage
     {
         public ObservableCollection<CategoryItem> Categories { get; set; }
-        public ObservableCollection<UnassignedMessage> PendingMessages { get; set; }
+        public ObservableCollection<MessageItem> PendingMessages { get; set; }
         public ObservableCollection<Conversation> UnassignedMessages { get; set; }
         public int UsersAnswered { get; set; }
         FirestoreServices firestoreServices = new FirestoreServices();
@@ -178,7 +178,7 @@ namespace LAMA.Core
 
                 await Shell.Current.GoToAsync(navigationUrl);
                 PendingMessages.Remove(message);
-        
+
             }
 
         }
