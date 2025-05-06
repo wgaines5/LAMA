@@ -1,4 +1,4 @@
-using Firebase.Auth;
+  using Firebase.Auth;
 
 namespace LAMA.Auth
 {

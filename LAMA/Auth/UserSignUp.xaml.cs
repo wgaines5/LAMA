@@ -33,7 +33,28 @@ public partial class UserSignUp : ContentPage
     {
         await Shell.Current.GoToAsync("//SignInPage");  // Navigate to SignInPage
     }
+    private string _base64ImageData = "";
 
+    private async void OnPickImageTapped(object sender, EventArgs e)
+    {
+        FileResult result = await FilePicker.PickAsync(new PickOptions
+        {
+            FileTypes = FilePickerFileType.Images,
+            PickerTitle = "Select Profile Picture"
+        });
+
+        if (result != null)
+        {
+            using Stream stream = await result.OpenReadAsync();
+            using MemoryStream memoryStream = new MemoryStream();
+            await stream.CopyToAsync(memoryStream);
+            byte[] imageBytes = memoryStream.ToArray();
+
+            _base64ImageData = Convert.ToBase64String(imageBytes);
+
+            UserPic.Source = ImageSource.FromStream(() => new MemoryStream(imageBytes));
+        }
+    }
     private async void OnUserSignUpTapped(object sender, EventArgs e)
     {
         try
@@ -53,7 +74,7 @@ public partial class UserSignUp : ContentPage
                 CreatedAt = DateTime.UtcNow,
                 FrequentCategory = "",
                 QueriesSubmitted = 0,
-                ProfilePictureUrl = "",
+                ProfilePictureUrl = _base64ImageData,
                 Conversations = new List<Conversation>()
             };
 
