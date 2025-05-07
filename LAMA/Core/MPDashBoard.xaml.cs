@@ -136,8 +136,6 @@ namespace LAMA.Core
 
         }
 
-
-
         private async Task UpdateSelectedCategoriesInFirestore()
         {
             if (UserSession.Credential == null || UserSession.Credential.User == null)
@@ -180,7 +178,7 @@ namespace LAMA.Core
             try
             {
                 var client = new HttpClient();
-                var response = await client.GetStringAsync("https://lama-60ddc-default-rtdb.firebaseio.com/unassigned_queries.json");
+                var response = await client.GetStringAsync("https://lama-60ddc-default-rtdb.firebaseio.com/queries.json");
 
                 // Deserialize JSON response
                 var messages = JsonConvert.DeserializeObject<Dictionary<string, MessageItem>>(response);
@@ -230,7 +228,7 @@ namespace LAMA.Core
         public bool IsAssigned { get; set; }
         public string SenderId { get; set; }
         public string Timestamp { get; set; }
-        public bool IsUserMessage { get; set; }
+        public bool IsUserMessage => SenderId == UserSession.CurrentUser.Uid;
 
     }
 }

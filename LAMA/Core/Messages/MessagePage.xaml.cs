@@ -42,7 +42,7 @@ public partial class MessagePage : ContentPage
             try
             {
                 // Attempt to load messages associated with the provided SenderId
-                var userMessages = await LoadMessagesForUserAsync(SenderId);
+                var userMessages = await LoadConversationForUserAsync(SenderId);
 
                 if (userMessages != null && userMessages.Any())
                 {
@@ -69,11 +69,11 @@ public partial class MessagePage : ContentPage
         }
     }
 
-    public async Task<List<MessageItem>> LoadMessagesForUserAsync(string senderId)
+    public async Task<List<MessageItem>> LoadQueryForUserAsync(string senderId)
     {
         try
         {
-            var response = await new HttpClient().GetStringAsync("https://lama-60ddc-default-rtdb.firebaseio.com/unassigned_queries.json");
+            var response = await new HttpClient().GetStringAsync("https://lama-60ddc-default-rtdb.firebaseio.com/queries.json");
 
             var allMessages = JsonConvert.DeserializeObject<Dictionary<string, MessageItem>>(response);
 
@@ -94,9 +94,33 @@ public partial class MessagePage : ContentPage
         }
     }
 
+    public async Task<List<MessageItem>> LoadConversationForUserAsync(string senderId)
+    {
+        try
+        {
+            var response = await new HttpClient().GetStringAsync($"https://lama-60ddc-default-rtdb.firebaseio.com/{SenderId}/messages.json");
+
+            var allMessages = JsonConvert.DeserializeObject<Dictionary<string, MessageItem>>(response);
+
+            if (allMessages == null)
+                return new List<MessageItem>();
+
+            var filtered = allMessages.Values
+                .OrderBy(m => DateTime.Parse(m.Timestamp))
+                .ToList();
+
+            return filtered;
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error loading user messages: {ex.Message}");
+            return new List<MessageItem>();
+        }
+    }
+
     private async void OnSendMessage(object sender, EventArgs e)
     {
-
+        
         string messageText = MessageEntry.Text?.Trim();
 
         if (string.IsNullOrEmpty(messageText))
@@ -111,13 +135,39 @@ public partial class MessagePage : ContentPage
         };
 
         string jsonRealtimeBody = System.Text.Json.JsonSerializer.Serialize(realtimeMessage);
-        string unassignedUrlRealtime = "https://lama-60ddc-default-rtdb.firebaseio.com/unassigned_queries.json";
 
         try
         {
-           
-            // Post to Realtime Database (for live delivery to providers)
-            await PostToRealtimeDatabaseAsync(unassignedUrlRealtime, jsonRealtimeBody);
+
+            if (string.IsNullOrEmpty(SenderId))
+            {
+                // No user ID — treat as a new unassigned message
+                string unassignedUrl = $"https://lama-60ddc-default-rtdb.firebaseio.com/queries.json";
+                string queryConvoUrl = $"https://lama-60ddc-default-rtdb.firebaseio.com/{_currentUser.Uid}/messages.json";
+                await PostToRealtimeDatabaseAsync(unassignedUrl, jsonRealtimeBody);
+                await PostToRealtimeDatabaseAsync(queryConvoUrl, jsonRealtimeBody);
+
+                var messages = await LoadConversationForUserAsync(SenderId);
+                foreach (var msg in messages)
+                {
+                    Messages.Add(msg); // Add updated messages
+                }
+
+            }
+            else
+            {
+                // Existing conversation — append to conversation path
+                string conversationUrl = $"https://lama-60ddc-default-rtdb.firebaseio.com/{SenderId}/messages.json";
+                await PostToRealtimeDatabaseAsync(conversationUrl, jsonRealtimeBody);
+
+                Messages.Clear();
+                var refreshedMessages = await LoadConversationForUserAsync(SenderId);
+                foreach (var msg in refreshedMessages)
+                {
+                    Messages.Add(msg); // Add updated messages
+                }
+
+            }
 
             MessageEntry.Text = string.Empty;
         }
@@ -143,11 +193,6 @@ public partial class MessagePage : ContentPage
     }
 
 }
-
-
-
-
-
 
 
 
@@ -281,7 +326,6 @@ public partial class MessagePage : ContentPage
 //	}
 
 
-
 //public class ChatMessage
 //{
 //	[JsonPropertyName("senderId")]
@@ -302,18 +346,6 @@ public partial class MessagePage : ContentPage
 //    [JsonPropertyName("sessionId")]
 //    public string SessionId { get; set; }
 //}
-
-
-
-
-
-
-
-
-
-
-
-
 
 //OnSendMessageBody
 //if (BindingContext is ChatViewModel chatViewModel)
