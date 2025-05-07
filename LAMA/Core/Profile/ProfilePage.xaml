@@ -32,17 +32,18 @@
                      CornerRadius="100"
                         BorderColor="Cyan"  >
 
-                    <ImageButton 
-      BackgroundColor="White"
-       WidthRequest="125"
-      HeightRequest="125"
-      BorderColor="Cyan"
-    BorderWidth="200"
-      Aspect="AspectFill"
-      Source="usermock.png"
-       Clicked="OnProfileImageClicked"
+                    <Image
+                        x:Name="ProfilePic"
+                        BackgroundColor="White"
+                        WidthRequest="125"
+                        HeightRequest="125"
+                        Aspect="AspectFill"
+                        VerticalOptions="Center"
+                        HorizontalOptions="Center"
+                        Source="usermock.png"
+     
                         >
-                    </ImageButton>
+                    </Image>
 
                 </Frame>
 
