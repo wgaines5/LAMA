@@ -21,6 +21,8 @@ namespace LAMA.Core.Profile
 
         public List<string> BookmarkedMedFacts { get; set; } = new List<string>();
 
+        public List<Conversation> Conversations { get; set; }
+
         public User() { }
     }
 }
