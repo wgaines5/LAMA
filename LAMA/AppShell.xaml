@@ -90,6 +90,11 @@ Route="SettingsPage" />
     </ShellSection>
 
     <ShellContent
+        Title="Sign In"
+        ContentTemplate="{DataTemplate auth:SignInPage}"
+        Route="SignInPage"/>
+
+    <ShellContent
         Title="Preferred Doctors"
         ContentTemplate="{DataTemplate core:PreferredDoctorsPage}"
         Route="PreferredDoctorsPage"
@@ -116,7 +121,8 @@ Route="SettingsPage" />
     <ShellContent
         Title='Saved Facts'
         ContentTemplate="{DataTemplate profile:SavedFacts}"
-        Route="SavedFacts"/>
+        Route="SavedFacts"
+        FlyoutItemIsVisible="False"/>
 
     <ShellContent
     Title='Med Provider Inbox'
