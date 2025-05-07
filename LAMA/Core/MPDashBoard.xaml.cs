@@ -6,6 +6,7 @@ using System.ComponentModel;
 using System.Text;
 using Newtonsoft.Json;
 using JsonSerializer = System.Text.Json.JsonSerializer;
+using LAMA.Services;
 
 
 namespace LAMA.Core
@@ -14,7 +15,9 @@ namespace LAMA.Core
     {
         public ObservableCollection<CategoryItem> Categories { get; set; }
         public ObservableCollection<MessageItem> PendingMessages { get; set; }
+        public ObservableCollection<Conversation> UnassignedMessages { get; set; }
         public int UsersAnswered { get; set; }
+        FirestoreServices firestoreServices = new FirestoreServices();
 
         public MPDashBoard()
         {
@@ -175,12 +178,10 @@ namespace LAMA.Core
 
                 await Shell.Current.GoToAsync(navigationUrl);
                 PendingMessages.Remove(message);
-        
+
             }
 
         }
-
-
 
         private async Task UpdateSelectedCategoriesInFirestore()
         {
@@ -224,7 +225,7 @@ namespace LAMA.Core
             try
             {
                 var client = new HttpClient();
-                var response = await client.GetStringAsync("https://lama-60ddc-default-rtdb.firebaseio.com/unassigned_queries.json");
+                var response = await client.GetStringAsync("https://lama-60ddc-default-rtdb.firebaseio.com/queries.json");
 
                 // Deserialize JSON response
                 var messages = JsonConvert.DeserializeObject<Dictionary<string, MessageItem>>(response);
@@ -274,7 +275,7 @@ namespace LAMA.Core
         public bool IsAssigned { get; set; }
         public string SenderId { get; set; }
         public string Timestamp { get; set; }
-        public bool IsUserMessage { get; set; }
+        public bool IsUserMessage => SenderId == UserSession.CurrentUser.Uid;
 
     }
 }

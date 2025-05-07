@@ -25,10 +25,6 @@ namespace LAMA.Core.Profile
                     queriesSubmitted = new { integerValue = user.QueriesSubmitted.ToString() },
                     frequentCategory = new { stringValue = user.FrequentCategory },
                     profilePictureUrl = new { stringValue = user.ProfilePictureUrl },
-                    conversations = new
-                    {
-                        arrayValue = new { values = new object[] { } }
-                    },
 
                       bookmarkedMedFacts = new
                       {
