@@ -5,6 +5,8 @@ using LAMA.Auth;
 using System.ComponentModel;
 using System.Text;
 using Newtonsoft.Json;
+using JsonSerializer = System.Text.Json.JsonSerializer;
+using LAMA.Services;
 
 
 namespace LAMA.Core
@@ -13,7 +15,9 @@ namespace LAMA.Core
     {
         public ObservableCollection<CategoryItem> Categories { get; set; }
         public ObservableCollection<MessageItem> PendingMessages { get; set; }
+        public ObservableCollection<Conversation> UnassignedMessages { get; set; }
         public int UsersAnswered { get; set; }
+        FirestoreServices firestoreServices = new FirestoreServices();
 
         public MPDashBoard()
         {
@@ -119,7 +123,50 @@ namespace LAMA.Core
         private async void OnOnlineToggleChanged(object sender, ToggledEventArgs e)
         {
             bool isOnline = e.Value;
-            await LoadUserProfileAsync();
+
+            if (UserSession.Credential == null || UserSession.Credential.User == null)
+                return;
+
+            try
+            {
+                string uid = UserSession.Credential.User.Uid;
+                string idToken = await UserSession.Credential.User.GetIdTokenAsync();
+
+                string url = $"https://firestore.googleapis.com/v1/projects/lama-60ddc/databases/(default)/documents/medical_providers/{uid}?updateMask.fieldPaths=isOnline&access_token={idToken}";
+
+                Dictionary<string, object> isOnlineField = new Dictionary<string, object>
+                {
+                    ["isOnline"] = new Dictionary<string, object>
+                    {
+                        ["booleanValue"] = isOnline
+                    }
+                };
+
+                Dictionary<string, object> requestBody = new Dictionary<string, object>
+                {
+                    ["fields"] = isOnlineField
+                };
+
+                string json = JsonSerializer.Serialize(requestBody);
+
+                HttpClient client = new HttpClient();
+                HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Patch, url)
+                {
+                    Content = new StringContent(json, Encoding.UTF8, "application/json")
+                };
+
+                HttpResponseMessage response = await client.SendAsync(request);
+                if (!response.IsSuccessStatusCode)
+                {
+                    await DisplayAlert("Error", "Failed to update online status.", "OK");
+                }
+
+                await LoadUserProfileAsync();
+            }
+            catch
+            {
+                await Shell.Current.GoToAsync($"//{nameof(MainPage)}");
+            }
         }
 
         private async void OnReplyClicked(object sender, EventArgs e)
@@ -131,7 +178,7 @@ namespace LAMA.Core
 
                 await Shell.Current.GoToAsync(navigationUrl);
                 PendingMessages.Remove(message);
-        
+
             }
 
         }

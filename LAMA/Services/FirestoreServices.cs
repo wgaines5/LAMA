@@ -1,4 +1,5 @@
-﻿using Google.Api;
+﻿using Firebase.Auth.Requests;
+using Google.Api;
 using Google.Cloud.Firestore;
 using LAMA.Core.Messages;
 using System;
@@ -6,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace LAMA.Services
