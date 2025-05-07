@@ -16,8 +16,8 @@
                 <DataTemplate>
                     <Frame Padding="10" 
                            Margin="5"
-                           BackgroundColor="{Binding IsUserMessage, Converter={StaticResource BoolToColorConverter}}"
-                           HorizontalOptions="{Binding IsUserMessage, Converter={StaticResource BoolToAlignmentConverter}}"
+                           BackgroundColor="{Binding SenderId, Converter={StaticResource BoolToColorConverter}}"
+                           HorizontalOptions="{Binding SenderId, Converter={StaticResource BoolToAlignmentConverter}}"
                            CornerRadius="10"
                            HasShadow="True">
                         <Label Text="{Binding Message}"

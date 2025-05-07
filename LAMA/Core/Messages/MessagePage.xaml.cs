@@ -148,7 +148,23 @@ public partial class MessagePage : ContentPage
         {
             await DisplayAlert("Error", $"Failed to send message: {ex.Message}", "OK");
         }
+        
+        // Load messages into a list
+        List<MessageItem> messages = await LoadMessagesForUserAsync(UserSession.CurrentUser.Uid);
 
+        // Clear Messages collection to keep from duplicating entries
+        Messages.Clear();
+
+        // Load the messages in the list to the observable collection for messages
+        foreach(MessageItem message in messages)
+        {
+            Messages.Add(message);
+        }
+
+        // Simulate a response 
+        Task.Delay(2000);
+        MessageItem simResponse = new MessageItem { Message = "Thanks for your message." };
+        Messages.Add(simResponse);
     }
 
     private async Task PostToFirestoreAsync(string url, string jsonBody)
@@ -177,7 +193,6 @@ public partial class MessagePage : ContentPage
             }
         }
     }
-
 
 }
 
