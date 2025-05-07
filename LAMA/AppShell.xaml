@@ -90,7 +90,7 @@ Route="SettingsPage" />
     </ShellSection>
 
     <ShellContent
-        Title="Sign In"
+        Title="🔐 Sign In"
         ContentTemplate="{DataTemplate auth:SignInPage}"
         Route="SignInPage"/>
 
@@ -125,7 +125,7 @@ Route="SettingsPage" />
         FlyoutItemIsVisible="False"/>
 
     <ShellContent
-    Title='Med Provider Inbox'
+    Title='📥 Med Provider Inbox'
     ContentTemplate="{DataTemplate messages:MPInbox}"
     Route="MpInbox"/>
 
