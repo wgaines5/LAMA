@@ -98,7 +98,7 @@ public partial class MessagePage : ContentPage
     {
         try
         {
-            var response = await new HttpClient().GetStringAsync($"https://lama-60ddc-default-rtdb.firebaseio.com/{SenderId}/messages.json");
+            var response = await new HttpClient().GetStringAsync($"https://lama-60ddc-default-rtdb.firebaseio.com/{senderId}/messages.json");
 
             var allMessages = JsonConvert.DeserializeObject<Dictionary<string, MessageItem>>(response);
 
@@ -131,7 +131,8 @@ public partial class MessagePage : ContentPage
             message = messageText,
             timestamp = DateTime.UtcNow.ToString("o"),
             senderId = _currentUser.Uid,
-            isAssigned = false
+            isAssigned = false,
+            profilePic = _currentUser.ProfilePictureUrl
         };
 
         string jsonRealtimeBody = System.Text.Json.JsonSerializer.Serialize(realtimeMessage);
@@ -147,7 +148,7 @@ public partial class MessagePage : ContentPage
                 await PostToRealtimeDatabaseAsync(unassignedUrl, jsonRealtimeBody);
                 await PostToRealtimeDatabaseAsync(queryConvoUrl, jsonRealtimeBody);
 
-                var messages = await LoadConversationForUserAsync(SenderId);
+                var messages = await LoadConversationForUserAsync(_currentUser.Uid);
                 foreach (var msg in messages)
                 {
                     Messages.Add(msg); // Add updated messages

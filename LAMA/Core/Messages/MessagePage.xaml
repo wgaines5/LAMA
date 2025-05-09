@@ -14,7 +14,18 @@
                             VerticalOptions="FillAndExpand">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <Frame Padding="10" 
+                        <HorizontalStackLayout
+                        Padding="5"
+                        HorizontalOptions="Fill"
+                        FlowDirection="LeftToRight">
+                            <Image Source="{Binding SenderProfileImageUrl}"
+                                   WidthRequest="32"
+                                   HeightRequest="32"
+                                   Margin="5,0"
+                                   VerticalOptions="Start"
+                                   IsVisible="{Binding SenderId, Converter={StaticResource SenderIdIsOtherUser}}"/>
+
+                            <Frame Padding="10" 
                            Margin="5"
                            BackgroundColor="{Binding SenderId, Converter={StaticResource BoolToColorConverter}}"
                            HorizontalOptions="{Binding SenderId, Converter={StaticResource BoolToAlignmentConverter}}"
@@ -24,7 +35,8 @@
                                TextColor="Black"
                                FontSize="18" />
                     </Frame>
-                </DataTemplate>
+                        </HorizontalStackLayout>
+                    </DataTemplate>
             </CollectionView.ItemTemplate>
             </CollectionView>
        
