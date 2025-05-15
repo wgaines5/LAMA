@@ -131,7 +131,8 @@ public partial class MessagePage : ContentPage
             message = messageText,
             timestamp = DateTime.UtcNow.ToString("o"),
             senderId = _currentUser.Uid,
-            isAssigned = false
+            isAssigned = false,
+            profilePic = _currentUser.ProfilePictureUrl
         };
 
         string jsonRealtimeBody = System.Text.Json.JsonSerializer.Serialize(realtimeMessage);
@@ -175,7 +176,6 @@ public partial class MessagePage : ContentPage
         {
             await DisplayAlert("Error", $"Failed to send message: {ex.Message}", "OK");
         }
-
     }
 
     private async Task PostToRealtimeDatabaseAsync(string url, string jsonBody)
@@ -191,7 +191,6 @@ public partial class MessagePage : ContentPage
             }
         }
     }
-
 }
 
 
