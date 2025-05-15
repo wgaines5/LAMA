@@ -276,6 +276,9 @@ namespace LAMA.Core
         public string SenderId { get; set; }
         public string Timestamp { get; set; }
         public bool IsUserMessage => SenderId == UserSession.CurrentUser.Uid;
+        // Needed for profile pictures to be seen next to messages.
+        public string ProfilePicture { get; set; } = "userpic.png"; 
+        public string Category {  get; set; }
 
     }
 }
