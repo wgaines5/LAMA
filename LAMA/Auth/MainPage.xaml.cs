@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System;
 using System.Linq;
 using LAMA.Core;
+using System.Text;
 
 namespace LAMA.Auth
 {
@@ -182,6 +183,7 @@ namespace LAMA.Auth
         {
             string questionText = QuestionEntry.Text;
             string selectedCategory = CategoryPicker.SelectedItem as string;
+            string idSender = UserSession.CurrentUser.Uid;
 
             if (string.IsNullOrWhiteSpace(questionText) || string.IsNullOrWhiteSpace(selectedCategory))
             {
@@ -189,10 +191,36 @@ namespace LAMA.Auth
                 return;
             }
 
+            //var newMessage = new MessageItem
+            //{
+            //    Message = questionText,
+            //    Timestamp = DateTime.UtcNow.ToString("o"),
+            //    SenderId = senderId,
+            //    Category = selectedCategory,
+            //    IsAssigned = false
+            //};
+            var newMessage = new
+            {
+                message = questionText,
+                timestamp = DateTime.UtcNow.ToString("o"),
+                senderId = idSender,
+                isAssigned = false,
+            };
+
+            // Send to firebase
+            var json = JsonSerializer.Serialize(newMessage);
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+            var response = await new HttpClient().PostAsync("https://lama-60ddc-default-rtdb.firebaseio.com/queries.json", content);
+            response.EnsureSuccessStatusCode();
+
+            var secondResponse = await new HttpClient().PostAsync($"https://lama-60ddc-default-rtdb.firebaseio.com/{idSender}/messages.json", content);
+            secondResponse.EnsureSuccessStatusCode();
+
             QuestionEntry.Text = string.Empty;
             CategoryPicker.SelectedIndex = -1;
 
-            await Shell.Current.GoToAsync($"MessagePage?Question={Uri.EscapeDataString(questionText)}&Category={Uri.EscapeDataString(selectedCategory)}");
+            await Shell.Current.GoToAsync($"MessagePage?SenderId={Uri.EscapeDataString(idSender)}");
         }
     }
 }

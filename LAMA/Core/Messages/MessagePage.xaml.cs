@@ -21,6 +21,8 @@ public partial class MessagePage : ContentPage
     public string SenderId { get; set; }
 
     public ObservableCollection<MessageItem> Messages { get; set; } = new();
+
+    private CancellationTokenSource _pollingToken;
     
     public MessagePage()
     {
@@ -29,44 +31,59 @@ public partial class MessagePage : ContentPage
         BindingContext = this;
     }
 
-    protected override async void OnAppearing()
+    //protected override async void OnAppearing()
+    //{
+    //    base.OnAppearing();
+
+    //    // Clear existing messages to avoid duplicates when navigating back to this page
+    //    Messages.Clear();
+
+    //    // Check that a valid SenderId was provided
+    //    if (!string.IsNullOrEmpty(SenderId))
+    //    {
+    //        try
+    //        {
+    //            // Attempt to load messages associated with the provided SenderId
+    //            var userMessages = await LoadConversationForUserAsync(SenderId);
+
+    //            if (userMessages != null && userMessages.Any())
+    //            {
+    //                // Add the messages to the bound ObservableCollection
+    //                foreach (var msg in userMessages)
+    //                    Messages.Add(msg);
+
+    //                // Debug output to confirm success
+    //                Console.WriteLine($"Loaded {Messages.Count} message(s) for SenderId: {SenderId}");
+    //            }
+    //            else
+    //            {
+    //                Console.WriteLine("No messages found for this SenderId.");
+    //            }
+    //        }
+    //        catch (Exception ex)
+    //        {
+    //            Console.WriteLine($"Error retrieving messages: {ex.Message}");
+    //        }
+    //    }
+    //    else
+    //    {
+    //        Console.WriteLine("SenderId was null or empty.");
+    //    }
+    //}
+
+    protected override void OnAppearing()
     {
         base.OnAppearing();
 
-        // Clear existing messages to avoid duplicates when navigating back to this page
-        Messages.Clear();
+        _pollingToken = new CancellationTokenSource();
+        StartPollingAsync(_pollingToken.Token);
+    }
 
-        // Check that a valid SenderId was provided
-        if (!string.IsNullOrEmpty(SenderId))
-        {
-            try
-            {
-                // Attempt to load messages associated with the provided SenderId
-                var userMessages = await LoadConversationForUserAsync(SenderId);
+    protected override void OnDisappearing()
+    {
+        base.OnDisappearing();
 
-                if (userMessages != null && userMessages.Any())
-                {
-                    // Add the messages to the bound ObservableCollection
-                    foreach (var msg in userMessages)
-                        Messages.Add(msg);
-
-                    // Debug output to confirm success
-                    Console.WriteLine($"Loaded {Messages.Count} message(s) for SenderId: {SenderId}");
-                }
-                else
-                {
-                    Console.WriteLine("No messages found for this SenderId.");
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error retrieving messages: {ex.Message}");
-            }
-        }
-        else
-        {
-            Console.WriteLine("SenderId was null or empty.");
-        }
+        _pollingToken?.Cancel();
     }
 
     public async Task<List<MessageItem>> LoadQueryForUserAsync(string senderId)
@@ -189,6 +206,59 @@ public partial class MessagePage : ContentPage
             {
                 throw new Exception($"Realtime DB Error: {response.StatusCode}");
             }
+        }
+    }
+
+    private async void StartPollingAsync(CancellationToken token)
+    {
+        while (!token.IsCancellationRequested)
+        {
+            if (!string.IsNullOrEmpty(SenderId))
+            {
+                try
+                {
+                    // Attempt to load messages associated with the provided SenderId
+                    var userMessages = await LoadConversationForUserAsync(SenderId);
+
+                    if (userMessages != null && userMessages.Any())
+                    {
+                        // Add the messages to the bound ObservableCollection
+                        //foreach (var msg in userMessages)
+                        //    Messages.Add(msg);
+
+                        var existingTimestamps = Messages.Select(m => m.Timestamp).ToHashSet();
+
+                        var newMessages = userMessages
+                            .Where(m => !existingTimestamps.Contains(m.Timestamp))
+                            .OrderBy(m =>DateTime.Parse(m.Timestamp))
+                            .ToList();
+
+                        if (newMessages.Any())
+                        {
+                            MainThread.BeginInvokeOnMainThread(() =>
+                            {
+                                foreach (var message in newMessages)
+                                {
+                                    Messages.Add(message);
+                                }
+                            });
+                        }
+
+                        // Debug output to confirm success
+                        Console.WriteLine($"Loaded {Messages.Count} message(s) for SenderId: {SenderId}");
+                    }
+                    else
+                    {
+                        Console.WriteLine("No messages found for this SenderId.");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Error retrieving messages: {ex.Message}");
+                }
+            }
+
+            await Task.Delay(1000);
         }
     }
 }

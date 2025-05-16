@@ -18,6 +18,7 @@ namespace LAMA.Core
         public ObservableCollection<Conversation> UnassignedMessages { get; set; }
         public int UsersAnswered { get; set; }
         FirestoreServices firestoreServices = new FirestoreServices();
+        private CancellationTokenSource _pollingToken = new CancellationTokenSource();
 
         public MPDashBoard()
         {
@@ -42,6 +43,7 @@ namespace LAMA.Core
             }
 
             CategoriesList.ItemsSource = Categories;
+            PendingMessages = new ObservableCollection<MessageItem>();
             PendingMessagesList.ItemsSource = PendingMessages;
             UsersAnsweredCount.Text = UsersAnswered.ToString();
 
@@ -242,6 +244,53 @@ namespace LAMA.Core
             }
         }
 
+        private async Task PollForMessagesAsync(CancellationToken token)
+        {
+            while (!token.IsCancellationRequested)
+            {
+                try
+                {
+                    var client = new HttpClient();
+                    var response = await client.GetStringAsync("https://lama-60ddc-default-rtdb.firebaseio.com/queries.json");
+                    var messages = JsonConvert.DeserializeObject<Dictionary<string, MessageItem>>(response);
+
+                    if (messages != null)
+                    {
+                        var fetched = messages.Values.ToList();
+
+                        MainThread.BeginInvokeOnMainThread(() =>
+                        {
+                            foreach (var message in fetched)
+                            {
+                                if (!PendingMessages.Any(m => m.Timestamp == message.Timestamp))
+                                {
+                                    PendingMessages.Add(message);
+                                }
+                            }
+                        });
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Polling error: {ex.Message}");
+                }
+                await Task.Delay(5000, token);
+            }
+        }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+
+            _pollingToken = new CancellationTokenSource();
+            _ = PollForMessagesAsync(_pollingToken.Token);
+        }
+
+        protected override void OnDisappearing()
+        {
+            base.OnDisappearing();
+            _pollingToken?.Cancel();
+        }
     }
 
 
