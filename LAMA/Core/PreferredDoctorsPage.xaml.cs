@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using LAMA.Services;
 using CommunityToolkit.Mvvm.DependencyInjection;
+using Google.Cloud.Firestore;
 
 namespace LAMA.Core
 {
@@ -53,7 +54,7 @@ namespace LAMA.Core
         protected override async void OnAppearing()
         {
             base.OnAppearing();
-            Console.WriteLine("OnAppearing triggered ✅"); // <- DEBUG
+            Console.WriteLine("OnAppearing triggered"); // <- DEBUG
             await LoadDoctorsFromFirestore();
         }
 

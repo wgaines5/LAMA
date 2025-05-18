@@ -111,16 +111,16 @@ namespace LAMA.Services
                             IsSelected = false
                         });
 
-                        Console.WriteLine($"✅ Loaded: {firstName} {lastName}");
+                        Console.WriteLine($"Loaded: {firstName} {lastName}");
                     }
                     else
                     {
-                        Console.WriteLine($"⚠️ Missing name fields in doc: {doc.Id}");
+                        Console.WriteLine($"Missing name fields in doc: {doc.Id}");
                     }
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine($"❌ Failed to parse doctor doc {doc.Id}: {ex.Message}");
+                    Console.WriteLine($"Failed to parse doctor doc {doc.Id}: {ex.Message}");
                 }
             }
 

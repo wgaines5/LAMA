@@ -68,6 +68,7 @@ namespace LAMA.Auth
 
             UserCredential uCredential = await _authClient.SignInWithEmailAndPasswordAsync(email, password);
             UserSession.Credential = uCredential;
+
         }
     }
 }
