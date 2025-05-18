@@ -4,6 +4,7 @@ using Firebase.Auth;
 using Firebase.Auth.Providers;
 using Google.Cloud.Firestore;
 using LAMA.Core.Profile;
+using LAMA.Core.Messages;
 
 namespace LAMA.Auth;
 
@@ -32,7 +33,28 @@ public partial class UserSignUp : ContentPage
     {
         await Shell.Current.GoToAsync("//SignInPage");  // Navigate to SignInPage
     }
+    private string _base64ImageData = "";
 
+    private async void OnPickImageTapped(object sender, EventArgs e)
+    {
+        FileResult result = await FilePicker.PickAsync(new PickOptions
+        {
+            FileTypes = FilePickerFileType.Images,
+            PickerTitle = "Select Profile Picture"
+        });
+
+        if (result != null)
+        {
+            using Stream stream = await result.OpenReadAsync();
+            using MemoryStream memoryStream = new MemoryStream();
+            await stream.CopyToAsync(memoryStream);
+            byte[] imageBytes = memoryStream.ToArray();
+
+            _base64ImageData = Convert.ToBase64String(imageBytes);
+
+            UserPic.Source = ImageSource.FromStream(() => new MemoryStream(imageBytes));
+        }
+    }
     private async void OnUserSignUpTapped(object sender, EventArgs e)
     {
         try
@@ -52,11 +74,15 @@ public partial class UserSignUp : ContentPage
                 CreatedAt = DateTime.UtcNow,
                 FrequentCategory = "",
                 QueriesSubmitted = 0,
-                ProfilePictureUrl = ""
-            }; 
+
+                ProfilePictureUrl = _base64ImageData,
+                Conversations = new List<Conversation>()
+
+            };
 
             // Serialize to Firestore format
-            string json = ConvertUserToFirestoreJson(newUser);
+            var storageServices = new UserStorageServices();
+            string json = storageServices.ConvertUserToFirestoreJson(newUser);
             string url = $"https://firestore.googleapis.com/v1/projects/lama-60ddc/databases/(default)/documents/users?documentId={uid}&access_token={idToken}";
 
             using var client = new HttpClient();
@@ -73,33 +99,19 @@ public partial class UserSignUp : ContentPage
             }
 
             await DisplayAlert("Success", "Account created successfully!", "OK");
-            await Shell.Current.GoToAsync($"//{nameof(ProfilePage)}");
+
+            // Initalize LAMA User object at sign up 
+            UserSession.CurrentUser = newUser;
+
+            // Toggle visibiility of Profile Flybar Menu Item on auth 
+            AppShell.Instance.ProfileContent.FlyoutItemIsVisible = true;
+
+            await Shell.Current.GoToAsync("//ProfilePage");
         }
         catch (Exception ex)
         {
             await DisplayAlert("Error", $"An error occurred:\n{ex.Message}", "OK");
         }
     }
-
-
-    private string ConvertUserToFirestoreJson(LAMA.Core.Profile.User user)
-    {
-        var firestoreJson = new
-        {
-            fields = new
-            {
-                uid = new { stringValue = user.Uid },
-                emailAddress = new { stringValue = user.EmailAddress },
-                fullName = new { stringValue = user.FirstName },
-                createdAt = new { timestampValue = user.CreatedAt.ToString("o") },
-                queriesSubmitted = new { integerValue = user.QueriesSubmitted.ToString()},
-                frequentCategory = new { stringValue =  user.FrequentCategory},
-                profilePictureUrl = new { stringValue = user.ProfilePictureUrl}
-            }
-        };
-
-        return JsonSerializer.Serialize(firestoreJson);
-    }
-
-
+   
 }

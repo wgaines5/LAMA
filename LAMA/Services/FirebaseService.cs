@@ -1,4 +1,6 @@
-﻿using LAMA.Core.Messages;
+﻿
+using LAMA.Auth;
+using LAMA.Core.Messages;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,32 +12,64 @@ namespace LAMA.Services
 {
     public class FirebaseService
     {
-        private readonly HttpClient _httpClient;
-        private readonly string _url = "https://lama-60ddc-default-rtdb.firebaseio.com/messages.json";
+        //    private readonly HttpClient _httpClient;
+        //    private readonly string _url = "https://lama-60ddc-default-rtdb.firebaseio.com";
+        //    private readonly string _token;
 
-        public FirebaseService()
-        {
-            _httpClient = new HttpClient();
-        }
+        //    public FirebaseService()
+        //    {
+        //        _httpClient = new HttpClient();
+        //        _token = UserSession.Token;
+        //    }
 
-        public async Task SendMessageAsync(ChatMessage message)
-        {
-            string json = JsonSerializer.Serialize(message);
-            var content = new StringContent(json, Encoding.UTF8, "application/json");
+        //    public async Task SendMessageAsync(ChatMessage message)
+        //    {
+        //        string json = JsonSerializer.Serialize(message);
+        //        var content = new StringContent(json, Encoding.UTF8, "application/json");
 
-            var response = await _httpClient.PostAsync(_url, content);
-            response.EnsureSuccessStatusCode();
-        }
+        //        var response = await _httpClient.PostAsync($"{_url}/messages.json?auth={_token}", content);
+        //        response.EnsureSuccessStatusCode();
+        //    }
 
-        public async Task<List<ChatMessage>> GetMessageAsync()
-        {
-            var response = await _httpClient.GetAsync(_url);
-            if (response.IsSuccessStatusCode)
-            {
-                string json = await response.Content.ReadAsStringAsync();
-                return JsonSerializer.Deserialize<Dictionary<string, ChatMessage>>(json)?.Values.ToList() ?? new List<ChatMessage>();
-            }
-            return new List<ChatMessage>();
-        }
+        //    public async Task<List<ChatMessage>> GetMessageAsync()
+        //    {
+        //        var response = await _httpClient.GetAsync($"{_url}?auth={_token}");
+        //        if (response.IsSuccessStatusCode)
+        //        {
+        //            string json = await response.Content.ReadAsStringAsync();
+        //            return JsonSerializer.Deserialize<Dictionary<string, ChatMessage>>(json)?.Values.ToList() ?? new List<ChatMessage>();
+        //        }
+        //        return new List<ChatMessage>();
+        //    }
+
+        //    public async Task AddUnassignedAsync(Conversation conversation)
+        //    {
+        //        string json = JsonSerializer.Serialize(conversation);
+        //        var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+        //        var response = await _httpClient.PutAsync($"{_url}/unassigned_sessions/{conversation.ConversationId}.json", content);
+        //        response.EnsureSuccessStatusCode();
+        //    }
+
+        //    public async Task<List<Conversation>> GetUnassignedAsync()
+        //    {
+        //        var response = await _httpClient.GetAsync($"{_url}/unassigned_sessions.json");
+        //        if (response.IsSuccessStatusCode)
+        //        {
+        //            var json = await response.Content.ReadAsStringAsync();
+        //            var messages = JsonSerializer.Deserialize<Dictionary<string,  Conversation>>(json);
+        //            return messages?.Values.ToList();
+        //        }
+        //        return new List<Conversation>();
+        //    }
+
+        //    public async Task AssignProviderAsync(Conversation conversation)
+        //    {
+        //        string json = JsonSerializer.Serialize(conversation);
+        //        var content = new StringContent(json, Encoding.UTF8 , "application/json");
+
+        //        var response = await _httpClient.PutAsync($"{_url}/unassigned_sessions/{conversation.ConversationId}.json", content);
+        //        response.EnsureSuccessStatusCode();
+        //    }
     }
 }

@@ -1,5 +1,7 @@
 using Firebase.Auth;
 
+using System.Text.Json;
+
 namespace LAMA.Auth
 {
     public static class UserSession

@@ -18,7 +18,7 @@ namespace LAMA.Core.Categories
                 string questionText = questionEntry.Text;
                 questionEntry.Text = ""; // clear input field
 
-                await Shell.Current.GoToAsync($"{nameof(InboxPage)}?Question={Uri.EscapeDataString(questionText)}");
+                await Shell.Current.GoToAsync($"{nameof(MessagePage)}?Question={Uri.EscapeDataString(questionText)}");
             }
         }
     }

@@ -47,7 +47,7 @@
 		<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4" />
 
 		<!-- Splash Screen -->
-		<MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#512BD4" BaseSize="128,128" />
+		<MauiSplashScreen Include="Resources\Splash\lamalogo.svg" Color="#01a4ff" BaseSize="128,128" />
 
 		<!-- Images -->
 		<MauiImage Include="Resources\Images\*" />
@@ -63,13 +63,11 @@
 	<ItemGroup>
 	  <Compile Remove="Auth\NewPage1.cs" />
 	  <Compile Remove="Auth\NewPage2.xaml.cs" />
-	  <Compile Remove="Auth\SignInPage.xaml.cs" />
 	  <Compile Remove="SignUpPage.xaml.cs" />
 	</ItemGroup>
 
 	<ItemGroup>
 	  <MauiXaml Remove="Auth\NewPage2.xaml" />
-	  <MauiXaml Remove="Auth\SignInPage.xaml" />
 	  <MauiXaml Remove="SignUpPage.xaml" />
 	</ItemGroup>
 
@@ -93,12 +91,12 @@
 	  <Compile Update="Auth\UserSignUp.xaml.cs">
 	    <DependentUpon>UserSignUp.xaml</DependentUpon>
 	  </Compile>
-	  <Compile Update="Core\Messages\InboxPage.xaml.cs">
-	    <DependentUpon>InboxPage.xaml</DependentUpon>
-	  </Compile>
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiXaml Update="Auth\SignInPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Auth\SignUpPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
@@ -135,6 +133,9 @@
 	  <MauiXaml Update="Core\MessagesPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Core\Messages\MPInbox.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Core\MPDashBoard.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
@@ -160,9 +161,6 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Core\TOSPage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Sample.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>
