@@ -191,7 +191,7 @@ namespace LAMA.Auth
         {
             string questionText = QuestionEntry.Text;
             string selectedCategory = CategoryPicker.SelectedItem as string;
-            string idSender = UserSession.CurrentUser.Uid;
+            string idSender = UserSession.UserId;
 
             if (string.IsNullOrWhiteSpace(questionText) || string.IsNullOrWhiteSpace(selectedCategory))
             {

@@ -36,11 +36,11 @@ namespace LAMA
             Routing.RegisterRoute(nameof(MedicationDPage), typeof(MedicationDPage));
             Routing.RegisterRoute(nameof(AlternativeHPage), typeof(AlternativeHPage));
 
-            //var mpShellItem = this.FindByName<ShellContent>("MPDashShellItem");
-            //if (mpShellItem != null)
-            //{
-                //mpShellItem.FlyoutItemIsVisible = UserSession.IsMedPro || UserSession.IsUnverified;
-            //}
+            var mpShellItem = this.FindByName<ShellContent>("MPDashShellItem");
+            if (mpShellItem != null)
+            {
+                mpShellItem.FlyoutItemIsVisible = UserSession.IsMedPro || UserSession.IsUnverified;
+            }
         }
 
         public ShellContent ProfileContent => ProfileShellContent;
