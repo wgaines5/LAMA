@@ -26,19 +26,47 @@ public partial class SignUpPage : ContentPage
         _authClient = new FirebaseAuthClient(fbConfig);
 
     }
+    private string _base64Image = string.Empty;
 
     private async void OnImageTapped(object sender, EventArgs e)
     {
-        FileResult result = await FilePicker.PickAsync(new PickOptions
-        {
-            PickerTitle = "Select a Profile Picture",
-            FileTypes = FilePickerFileType.Images
-        });
+        string action = await DisplayActionSheet("Choose Photo Option", "Cancel", null, null, "Pick from Gallery");
 
-        if (result != null)
+        FileResult photo = null;
+
+       if (action == "Pick from Gallery")
         {
-            _selectedImage = result;
-            ProfileUpload.Source = ImageSource.FromFile(result.FullPath);
+            photo = await MediaPicker.Default.PickPhotoAsync(new MediaPickerOptions
+            {
+                Title = "Select a Profile Picture"
+            });
+        }
+
+        if (photo != null)
+        {
+            _selectedImage = photo;
+
+            using Stream stream = await photo.OpenReadAsync();
+            using MemoryStream ms = new MemoryStream();
+            await stream.CopyToAsync(ms);
+            byte[] imageBytes = ms.ToArray();
+
+            _base64Image = Convert.ToBase64String(imageBytes);
+            ProfileUpload.Source = ImageSource.FromStream(() => new MemoryStream(imageBytes));
+        }
+        else
+        {
+            FileResult result = await FilePicker.PickAsync(new PickOptions
+            {
+                PickerTitle = "Select a Profile Picture",
+                FileTypes = FilePickerFileType.Images
+            });
+
+            if (result != null)
+            {
+                _selectedImage = result;
+                ProfileUpload.Source = ImageSource.FromFile(result.FullPath);
+            }
         }
     }
 
@@ -55,7 +83,16 @@ public partial class SignUpPage : ContentPage
             string uid = mpCredential.User.Uid;
             string idToken = await mpCredential.User.GetIdTokenAsync();
 
-            string base64Image = await ConvertImageToBase64Async();
+            string base64Image;
+
+            if (!string.IsNullOrEmpty(_base64Image))
+            {
+                base64Image = _base64Image;
+            }
+            else
+            {
+                base64Image = await ConvertImageToBase64Async();
+            }
 
             object profile = new
             {
