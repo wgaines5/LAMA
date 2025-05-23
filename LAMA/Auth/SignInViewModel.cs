@@ -16,6 +16,8 @@ namespace LAMA.Auth
     {
         private readonly FirebaseAuthClient _authClient;
 
+        public static string Token { get; set; }
+
         [ObservableProperty]
         private string _email;
 
@@ -34,8 +36,9 @@ namespace LAMA.Auth
 
             UserSession.Credential = credential;
             UserSession.UserId = credential.User.Uid;
+            UserSession.Token = await credential.User.GetIdTokenAsync();
 
-            // Load role from Firestore
+            // Optional: Load Firestore role
             FirestoreDb db = FirestoreDb.Create("lama-60ddc");
             var doc = await db.Collection("users").Document(credential.User.Uid).GetSnapshotAsync();
 
@@ -50,6 +53,7 @@ namespace LAMA.Auth
             else
                 await Shell.Current.GoToAsync($"//{nameof(MPDashBoard)}");
         }
+
 
         [RelayCommand]
         private async Task NavigateSignUp()

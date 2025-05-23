@@ -8,6 +8,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using LAMA.Core;
+using System.Text.Json;
 
 namespace LAMA.Services
 {
@@ -71,41 +72,47 @@ namespace LAMA.Services
             });
         }
 
-        public async Task<List<Doctor>> GetAllMedicalProvidersAsync()
+        public async Task<List<Doctor>> GetAllMedicalProvidersViaRestAsync(string idToken)
         {
-            await SetupFirestore();
-            var snapshot = await db.Collection("medical_providers").GetSnapshotAsync();
-
             var doctors = new List<Doctor>();
 
-            foreach (var doc in snapshot.Documents)
+            string url = $"https://firestore.googleapis.com/v1/projects/lama-60ddc/databases/(default)/documents/medical_providers?access_token={idToken}";
+
+            using var client = new HttpClient();
+            var response = await client.GetAsync(url);
+            var content = await response.Content.ReadAsStringAsync();
+
+            if (!response.IsSuccessStatusCode)
             {
-                var data = doc.ToDictionary();
+                Console.WriteLine($"❌ Firestore REST call failed: {response.StatusCode}");
+                Console.WriteLine(content);
+                return doctors;
+            }
 
-                try
-                {
-                    var firstName = data.ContainsKey("firstName") ? data["firstName"].ToString() : null;
-                    var lastName = data.ContainsKey("lastName") ? data["lastName"].ToString() : null;
+            using var jsonDoc = JsonDocument.Parse(content);
+            foreach (var doc in jsonDoc.RootElement.GetProperty("documents").EnumerateArray())
+            {
+                var fields = doc.GetProperty("fields");
 
-                    if (!string.IsNullOrEmpty(firstName) && !string.IsNullOrEmpty(lastName))
-                    {
-                        doctors.Add(new Doctor
-                        {
-                            Id = doc.Id,
-                            FirstName = firstName,
-                            LastName = lastName,
-                            IsSelected = false
-                        });
-                    }
-                }
-                catch (Exception ex)
+                string GetField(string key)
                 {
-                    Console.WriteLine($"Error parsing doctor doc {doc.Id}: {ex.Message}");
+                    return fields.TryGetProperty(key, out var val) && val.TryGetProperty("stringValue", out var str)
+                        ? str.GetString()
+                        : "";
                 }
+
+                doctors.Add(new Doctor
+                {
+                    Id = doc.GetProperty("name").ToString().Split('/').Last(),
+                    FirstName = GetField("firstName"),
+                    LastName = GetField("lastName"),
+                    IsSelected = false
+                });
             }
 
             return doctors;
         }
+
 
         public async Task DeleteMedicalProviderAsync(string firstName, string lastName)
         {

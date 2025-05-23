@@ -3,7 +3,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using LAMA.Services;
 using CommunityToolkit.Mvvm.DependencyInjection;
-using Google.Cloud.Firestore;
+using LAMA.Auth;
 
 namespace LAMA.Core
 {
@@ -60,11 +60,22 @@ namespace LAMA.Core
 
         private async Task LoadDoctorsFromFirestore()
         {
-            Console.WriteLine("Fetching doctors from Firestore...");
+            Console.WriteLine("Fetching doctors via REST...");
 
-            var doctors = await _firestoreService.GetAllMedicalProvidersAsync();
+            // ✅ Check if user is signed in and token is available
+            if (UserSession.Token == null)
+            {
+                await DisplayAlert("Error", "You must be signed in to load doctors.", "OK");
+                return;
+            }
 
-            Console.WriteLine($"Fetched {doctors.Count} doctors from Firestore");
+            // ✅ Use the cached token for Firestore REST access
+            string idToken = UserSession.Token;
+
+            // 🔁 Call the REST-based Firestore fetch method
+            var doctors = await _firestoreService.GetAllMedicalProvidersViaRestAsync(idToken);
+
+            Console.WriteLine($"Fetched {doctors.Count} doctors");
 
             AllDoctors.Clear();
             foreach (var doc in doctors)
