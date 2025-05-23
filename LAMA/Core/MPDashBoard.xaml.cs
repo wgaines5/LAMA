@@ -176,7 +176,8 @@ namespace LAMA.Core
             if (sender is Button button && button.BindingContext is MessageItem message)
             {
                 var senderId = message.SenderId;
-                var navigationUrl = $"{nameof(MessagePage)}?SenderId={senderId}";
+                var sessionId = message.SessionId;
+                var navigationUrl = $"{nameof(MessagePage)}?SenderId={senderId}&SessionId={sessionId}";
 
                 await Shell.Current.GoToAsync(navigationUrl);
                 PendingMessages.Remove(message);
@@ -328,6 +329,8 @@ namespace LAMA.Core
         // Needed for profile pictures to be seen next to messages.
         public string ProfilePicture { get; set; } = "userpic.png"; 
         public string Category {  get; set; }
+
+        public string SessionId { get; set; }
 
     }
 }

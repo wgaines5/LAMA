@@ -184,6 +184,7 @@ namespace LAMA.Auth
             string questionText = QuestionEntry.Text;
             string selectedCategory = CategoryPicker.SelectedItem as string;
             string idSender = UserSession.CurrentUser.Uid;
+            string idSession = $"{UserSession.CurrentUser.Uid}_{DateTime.UtcNow:yyyyMMddHHmmss}";
 
             if (string.IsNullOrWhiteSpace(questionText) || string.IsNullOrWhiteSpace(selectedCategory))
             {
@@ -205,6 +206,7 @@ namespace LAMA.Auth
                 timestamp = DateTime.UtcNow.ToString("o"),
                 senderId = idSender,
                 isAssigned = false,
+                sessionId = idSession,
             };
 
             // Send to firebase
@@ -214,13 +216,13 @@ namespace LAMA.Auth
             var response = await new HttpClient().PostAsync("https://lama-60ddc-default-rtdb.firebaseio.com/queries.json", content);
             response.EnsureSuccessStatusCode();
 
-            var secondResponse = await new HttpClient().PostAsync($"https://lama-60ddc-default-rtdb.firebaseio.com/{idSender}/messages.json", content);
+            var secondResponse = await new HttpClient().PostAsync($"https://lama-60ddc-default-rtdb.firebaseio.com/{idSession}/messages.json", content);
             secondResponse.EnsureSuccessStatusCode();
 
             QuestionEntry.Text = string.Empty;
             CategoryPicker.SelectedIndex = -1;
 
-            await Shell.Current.GoToAsync($"MessagePage?SenderId={Uri.EscapeDataString(idSender)}");
+            await Shell.Current.GoToAsync($"MessagePage?SenderId={Uri.EscapeDataString(idSender)}&SessionId={Uri.EscapeDataString(idSession)}");
         }
     }
 }

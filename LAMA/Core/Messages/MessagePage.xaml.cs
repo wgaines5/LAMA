@@ -13,12 +13,14 @@ using System.Text.Json;
 namespace LAMA.Core.Messages;
 
 [QueryProperty(nameof(SenderId), "SenderId")]
+[QueryProperty(nameof(SessionId), "SessionId")]
 public partial class MessagePage : ContentPage
 {
 
     LAMA.Core.Profile.User _currentUser = UserSession.CurrentUser;
 
     public string SenderId { get; set; }
+    public string SessionId { get; set; }
 
     public ObservableCollection<MessageItem> Messages { get; set; } = new();
 
@@ -111,11 +113,11 @@ public partial class MessagePage : ContentPage
         }
     }
 
-    public async Task<List<MessageItem>> LoadConversationForUserAsync(string senderId)
+    public async Task<List<MessageItem>> LoadConversationForUserAsync(string senderId, string sessionId)
     {
         try
         {
-            var response = await new HttpClient().GetStringAsync($"https://lama-60ddc-default-rtdb.firebaseio.com/{SenderId}/messages.json");
+            var response = await new HttpClient().GetStringAsync($"https://lama-60ddc-default-rtdb.firebaseio.com/{sessionId}/messages.json");
 
             var allMessages = JsonConvert.DeserializeObject<Dictionary<string, MessageItem>>(response);
 
@@ -149,7 +151,8 @@ public partial class MessagePage : ContentPage
             timestamp = DateTime.UtcNow.ToString("o"),
             senderId = _currentUser.Uid,
             isAssigned = false,
-            profilePic = _currentUser.ProfilePictureUrl
+            profilePic = _currentUser.ProfilePictureUrl,
+            sessionId = SessionId
         };
 
         string jsonRealtimeBody = System.Text.Json.JsonSerializer.Serialize(realtimeMessage);
@@ -161,11 +164,11 @@ public partial class MessagePage : ContentPage
             {
                 // No user ID — treat as a new unassigned message
                 string unassignedUrl = $"https://lama-60ddc-default-rtdb.firebaseio.com/queries.json";
-                string queryConvoUrl = $"https://lama-60ddc-default-rtdb.firebaseio.com/{_currentUser.Uid}/messages.json";
+                string queryConvoUrl = $"https://lama-60ddc-default-rtdb.firebaseio.com/{SessionId}/messages.json";
                 await PostToRealtimeDatabaseAsync(unassignedUrl, jsonRealtimeBody);
                 await PostToRealtimeDatabaseAsync(queryConvoUrl, jsonRealtimeBody);
 
-                var messages = await LoadConversationForUserAsync(SenderId);
+                var messages = await LoadConversationForUserAsync(SenderId, SessionId);
                 foreach (var msg in messages)
                 {
                     Messages.Add(msg); // Add updated messages
@@ -175,11 +178,11 @@ public partial class MessagePage : ContentPage
             else
             {
                 // Existing conversation — append to conversation path
-                string conversationUrl = $"https://lama-60ddc-default-rtdb.firebaseio.com/{SenderId}/messages.json";
+                string conversationUrl = $"https://lama-60ddc-default-rtdb.firebaseio.com/{SessionId}/messages.json";
                 await PostToRealtimeDatabaseAsync(conversationUrl, jsonRealtimeBody);
 
                 Messages.Clear();
-                var refreshedMessages = await LoadConversationForUserAsync(SenderId);
+                var refreshedMessages = await LoadConversationForUserAsync(SenderId, SessionId);
                 foreach (var msg in refreshedMessages)
                 {
                     Messages.Add(msg); // Add updated messages
@@ -218,7 +221,7 @@ public partial class MessagePage : ContentPage
                 try
                 {
                     // Attempt to load messages associated with the provided SenderId
-                    var userMessages = await LoadConversationForUserAsync(SenderId);
+                    var userMessages = await LoadConversationForUserAsync(SenderId, SessionId);
 
                     if (userMessages != null && userMessages.Any())
                     {
