@@ -213,7 +213,7 @@ namespace LAMA.Auth
             var json = JsonSerializer.Serialize(newMessage);
             var content = new StringContent(json, Encoding.UTF8, "application/json");
 
-            var response = await new HttpClient().PostAsync("https://lama-60ddc-default-rtdb.firebaseio.com/queries.json", content);
+            var response = await new HttpClient().PutAsync($"https://lama-60ddc-default-rtdb.firebaseio.com/queries/{idSession}.json", content);
             response.EnsureSuccessStatusCode();
 
             var secondResponse = await new HttpClient().PostAsync($"https://lama-60ddc-default-rtdb.firebaseio.com/{idSession}/messages.json", content);
