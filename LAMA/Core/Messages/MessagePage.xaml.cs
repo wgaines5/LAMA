@@ -4,6 +4,7 @@ using AndroidX.Lifecycle;
 #endif
 
 using LAMA.Auth;
+using LAMA.Core.Profile;
 using Newtonsoft.Json;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
@@ -145,6 +146,18 @@ public partial class MessagePage : ContentPage
         if (string.IsNullOrEmpty(messageText))
             return;
 
+        if (_currentUser == null)
+        {
+           _currentUser = await SignInAnonymouslyAsync();
+
+            if (_currentUser == null)
+            {
+                await Microsoft.Maui.Controls.Application.Current.MainPage.DisplayAlert("Error",
+                    "Could not sign in anonymously. Please try again.",
+                    "Ok");
+            }
+        }
+
         var realtimeMessage = new
         {
             message = messageText,
@@ -264,6 +277,52 @@ public partial class MessagePage : ContentPage
             await Task.Delay(1000);
         }
     }
+
+    private async Task<User?> SignInAnonymouslyAsync()
+    {
+        const string apiKey = "AIzaSyDiAuutGePttuNIoUxGy2Ok6NDcqGoh74k";
+        var url = $"https://identitytoolkit.googleapis.com/v1/accounts:signUp?key={apiKey}";
+        var payload = new
+        {
+            returnSecureToken = true
+    };
+
+        var httpClient = new HttpClient();
+        var content = new StringContent(
+            System.Text.Json.JsonSerializer.Serialize(payload),
+            Encoding.UTF8, "application/json");
+
+        var response = await httpClient.PostAsync(url, content);
+
+        if (!response.IsSuccessStatusCode)
+        {
+            return null;
+        }
+
+        var responseString = await response.Content.ReadAsStringAsync();
+        var result = System.Text.Json.JsonSerializer.Deserialize<FirebaseAuthResponse>(responseString);
+
+       var anonUser = new User
+        {
+            Uid = result.localId,
+            Username = "Anonymous",
+            CreatedAt = DateTime.UtcNow,
+            IsAnonymous = true
+        };
+
+        UserSession.CurrentUser = anonUser;
+
+        return anonUser;
+    }
+
+}
+
+public class FirebaseAuthResponse
+{
+    public string idToken { get; set; }
+    public string localId { get; set; }
+    public string refreshToken { get; set; }
+    public string expiresIn { get; set; }
 }
 
 
