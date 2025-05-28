@@ -41,7 +41,23 @@
 	<PropertyGroup>
 		<NullabilityInfoContextSupport>true</NullabilityInfoContextSupport>
 	</PropertyGroup>
+	<PropertyGroup Condition="'$(TargetFramework)'=='net8.0-ios'">
+	  <CodesignKey>Apple Development: Created via API (Z46KVSYZ73)</CodesignKey>
+	  <CodesignProvision>VS: com.companyname.lama Development</CodesignProvision>
+	</PropertyGroup>
+	
+	<!--Nullabilityfix-->
+	<PropertyGroup>
+		<EnableTrimAnalyzer>false</EnableTrimAnalyzer>
+		<PublishTrimmed>false</PublishTrimmed>
+		<EnableDynamicLoading>true</EnableDynamicLoading>
+		<TrimmerDefaultAction>link</TrimmerDefaultAction>
+	</PropertyGroup>
 
+	<ItemGroup>
+		<AssemblyMetadata Include="System.Text.Json" />
+	</ItemGroup>
+	<!--End-->
 	<ItemGroup>
 		<!-- App Icon -->
 		<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4" />
