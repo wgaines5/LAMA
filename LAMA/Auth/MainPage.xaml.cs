@@ -207,6 +207,7 @@ namespace LAMA.Auth
                 senderId = idSender,
                 isAssigned = false,
                 sessionId = idSession,
+                category = selectedCategory
             };
 
             // Send to firebase
@@ -222,7 +223,7 @@ namespace LAMA.Auth
             QuestionEntry.Text = string.Empty;
             CategoryPicker.SelectedIndex = -1;
 
-            await Shell.Current.GoToAsync($"MessagePage?SenderId={Uri.EscapeDataString(idSender)}&SessionId={Uri.EscapeDataString(idSession)}");
+            await Shell.Current.GoToAsync($"MessagePage?SenderId={Uri.EscapeDataString(idSender)}&SessionId={Uri.EscapeDataString(idSession)}&Category={Uri.EscapeDataString(selectedCategory)}");
         }
     }
 }
