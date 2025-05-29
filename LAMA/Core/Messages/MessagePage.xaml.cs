@@ -15,6 +15,7 @@ namespace LAMA.Core.Messages;
 
 [QueryProperty(nameof(SenderId), "SenderId")]
 [QueryProperty(nameof(SessionId), "SessionId")]
+[QueryProperty(nameof(Category), "Category")]
 public partial class MessagePage : ContentPage
 {
 
@@ -22,6 +23,7 @@ public partial class MessagePage : ContentPage
 
     public string SenderId { get; set; }
     public string SessionId { get; set; }
+    public string Category {  get; set; }
 
     public ObservableCollection<MessageItem> Messages { get; set; } = new();
 
