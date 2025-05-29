@@ -159,7 +159,7 @@ public partial class MessagePage : ContentPage
                     "Ok");
             }
         }
-
+        
         var realtimeMessage = new
         {
             message = messageText,

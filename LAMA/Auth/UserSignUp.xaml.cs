@@ -100,7 +100,6 @@ public partial class UserSignUp : ContentPage
                 CreatedAt = DateTime.UtcNow,
                 FrequentCategory = "",
                 QueriesSubmitted = 0,
-
                 ProfilePictureUrl = _base64ImageData,
                 Conversations = new List<Conversation>()
 

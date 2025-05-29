@@ -16,7 +16,7 @@ namespace LAMA.Core.Profile
         public string FirstName { get; set; }
         public int QueriesSubmitted { get; set; } = 0;
         public string FrequentCategory { get; set; } = "";
-        public string ProfilePictureUrl { get; set; } = "";
+        public string ProfilePictureUrl{ get; set; } = "";
         public DateTime CreatedAt { get; set; }
         public bool IsAnonymous { get; set; }
 
