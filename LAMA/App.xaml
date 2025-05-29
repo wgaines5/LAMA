@@ -13,6 +13,10 @@
             <local:BoolToAlignmentConverter x:Key="BoolToAlignmentConverter"/>
             <local:AlternatingColorConverter x:Key="AlternatingColorConverter"/>
             <local:BoolToBookmarkConverter x:Key="'BoolToBookmarkConverter"/>
+            <local:SenderIdToAlignmentConverter x:Key="SenderIdToAlignmentConverter"/>
+            <local:SenderIdIsOtherUser x:Key="SenderIdIsOtherUser"/>
+            <local:FallbackImageConverter x:Key="FallbackImageConverter"/>
+            <local:SenderIdIsCurrentUserConverter x:Key="SenderIdIsCurrentUserConverter"/>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

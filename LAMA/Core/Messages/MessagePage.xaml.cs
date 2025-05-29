@@ -4,6 +4,7 @@ using AndroidX.Lifecycle;
 #endif
 
 using LAMA.Auth;
+using LAMA.Core.Profile;
 using Newtonsoft.Json;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
@@ -13,14 +14,20 @@ using System.Text.Json;
 namespace LAMA.Core.Messages;
 
 [QueryProperty(nameof(SenderId), "SenderId")]
+[QueryProperty(nameof(SessionId), "SessionId")]
+[QueryProperty(nameof(Category), "Category")]
 public partial class MessagePage : ContentPage
 {
 
     LAMA.Core.Profile.User _currentUser = UserSession.CurrentUser;
 
     public string SenderId { get; set; }
+    public string SessionId { get; set; }
+    public string Category {  get; set; }
 
     public ObservableCollection<MessageItem> Messages { get; set; } = new();
+
+    private CancellationTokenSource _pollingToken;
     
     public MessagePage()
     {
@@ -29,44 +36,59 @@ public partial class MessagePage : ContentPage
         BindingContext = this;
     }
 
-    protected override async void OnAppearing()
+    //protected override async void OnAppearing()
+    //{
+    //    base.OnAppearing();
+
+    //    // Clear existing messages to avoid duplicates when navigating back to this page
+    //    Messages.Clear();
+
+    //    // Check that a valid SenderId was provided
+    //    if (!string.IsNullOrEmpty(SenderId))
+    //    {
+    //        try
+    //        {
+    //            // Attempt to load messages associated with the provided SenderId
+    //            var userMessages = await LoadConversationForUserAsync(SenderId);
+
+    //            if (userMessages != null && userMessages.Any())
+    //            {
+    //                // Add the messages to the bound ObservableCollection
+    //                foreach (var msg in userMessages)
+    //                    Messages.Add(msg);
+
+    //                // Debug output to confirm success
+    //                Console.WriteLine($"Loaded {Messages.Count} message(s) for SenderId: {SenderId}");
+    //            }
+    //            else
+    //            {
+    //                Console.WriteLine("No messages found for this SenderId.");
+    //            }
+    //        }
+    //        catch (Exception ex)
+    //        {
+    //            Console.WriteLine($"Error retrieving messages: {ex.Message}");
+    //        }
+    //    }
+    //    else
+    //    {
+    //        Console.WriteLine("SenderId was null or empty.");
+    //    }
+    //}
+
+    protected override void OnAppearing()
     {
         base.OnAppearing();
 
-        // Clear existing messages to avoid duplicates when navigating back to this page
-        Messages.Clear();
+        _pollingToken = new CancellationTokenSource();
+        StartPollingAsync(_pollingToken.Token);
+    }
 
-        // Check that a valid SenderId was provided
-        if (!string.IsNullOrEmpty(SenderId))
-        {
-            try
-            {
-                // Attempt to load messages associated with the provided SenderId
-                var userMessages = await LoadConversationForUserAsync(SenderId);
+    protected override void OnDisappearing()
+    {
+        base.OnDisappearing();
 
-                if (userMessages != null && userMessages.Any())
-                {
-                    // Add the messages to the bound ObservableCollection
-                    foreach (var msg in userMessages)
-                        Messages.Add(msg);
-
-                    // Debug output to confirm success
-                    Console.WriteLine($"Loaded {Messages.Count} message(s) for SenderId: {SenderId}");
-                }
-                else
-                {
-                    Console.WriteLine("No messages found for this SenderId.");
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error retrieving messages: {ex.Message}");
-            }
-        }
-        else
-        {
-            Console.WriteLine("SenderId was null or empty.");
-        }
+        _pollingToken?.Cancel();
     }
 
     public async Task<List<MessageItem>> LoadQueryForUserAsync(string senderId)
@@ -94,11 +116,11 @@ public partial class MessagePage : ContentPage
         }
     }
 
-    public async Task<List<MessageItem>> LoadConversationForUserAsync(string senderId)
+    public async Task<List<MessageItem>> LoadConversationForUserAsync(string senderId, string sessionId)
     {
         try
         {
-            var response = await new HttpClient().GetStringAsync($"https://lama-60ddc-default-rtdb.firebaseio.com/{SenderId}/messages.json");
+            var response = await new HttpClient().GetStringAsync($"https://lama-60ddc-default-rtdb.firebaseio.com/{sessionId}/messages.json");
 
             var allMessages = JsonConvert.DeserializeObject<Dictionary<string, MessageItem>>(response);
 
@@ -126,12 +148,26 @@ public partial class MessagePage : ContentPage
         if (string.IsNullOrEmpty(messageText))
             return;
 
+        if (_currentUser == null)
+        {
+           _currentUser = await SignInAnonymouslyAsync();
+
+            if (_currentUser == null)
+            {
+                await Microsoft.Maui.Controls.Application.Current.MainPage.DisplayAlert("Error",
+                    "Could not sign in anonymously. Please try again.",
+                    "Ok");
+            }
+        }
+
         var realtimeMessage = new
         {
             message = messageText,
             timestamp = DateTime.UtcNow.ToString("o"),
             senderId = _currentUser.Uid,
-            isAssigned = false
+            isAssigned = false,
+            profilePic = _currentUser.ProfilePictureUrl,
+            sessionId = SessionId
         };
 
         string jsonRealtimeBody = System.Text.Json.JsonSerializer.Serialize(realtimeMessage);
@@ -143,11 +179,11 @@ public partial class MessagePage : ContentPage
             {
                 // No user ID — treat as a new unassigned message
                 string unassignedUrl = $"https://lama-60ddc-default-rtdb.firebaseio.com/queries.json";
-                string queryConvoUrl = $"https://lama-60ddc-default-rtdb.firebaseio.com/{_currentUser.Uid}/messages.json";
+                string queryConvoUrl = $"https://lama-60ddc-default-rtdb.firebaseio.com/{SessionId}/messages.json";
                 await PostToRealtimeDatabaseAsync(unassignedUrl, jsonRealtimeBody);
                 await PostToRealtimeDatabaseAsync(queryConvoUrl, jsonRealtimeBody);
 
-                var messages = await LoadConversationForUserAsync(SenderId);
+                var messages = await LoadConversationForUserAsync(SenderId, SessionId);
                 foreach (var msg in messages)
                 {
                     Messages.Add(msg); // Add updated messages
@@ -157,11 +193,11 @@ public partial class MessagePage : ContentPage
             else
             {
                 // Existing conversation — append to conversation path
-                string conversationUrl = $"https://lama-60ddc-default-rtdb.firebaseio.com/{SenderId}/messages.json";
+                string conversationUrl = $"https://lama-60ddc-default-rtdb.firebaseio.com/{SessionId}/messages.json";
                 await PostToRealtimeDatabaseAsync(conversationUrl, jsonRealtimeBody);
 
                 Messages.Clear();
-                var refreshedMessages = await LoadConversationForUserAsync(SenderId);
+                var refreshedMessages = await LoadConversationForUserAsync(SenderId, SessionId);
                 foreach (var msg in refreshedMessages)
                 {
                     Messages.Add(msg); // Add updated messages
@@ -175,7 +211,6 @@ public partial class MessagePage : ContentPage
         {
             await DisplayAlert("Error", $"Failed to send message: {ex.Message}", "OK");
         }
-
     }
 
     private async Task PostToRealtimeDatabaseAsync(string url, string jsonBody)
@@ -192,6 +227,104 @@ public partial class MessagePage : ContentPage
         }
     }
 
+    private async void StartPollingAsync(CancellationToken token)
+    {
+        while (!token.IsCancellationRequested)
+        {
+            if (!string.IsNullOrEmpty(SenderId))
+            {
+                try
+                {
+                    // Attempt to load messages associated with the provided SenderId
+                    var userMessages = await LoadConversationForUserAsync(SenderId, SessionId);
+
+                    if (userMessages != null && userMessages.Any())
+                    {
+                        // Add the messages to the bound ObservableCollection
+                        //foreach (var msg in userMessages)
+                        //    Messages.Add(msg);
+
+                        var existingTimestamps = Messages.Select(m => m.Timestamp).ToHashSet();
+
+                        var newMessages = userMessages
+                            .Where(m => !existingTimestamps.Contains(m.Timestamp))
+                            .OrderBy(m =>DateTime.Parse(m.Timestamp))
+                            .ToList();
+
+                        if (newMessages.Any())
+                        {
+                            MainThread.BeginInvokeOnMainThread(() =>
+                            {
+                                foreach (var message in newMessages)
+                                {
+                                    Messages.Add(message);
+                                }
+                            });
+                        }
+
+                        // Debug output to confirm success
+                        Console.WriteLine($"Loaded {Messages.Count} message(s) for SenderId: {SenderId}");
+                    }
+                    else
+                    {
+                        Console.WriteLine("No messages found for this SenderId.");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Error retrieving messages: {ex.Message}");
+                }
+            }
+
+            await Task.Delay(1000);
+        }
+    }
+
+    private async Task<User?> SignInAnonymouslyAsync()
+    {
+        const string apiKey = "AIzaSyDiAuutGePttuNIoUxGy2Ok6NDcqGoh74k";
+        var url = $"https://identitytoolkit.googleapis.com/v1/accounts:signUp?key={apiKey}";
+        var payload = new
+        {
+            returnSecureToken = true
+    };
+
+        var httpClient = new HttpClient();
+        var content = new StringContent(
+            System.Text.Json.JsonSerializer.Serialize(payload),
+            Encoding.UTF8, "application/json");
+
+        var response = await httpClient.PostAsync(url, content);
+
+        if (!response.IsSuccessStatusCode)
+        {
+            return null;
+        }
+
+        var responseString = await response.Content.ReadAsStringAsync();
+        var result = System.Text.Json.JsonSerializer.Deserialize<FirebaseAuthResponse>(responseString);
+
+       var anonUser = new User
+        {
+            Uid = result.localId,
+            Username = "Anonymous",
+            CreatedAt = DateTime.UtcNow,
+            IsAnonymous = true
+        };
+
+        UserSession.CurrentUser = anonUser;
+
+        return anonUser;
+    }
+
+}
+
+public class FirebaseAuthResponse
+{
+    public string idToken { get; set; }
+    public string localId { get; set; }
+    public string refreshToken { get; set; }
+    public string expiresIn { get; set; }
 }
 
 

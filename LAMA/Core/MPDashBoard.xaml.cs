@@ -9,6 +9,7 @@ using JsonSerializer = System.Text.Json.JsonSerializer;
 using LAMA.Services;
 
 
+
 namespace LAMA.Core
 {
     public partial class MPDashBoard : ContentPage
@@ -18,6 +19,7 @@ namespace LAMA.Core
         public ObservableCollection<Conversation> UnassignedMessages { get; set; }
         public int UsersAnswered { get; set; }
         FirestoreServices firestoreServices = new FirestoreServices();
+        private CancellationTokenSource _pollingToken = new CancellationTokenSource();
 
         public MPDashBoard()
         {
@@ -42,6 +44,7 @@ namespace LAMA.Core
             }
 
             CategoriesList.ItemsSource = Categories;
+            PendingMessages = new ObservableCollection<MessageItem>();
             PendingMessagesList.ItemsSource = PendingMessages;
             UsersAnsweredCount.Text = UsersAnswered.ToString();
 
@@ -174,10 +177,28 @@ namespace LAMA.Core
             if (sender is Button button && button.BindingContext is MessageItem message)
             {
                 var senderId = message.SenderId;
-                var navigationUrl = $"{nameof(MessagePage)}?SenderId={senderId}";
+                var sessionId = message.SessionId;
+                var navigationUrl = $"{nameof(MessagePage)}?SenderId={senderId}&SessionId={sessionId}";
 
-                await Shell.Current.GoToAsync(navigationUrl);
-                PendingMessages.Remove(message);
+                try
+                {
+                    var client = new HttpClient();
+                    var response = await client.DeleteAsync($"https://lama-60ddc-default-rtdb.firebaseio.com/queries/{sessionId}.json");
+
+                    if (!response.IsSuccessStatusCode)
+                    {
+                        await DisplayAlert("Database Error", "Failed to remove message from queue.", "OK");
+                    }
+
+                    await Shell.Current.GoToAsync(navigationUrl);
+                    PendingMessages.Remove(message);
+                }
+                catch (Exception ex)
+                {
+                    await DisplayAlert("Error", $"Error processing: {ex.Message}", "OK");
+                }
+
+                
 
             }
 
@@ -225,7 +246,7 @@ namespace LAMA.Core
             try
             {
                 var client = new HttpClient();
-                var response = await client.GetStringAsync("https://lama-60ddc-default-rtdb.firebaseio.com/queries.json");
+                var response = await client.GetStringAsync("https://lama-60ddc-default-rtdb.firebaseio.com/queries/.json");
 
                 // Deserialize JSON response
                 var messages = JsonConvert.DeserializeObject<Dictionary<string, MessageItem>>(response);
@@ -242,6 +263,53 @@ namespace LAMA.Core
             }
         }
 
+        private async Task PollForMessagesAsync(CancellationToken token)
+        {
+            while (!token.IsCancellationRequested)
+            {
+                try
+                {
+                    var client = new HttpClient();
+                    var response = await client.GetStringAsync("https://lama-60ddc-default-rtdb.firebaseio.com/queries.json");
+                    var messages = JsonConvert.DeserializeObject<Dictionary<string, MessageItem>>(response);
+
+                    if (messages != null)
+                    {
+                        var fetched = messages.Values.ToList();
+
+                        MainThread.BeginInvokeOnMainThread(() =>
+                        {
+                            foreach (var message in fetched)
+                            {
+                                if (!PendingMessages.Any(m => m.Timestamp == message.Timestamp))
+                                {
+                                    PendingMessages.Add(message);
+                                }
+                            }
+                        });
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Polling error: {ex.Message}");
+                }
+                await Task.Delay(5000, token);
+            }
+        }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+
+            _pollingToken = new CancellationTokenSource();
+            _ = PollForMessagesAsync(_pollingToken.Token);
+        }
+
+        protected override void OnDisappearing()
+        {
+            base.OnDisappearing();
+            _pollingToken?.Cancel();
+        }
     }
 
 
@@ -276,6 +344,11 @@ namespace LAMA.Core
         public string SenderId { get; set; }
         public string Timestamp { get; set; }
         public bool IsUserMessage => SenderId == UserSession.CurrentUser.Uid;
+        // Needed for profile pictures to be seen next to messages.
+        public string ProfilePicture { get; set; } = "userpic.png"; 
+        public string Category {  get; set; }
+
+        public string SessionId { get; set; }
 
     }
 }
