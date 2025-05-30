@@ -5,33 +5,57 @@
              Title="Ask a Medical Professional">
     <ScrollView VerticalOptions="FillAndExpand">
         <Grid RowDefinitions="*,Auto">
-        <Image Source="medfactsbkg.png" Aspect="AspectFill"
+            <Image Source="medfactsbkg.png" Aspect="AspectFill"
        VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand"
                Opacity="0.2"/>
-        <!-- Message panel -->
-        
+            <!-- Message panel -->
+
             <CollectionView x:Name="MessageList" ItemsSource="{Binding Messages}"
                             VerticalOptions="FillAndExpand">
-            <CollectionView.ItemTemplate>
-                <DataTemplate>
-                    <Frame Padding="10" 
-                           Margin="5"
-                           BackgroundColor="{Binding IsUserMessage, Converter={StaticResource BoolToColorConverter}}"
-                           HorizontalOptions="{Binding IsUserMessage, Converter={StaticResource BoolToAlignmentConverter}}"
-                           CornerRadius="10"
-                           HasShadow="True">
-                        <Label Text="{Binding Message}"
-                               TextColor="Black"
-                               FontSize="18" />
-                    </Frame>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-            </CollectionView>
-       
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Image Grid.Column="0"
+                                   Source="userpic.png"
+                                   WidthRequest="32"
+                                   HeightRequest="32"
+                                   Margin="5"
+                                   IsVisible="{Binding SenderId, Converter={StaticResource SenderIdIsOtherUser}}">
+                            </Image>
 
-        <!-- Message entry -->
-        <StackLayout Grid.Row="1" Orientation="Horizontal" Padding="10" BackgroundColor="White">
-            <Entry x:Name="MessageEntry"
+                            <Frame Grid.Column="1"
+                                   Padding="10" 
+                                   Margin="5"
+                                   BackgroundColor="{Binding SenderId, Converter={StaticResource BoolToColorConverter}}"
+                                   HorizontalOptions="{Binding SenderId, Converter={StaticResource BoolToAlignmentConverter}}"
+                                   CornerRadius="10"
+                                   HasShadow="True">
+                                <Label Text="{Binding Message}"
+                                       TextColor="Black"
+                                       FontSize="18" />
+                            </Frame>
+                            
+                            <Image Grid.Column="2"
+                                Source="userpic.png"
+                                WidthRequest="32"
+                                HeightRequest="32"
+                                Margin="5"
+                                IsVisible="{Binding SenderId, Converter={StaticResource SenderIdIsCurrentUserConverter}}" />
+
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+
+            <!-- Message entry -->
+            <StackLayout Grid.Row="1" Orientation="Horizontal" Padding="10" BackgroundColor="White">
+                <Entry x:Name="MessageEntry"
                    Text="{Binding NewMessage}"
                    Placeholder="Type a message..."
                    TextColor="Black"
@@ -39,10 +63,10 @@
                    VerticalOptions="Center" 
                    ReturnType="Send"
                    Completed="OnSendMessage"/>
-            <Button Text="Send"
+                <Button Text="Send"
                     Clicked="OnSendMessage"
                    />
-        </StackLayout>
-    </Grid>
+            </StackLayout>
+        </Grid>
     </ScrollView>
 </ContentPage>

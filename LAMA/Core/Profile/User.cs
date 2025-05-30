@@ -18,9 +18,11 @@ namespace LAMA.Core.Profile
         public string FrequentCategory { get; set; } = "";
         public string ProfilePictureUrl { get; set; } = "";
         public DateTime CreatedAt { get; set; }
-        public List<Conversation> Conversations { get; set; } = new List<Conversation>();
+        public bool IsAnonymous { get; set; }
 
         public List<string> BookmarkedMedFacts { get; set; } = new List<string>();
+
+        public List<Conversation> Conversations { get; set; }
 
         public User() { }
     }

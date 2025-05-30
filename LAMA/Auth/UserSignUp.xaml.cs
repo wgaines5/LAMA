@@ -33,11 +33,38 @@ public partial class UserSignUp : ContentPage
     {
         await Shell.Current.GoToAsync("//SignInPage");  // Navigate to SignInPage
     }
+    private string _base64ImageData = "";
 
+    private async void OnPickImageTapped(object sender, EventArgs e)
+    {
+        FileResult result = await FilePicker.PickAsync(new PickOptions
+        {
+            FileTypes = FilePickerFileType.Images,
+            PickerTitle = "Select Profile Picture"
+        });
+
+        if (result != null)
+        {
+            using Stream stream = await result.OpenReadAsync();
+            using MemoryStream memoryStream = new MemoryStream();
+            await stream.CopyToAsync(memoryStream);
+            byte[] imageBytes = memoryStream.ToArray();
+
+            _base64ImageData = Convert.ToBase64String(imageBytes);
+
+            UserPic.Source = ImageSource.FromStream(() => new MemoryStream(imageBytes));
+        }
+    }
     private async void OnUserSignUpTapped(object sender, EventArgs e)
     {
         try
         {
+            // Check Password requirements 
+            if (password_.Text.Length < 5)
+            {
+                await DisplayAlert("Weak Password", "Password needs to be at least 6 characters in length.", "Ok");
+                return;
+            }
             // Firebase auth
             var userCredential = await _authClient.CreateUserWithEmailAndPasswordAsync(email_.Text, password_.Text);
             string uid = userCredential.User.Uid;
@@ -53,9 +80,10 @@ public partial class UserSignUp : ContentPage
                 CreatedAt = DateTime.UtcNow,
                 FrequentCategory = "",
                 QueriesSubmitted = 0,
-                ProfilePictureUrl = "",
-                Conversations = new List<Conversation>(),
-                BookmarkedMedFacts = new List<string>()
+
+                ProfilePictureUrl = _base64ImageData,
+                Conversations = new List<Conversation>()
+
             };
 
             // Serialize to Firestore format

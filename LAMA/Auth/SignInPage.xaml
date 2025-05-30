@@ -2,45 +2,29 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="LAMA.Auth.SignInPage"
-             Title="Medical ProfesionalSign In">
-    <ScrollView>
-        <VerticalStackLayout
-          Padding="30,0"
-          Spacing="25"
-          VerticalOptions="Center">
-            <Image
-              Source="lama_logo.png"
-              WidthRequest="{Binding AppIconSize}"
-              HeightRequest="{Binding AppIconSize}"
-              Aspect="AspectFit"
-              HorizontalOptions="Center"
-              SemanticProperties.Description="Live Anonymous Medical Advice Logo" />
+             Title="Sign In">
+    <VerticalStackLayout Padding="30" Spacing="20" VerticalOptions="Center">
+        <Image
+             WidthRequest="120"
+            HeightRequest="120"
+            Aspect="AspectFill"
+            HorizontalOptions="Center"
+            VerticalOptions="Center"
+            Margin="0,10"
+            Source="lama_logo.png"/>
 
-            <Entry
-              Placeholder="Email or username"
-              ></Entry>
+        <Entry x:Name="EmailEntry" 
+               Placeholder="Email"
+               Keyboard="Email" />
+        <Entry x:Name="PasswordEntry" 
+               Placeholder="Password" 
+               IsPassword="True" />
 
-            <Entry
-     Placeholder="Password"
-     ></Entry>
-
-            <Button
-              x:Name="SignInButton"
-              Text="Sign In" 
-              SemanticProperties.Hint="Counts the number of times you click"
-              HorizontalOptions="Fill" 
-              Clicked="OnSignInTapped"
-              />
-
-
-            <Label
-              Text="New to LAMA? Create an account."
-              HorizontalOptions="Center">
-                <Label.GestureRecognizers>
-                    <TapGestureRecognizer Tapped="OnSignUpTapped" />
-                </Label.GestureRecognizers>
-            </Label>
-        </VerticalStackLayout>
-    </ScrollView>
-
+        <Button Text="Sign In" Clicked="OnSignInClicked" />
+        <Label Text="Don't have an account? Sign Up On Home Screen" TextColor="Red" FontSize="Medium" HorizontalOptions="Center">
+            <Label.GestureRecognizers>
+                <TapGestureRecognizer Tapped="OnSignUpTapped"/>
+            </Label.GestureRecognizers>
+        </Label>
+    </VerticalStackLayout>
 </ContentPage>
