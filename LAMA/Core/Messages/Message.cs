@@ -12,7 +12,7 @@ namespace LAMA.Core.Messages
         public string Content { get; set; }
         public DateTime Timestamp { get; set; }
         public bool IsRead { get; set; } = false;
-        public string profilePictureUrl { get; set; }
+        public string ProfilePic { get; set; }
 
         public Message () { }
     }
