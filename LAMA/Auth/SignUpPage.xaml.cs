@@ -103,7 +103,7 @@ public partial class SignUpPage : ContentPage
                 npi = NPIE.Text,
                 state = StateE.Text,
                 licenseNumber = LicNumber.Text,
-                profileImageBase64 = base64Image,
+                ProfilePic = base64Image,
                 isVerified = false,
                 createdAt = DateTime.UtcNow.ToString("o")
             };

@@ -2,7 +2,14 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="LAMA.Core.Messages.MessagePage"
-             Title="Ask a Medical Professional">
+             Title="Ask a Medical Professional"
+             xmlns:utility="clr-namespace:LAMA.utility">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <utility:Base64ToImageSourceConverter x:Key="Base64ToImage" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
     <ScrollView VerticalOptions="FillAndExpand">
         <Grid RowDefinitions="*,Auto">
             <Image Source="medfactsbkg.png" Aspect="AspectFill"
@@ -21,7 +28,7 @@
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
                             <Image Grid.Column="0"
-                                   Source="userpic.png"
+                                   Source="{Binding ProfilePic, Converter={StaticResource Base64ToImage}}"
                                    WidthRequest="32"
                                    HeightRequest="32"
                                    Margin="5"
