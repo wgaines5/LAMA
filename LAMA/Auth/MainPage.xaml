@@ -17,10 +17,13 @@
                            Placeholder="Type your question here"
                            BackgroundColor="#01a4ff"
                            TextColor="Black"
+                           
+                           FontAttributes="Bold"
                            HeightRequest="40"/>
                     <Picker x:Name="CategoryPicker"
                             Title="Select Category"
                             TextColor="Black"
+                            FontAttributes="Bold"
                             ItemsSource="{Binding Categories}"/>
                     <Button Text="Ask"
                             BackgroundColor="#26c7b6"
@@ -30,7 +33,41 @@
                 </VerticalStackLayout>
             </Frame>
 
-            <!-- Med profossional section -->
+            <HorizontalStackLayout Spacing="5" Padding="5">
+
+                <!-- Medical professional sign up section -->
+                <VerticalStackLayout WidthRequest="180">
+                   
+                    <Frame Padding="8" BackgroundColor="#004aad" CornerRadius="10">
+                        <VerticalStackLayout>
+                            <Button 
+                                Text="Professional Sign Up"
+                                BackgroundColor="#3cacae"
+                                TextColor="Black"
+                                FontAttributes="Bold"
+                                Clicked="OnMPSignupClicked"/>
+                        </VerticalStackLayout>
+                    </Frame>
+                </VerticalStackLayout>
+
+                <!-- User sign up section -->
+                <VerticalStackLayout WidthRequest="180">
+
+                    <Frame Padding="6" BackgroundColor="#01a4ff" CornerRadius="10">
+                        <VerticalStackLayout>
+                            <Button 
+                                Text="User Sign Up"
+                                BackgroundColor="#30cfcb"
+                                TextColor="Black"
+                                FontAttributes="Bold"
+                                Clicked="OnUserSignupClicked"/>
+                        </VerticalStackLayout>
+                    </Frame>
+                </VerticalStackLayout>
+
+            </HorizontalStackLayout>
+
+            <!-- Med profossional online section -->
             <Frame Padding="10" BackgroundColor="#01a4ff" CornerRadius="20" HasShadow="True">
                 <Label Text="Available Medical Professionals" FontSize="20" FontAttributes="Bold" TextColor="White" HorizontalOptions="Center"/>
             </Frame>
@@ -46,40 +83,11 @@
 
             <ScrollView Orientation="Horizontal" HeightRequest="120">
                 <HorizontalStackLayout x:Name="MedicalAdviceTipsLayout" Spacing="10">
-                
                 </HorizontalStackLayout>
             </ScrollView>
-            
-            <!-- medical professional sign up section -->
-            <Frame Padding="10" BackgroundColor="#01a4ff" CornerRadius="20" HasShadow="True">
-                <Label Text="Medical Professional Sign Up" FontSize="20" FontAttributes="Bold" TextColor="White" HorizontalOptions="Center"/>
-            </Frame>
-
-            <Frame Padding="10" BackgroundColor="#004aad" CornerRadius="10">
-                <VerticalStackLayout>
-                    <Button 
-                        Text="Join Now"
-                        BackgroundColor="#3cacae"
-                        TextColor="Black"
-                        Clicked="OnMPSignupClicked"/>
-                </VerticalStackLayout>
-            </Frame>
-
-            <Frame Padding="10" BackgroundColor="#004aad" CornerRadius="20" HasShadow="True">
-                <Label Text="User Sign Up" FontSize="20" FontAttributes="Bold" TextColor="White" HorizontalOptions="Center"/>
-            </Frame>
-
-            <Frame Padding="10" BackgroundColor="#01a4ff" CornerRadius="10">
-                <VerticalStackLayout>
-                    <Button 
-             Text="Join Now"
-             BackgroundColor="#30cfcb"
-             TextColor="Black"
-             Clicked="OnUserSignupClicked"/>
-                </VerticalStackLayout>
-            </Frame>
 
         </VerticalStackLayout>
+
     </ScrollView>
 
 </ContentPage>

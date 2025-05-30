@@ -37,15 +37,21 @@ public partial class UserSignUp : ContentPage
 
     private async void OnPickImageTapped(object sender, EventArgs e)
     {
-        FileResult result = await FilePicker.PickAsync(new PickOptions
-        {
-            FileTypes = FilePickerFileType.Images,
-            PickerTitle = "Select Profile Picture"
-        });
+        string action = await DisplayActionSheet("Choose Profile Picture", "Cancel", null,null, "Pick from Gallery");
 
-        if (result != null)
+        FileResult photo = null;
+
+        if (action == "Pick from Gallery")
         {
-            using Stream stream = await result.OpenReadAsync();
+            photo = await MediaPicker.Default.PickPhotoAsync(new MediaPickerOptions
+            {
+                Title = "Select Profile Picture"
+            });
+        }
+
+        if (photo != null)
+        {
+            using Stream stream = await photo.OpenReadAsync();
             using MemoryStream memoryStream = new MemoryStream();
             await stream.CopyToAsync(memoryStream);
             byte[] imageBytes = memoryStream.ToArray();
@@ -53,6 +59,26 @@ public partial class UserSignUp : ContentPage
             _base64ImageData = Convert.ToBase64String(imageBytes);
 
             UserPic.Source = ImageSource.FromStream(() => new MemoryStream(imageBytes));
+        }
+        else
+        {
+            FileResult result = await FilePicker.PickAsync(new PickOptions
+            {
+                FileTypes = FilePickerFileType.Images,
+                PickerTitle = "Select Profile Picture"
+            });
+
+            if (result != null)
+            {
+                using Stream stream = await result.OpenReadAsync();
+                using MemoryStream memoryStream = new MemoryStream();
+                await stream.CopyToAsync(memoryStream);
+                byte[] imageBytes = memoryStream.ToArray();
+
+                _base64ImageData = Convert.ToBase64String(imageBytes);
+
+                UserPic.Source = ImageSource.FromStream(() => new MemoryStream(imageBytes));
+            }
         }
     }
     private async void OnUserSignUpTapped(object sender, EventArgs e)
@@ -80,7 +106,6 @@ public partial class UserSignUp : ContentPage
                 CreatedAt = DateTime.UtcNow,
                 FrequentCategory = "",
                 QueriesSubmitted = 0,
-
                 ProfilePictureUrl = _base64ImageData,
                 Conversations = new List<Conversation>()
 
