@@ -18,7 +18,7 @@ namespace LAMA.Core.Messages;
 public partial class MessagePage : ContentPage
 {
 
-    LAMA.Core.Profile.User _currentUser = UserSession.CurrentUser;
+    LAMA.Core.Profile.User _currentUser;
 
     public string SenderId { get; set; }
     public string SessionId { get; set; }
@@ -26,7 +26,7 @@ public partial class MessagePage : ContentPage
     public ObservableCollection<MessageItem> Messages { get; set; } = new();
 
     private CancellationTokenSource _pollingToken;
-    
+
     public MessagePage()
     {
         InitializeComponent();
@@ -140,17 +140,19 @@ public partial class MessagePage : ContentPage
 
     private async void OnSendMessage(object sender, EventArgs e)
     {
-        
+
         string messageText = MessageEntry.Text?.Trim();
 
         if (string.IsNullOrEmpty(messageText))
             return;
 
-        if (_currentUser == null)
+        if (UserSession.CurrentUser == null)
         {
-           _currentUser = await SignInAnonymouslyAsync();
 
-            if (_currentUser == null)
+            UserSession.CurrentUser = await AuthServices.SignInAnonymouslyAsync();
+            _currentUser = UserSession.CurrentUser;
+
+            if (UserSession.CurrentUser == null)
             {
                 await Microsoft.Maui.Controls.Application.Current.MainPage.DisplayAlert("Error",
                     "Could not sign in anonymously. Please try again.",
@@ -246,7 +248,7 @@ public partial class MessagePage : ContentPage
 
                         var newMessages = userMessages
                             .Where(m => !existingTimestamps.Contains(m.Timestamp))
-                            .OrderBy(m =>DateTime.Parse(m.Timestamp))
+                            .OrderBy(m => DateTime.Parse(m.Timestamp))
                             .ToList();
 
                         if (newMessages.Any())
@@ -277,53 +279,8 @@ public partial class MessagePage : ContentPage
             await Task.Delay(1000);
         }
     }
-
-    private async Task<User?> SignInAnonymouslyAsync()
-    {
-        const string apiKey = "AIzaSyDiAuutGePttuNIoUxGy2Ok6NDcqGoh74k";
-        var url = $"https://identitytoolkit.googleapis.com/v1/accounts:signUp?key={apiKey}";
-        var payload = new
-        {
-            returnSecureToken = true
-    };
-
-        var httpClient = new HttpClient();
-        var content = new StringContent(
-            System.Text.Json.JsonSerializer.Serialize(payload),
-            Encoding.UTF8, "application/json");
-
-        var response = await httpClient.PostAsync(url, content);
-
-        if (!response.IsSuccessStatusCode)
-        {
-            return null;
-        }
-
-        var responseString = await response.Content.ReadAsStringAsync();
-        var result = System.Text.Json.JsonSerializer.Deserialize<FirebaseAuthResponse>(responseString);
-
-       var anonUser = new User
-        {
-            Uid = result.localId,
-            Username = "Anonymous",
-            CreatedAt = DateTime.UtcNow,
-            IsAnonymous = true
-        };
-
-        UserSession.CurrentUser = anonUser;
-
-        return anonUser;
-    }
-
 }
-
-public class FirebaseAuthResponse
-{
-    public string idToken { get; set; }
-    public string localId { get; set; }
-    public string refreshToken { get; set; }
-    public string expiresIn { get; set; }
-}
+  
 
 
 
