@@ -224,13 +224,14 @@ namespace LAMA.Auth
                 senderId = idSender,
                 isAssigned = false,
                 sessionId = idSession,
+                category = selectedCategory
             };
 
             // Send to firebase
             var json = JsonSerializer.Serialize(newMessage);
             var content = new StringContent(json, Encoding.UTF8, "application/json");
 
-            var response = await new HttpClient().PostAsync("https://lama-60ddc-default-rtdb.firebaseio.com/queries.json", content);
+            var response = await new HttpClient().PutAsync($"https://lama-60ddc-default-rtdb.firebaseio.com/queries/{idSession}.json", content);
             response.EnsureSuccessStatusCode();
 
             var secondResponse = await new HttpClient().PostAsync($"https://lama-60ddc-default-rtdb.firebaseio.com/{idSession}/messages.json", content);
@@ -239,7 +240,7 @@ namespace LAMA.Auth
             QuestionEntry.Text = string.Empty;
             CategoryPicker.SelectedIndex = -1;
 
-            await Shell.Current.GoToAsync($"MessagePage?SenderId={Uri.EscapeDataString(idSender)}&SessionId={Uri.EscapeDataString(idSession)}");
+            await Shell.Current.GoToAsync($"MessagePage?SenderId={Uri.EscapeDataString(idSender)}&SessionId={Uri.EscapeDataString(idSession)}&Category={Uri.EscapeDataString(selectedCategory)}");
         }
     }
 }

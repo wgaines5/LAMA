@@ -9,6 +9,7 @@ using JsonSerializer = System.Text.Json.JsonSerializer;
 using LAMA.Services;
 
 
+
 namespace LAMA.Core
 {
     public partial class MPDashBoard : ContentPage
@@ -179,8 +180,25 @@ namespace LAMA.Core
                 var sessionId = message.SessionId;
                 var navigationUrl = $"{nameof(MessagePage)}?SenderId={senderId}&SessionId={sessionId}";
 
-                await Shell.Current.GoToAsync(navigationUrl);
-                PendingMessages.Remove(message);
+                try
+                {
+                    var client = new HttpClient();
+                    var response = await client.DeleteAsync($"https://lama-60ddc-default-rtdb.firebaseio.com/queries/{sessionId}.json");
+
+                    if (!response.IsSuccessStatusCode)
+                    {
+                        await DisplayAlert("Database Error", "Failed to remove message from queue.", "OK");
+                    }
+
+                    await Shell.Current.GoToAsync(navigationUrl);
+                    PendingMessages.Remove(message);
+                }
+                catch (Exception ex)
+                {
+                    await DisplayAlert("Error", $"Error processing: {ex.Message}", "OK");
+                }
+
+                
 
             }
 
@@ -228,7 +246,7 @@ namespace LAMA.Core
             try
             {
                 var client = new HttpClient();
-                var response = await client.GetStringAsync("https://lama-60ddc-default-rtdb.firebaseio.com/queries.json");
+                var response = await client.GetStringAsync("https://lama-60ddc-default-rtdb.firebaseio.com/queries/.json");
 
                 // Deserialize JSON response
                 var messages = JsonConvert.DeserializeObject<Dictionary<string, MessageItem>>(response);
