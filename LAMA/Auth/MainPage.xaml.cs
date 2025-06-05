@@ -181,6 +181,22 @@ namespace LAMA.Auth
 
         private async void OnAskQuestion(object sender, EventArgs e)
         {
+
+
+            if (UserSession.CurrentUser == null)
+            {
+
+                UserSession.CurrentUser = await AuthServices.SignInAnonymouslyAsync();
+
+
+                if (UserSession.CurrentUser == null)
+                {
+                    await Microsoft.Maui.Controls.Application.Current.MainPage.DisplayAlert("Error",
+                        "Could not sign in anonymously. Please try again.",
+                        "Ok");
+                }
+            }
+
             string questionText = QuestionEntry.Text;
             string selectedCategory = CategoryPicker.SelectedItem as string;
             string idSender = UserSession.CurrentUser.Uid;
@@ -191,6 +207,7 @@ namespace LAMA.Auth
                 await DisplayAlert("Error", "Please enter a question and select a category.", "OK");
                 return;
             }
+
 
             //var newMessage = new MessageItem
             //{
