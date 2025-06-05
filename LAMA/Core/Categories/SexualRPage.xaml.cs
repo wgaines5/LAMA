@@ -14,6 +14,20 @@ namespace LAMA.Core.Categories
 
         private async void OnAskQuestion(object sender, EventArgs e)
         {
+            if (UserSession.CurrentUser == null)
+            {
+
+                UserSession.CurrentUser = await AuthServices.SignInAnonymouslyAsync();
+
+
+                if (UserSession.CurrentUser == null)
+                {
+                    await Microsoft.Maui.Controls.Application.Current.MainPage.DisplayAlert("Error",
+                        "Could not sign in anonymously. Please try again.",
+                        "Ok");
+                }
+            }
+
             string questionText = QuestionEntry.Text;
             string selectedCategory = "Sexual Health";
             string idSender = UserSession.CurrentUser.Uid;
