@@ -1,4 +1,7 @@
 using LAMA.Core.Messages;
+using LAMA.Auth;
+using System.Text;
+using System.Text.Json;
 
 namespace LAMA.Core.Categories
 {
@@ -11,16 +14,40 @@ namespace LAMA.Core.Categories
 
         private async void OnAskQuestion(object sender, EventArgs e)
         {
-            string question = QuestionEntry.Text;
-            if (string.IsNullOrWhiteSpace(question))
+            string questionText = QuestionEntry.Text;
+            string selectedCategory = "General Health";
+            string idSender = UserSession.CurrentUser.Uid;
+            string idSession = $"{UserSession.CurrentUser.Uid}_{DateTime.UtcNow:yyyyMMddHHmmss}";
+
+            if (string.IsNullOrWhiteSpace(questionText) || string.IsNullOrWhiteSpace(selectedCategory))
             {
+                await DisplayAlert("Error", "Please enter a question and select a category.", "OK");
                 return;
             }
 
-            await Shell.Current.GoToAsync(nameof(MessagePage), true,
-                new Dictionary<string, object> { { "Question", question } });
+            var newMessage = new
+            {
+                message = questionText,
+                timestamp = DateTime.UtcNow.ToString("o"),
+                senderId = idSender,
+                isAssigned = false,
+                sessionId = idSession,
+                category = selectedCategory
+            };
 
-            QuestionEntry.Text = ""; // clear input
+            // Send to firebase
+            var json = JsonSerializer.Serialize(newMessage);
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+            var response = await new HttpClient().PutAsync($"https://lama-60ddc-default-rtdb.firebaseio.com/queries/{idSession}.json", content);
+            response.EnsureSuccessStatusCode();
+
+            var secondResponse = await new HttpClient().PostAsync($"https://lama-60ddc-default-rtdb.firebaseio.com/{idSession}/messages.json", content);
+            secondResponse.EnsureSuccessStatusCode();
+
+            QuestionEntry.Text = string.Empty;
+
+            await Shell.Current.GoToAsync($"MessagePage?SenderId={Uri.EscapeDataString(idSender)}&SessionId={Uri.EscapeDataString(idSession)}&Category={Uri.EscapeDataString(selectedCategory)}");
         }
     }
 }
