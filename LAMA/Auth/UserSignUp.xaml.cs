@@ -85,6 +85,12 @@ public partial class UserSignUp : ContentPage
     {
         try
         {
+            // Check Password requirements 
+            if (password_.Text.Length < 5)
+            {
+                await DisplayAlert("Weak Password", "Password needs to be at least 6 characters in length.", "Ok");
+                return;
+            }
             // Firebase auth
             var userCredential = await _authClient.CreateUserWithEmailAndPasswordAsync(email_.Text, password_.Text);
             string uid = userCredential.User.Uid;

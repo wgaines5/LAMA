@@ -215,6 +215,22 @@ namespace LAMA.Auth
 
         private async void OnAskQuestion(object sender, EventArgs e)
         {
+
+
+            if (UserSession.CurrentUser == null)
+            {
+
+                UserSession.CurrentUser = await AuthServices.SignInAnonymouslyAsync();
+
+
+                if (UserSession.CurrentUser == null)
+                {
+                    await Microsoft.Maui.Controls.Application.Current.MainPage.DisplayAlert("Error",
+                        "Could not sign in anonymously. Please try again.",
+                        "Ok");
+                }
+            }
+
             string questionText = QuestionEntry.Text;
             string selectedCategory = CategoryPicker.SelectedItem as string;
             string idSender = UserSession.CurrentUser.Uid;
@@ -226,15 +242,17 @@ namespace LAMA.Auth
                 return;
             }
 
-            var newMessage = new
-            {
-                message = questionText,
-                timestamp = DateTime.UtcNow.ToString("o"),
-                senderId = idSender,
-                isAssigned = false,
-                sessionId = idSession,
-                category = selectedCategory
-            };
+
+
+            //var newMessage = new MessageItem
+            //{
+            //    Message = questionText,
+            //    Timestamp = DateTime.UtcNow.ToString("o"),
+            //    SenderId = senderId,
+            //    Category = selectedCategory,
+            //    IsAssigned = false
+            //};
+           
 
             var json = JsonSerializer.Serialize(newMessage);
             var content = new StringContent(json, Encoding.UTF8, "application/json");
