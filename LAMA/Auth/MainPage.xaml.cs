@@ -3,6 +3,7 @@ using System.Text.Json;
 using System.IO;
 using Microsoft.Maui.Controls;
 using System.Net.Http;
+using System.Threading;
 using System.Threading.Tasks;
 using System;
 using System.Linq;
@@ -14,6 +15,7 @@ namespace LAMA.Auth
     public partial class MainPage : ContentPage
     {
         public ObservableCollection<string> Categories { get; set; }
+        private CancellationTokenSource _refreshToken = new CancellationTokenSource();
 
         public MainPage()
         {
@@ -32,7 +34,40 @@ namespace LAMA.Auth
             BindingContext = this;
 
             _ = LoadTipsFromFirestoreAsync();
-            _ = LoadMProvidersAsync();
+        }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            _refreshToken = new CancellationTokenSource();
+            _ = RefreshMProviders(_refreshToken.Token);
+        }
+
+        protected override void OnDisappearing()
+        {
+            base.OnDisappearing();
+            _refreshToken.Cancel();
+        }
+
+        private async Task RefreshMProviders(CancellationToken token)
+        {
+            while (!token.IsCancellationRequested)
+            {
+                await MainThread.InvokeOnMainThreadAsync(async () =>
+                {
+                    MPLayout.Children.Clear();
+                    await LoadMProvidersAsync();
+                });
+
+                try
+                {
+                    await Task.Delay(20000, token);
+                }
+                catch (TaskCanceledException)
+                {
+                    break;
+                }
+            }
         }
 
         private async Task LoadTipsFromFirestoreAsync()
@@ -41,7 +76,6 @@ namespace LAMA.Auth
             string url = "https://firestore.googleapis.com/v1/projects/lama-60ddc/databases/(default)/documents/medicaladvice/fcL8qgVXnlVeY7DIfiNk";
 
             HttpResponseMessage response = await client.GetAsync(url);
-
             if (response.IsSuccessStatusCode)
             {
                 string json = await response.Content.ReadAsStringAsync();
@@ -117,7 +151,7 @@ namespace LAMA.Auth
                                     fullName = $"Dr. {firstNameVal.GetString()}";
                                 }
 
-                                if (fields.TryGetProperty("profileImageBase64", out JsonElement imageEl) &&
+                                if (fields.TryGetProperty("ProfilePic", out JsonElement imageEl) &&
                                     imageEl.TryGetProperty("stringValue", out JsonElement imageVal))
                                 {
                                     base64Image = imageVal.GetString();
@@ -209,6 +243,7 @@ namespace LAMA.Auth
             }
 
 
+
             //var newMessage = new MessageItem
             //{
             //    Message = questionText,
@@ -217,17 +252,8 @@ namespace LAMA.Auth
             //    Category = selectedCategory,
             //    IsAssigned = false
             //};
-            var newMessage = new
-            {
-                message = questionText,
-                timestamp = DateTime.UtcNow.ToString("o"),
-                senderId = idSender,
-                isAssigned = false,
-                sessionId = idSession,
-                category = selectedCategory
-            };
+           
 
-            // Send to firebase
             var json = JsonSerializer.Serialize(newMessage);
             var content = new StringContent(json, Encoding.UTF8, "application/json");
 
