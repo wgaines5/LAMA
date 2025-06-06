@@ -40,7 +40,7 @@ namespace LAMA.Auth
         {
             base.OnAppearing();
             _refreshToken = new CancellationTokenSource();
-            _ = RefreshMProvidersPeriodicallyAsync(_refreshToken.Token);
+            _ = RefreshMProviders(_refreshToken.Token);
         }
 
         protected override void OnDisappearing()
@@ -49,7 +49,7 @@ namespace LAMA.Auth
             _refreshToken.Cancel();
         }
 
-        private async Task RefreshMProvidersPeriodicallyAsync(CancellationToken token)
+        private async Task RefreshMProviders(CancellationToken token)
         {
             while (!token.IsCancellationRequested)
             {
