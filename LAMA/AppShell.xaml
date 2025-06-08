@@ -41,6 +41,7 @@
 
 
     <ShellContent
+        x:Name="MPDashboardShellContent"
         Title="🥼 Medical Provider Dashboard"
         ContentTemplate="{DataTemplate core:MPDashBoard}"
         Route="MPDashBoard"/>
@@ -125,6 +126,7 @@ Route="SettingsPage" />
         FlyoutItemIsVisible="False"/>
 
     <ShellContent
+     x:Name="MPInboxShellContent"
     Title='📥 Med Provider Inbox'
     ContentTemplate="{DataTemplate messages:MPInbox}"
     Route="MpInbox"/>

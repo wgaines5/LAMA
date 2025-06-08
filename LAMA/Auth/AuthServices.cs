@@ -45,6 +45,16 @@ namespace LAMA.Auth
 
             return anonUser;
         }
+   
+    
+
+    public static void AuthorizedFlyoutMenuConfig()
+        {
+            AppShell.Instance.ProfileContent.FlyoutItemIsVisible = true;
+            AppShell.Instance.MPDashboardContent.FlyoutItemIsVisible = true;
+            AppShell.Instance.MPInboxContent.FlyoutItemIsVisible = true;
+
+        }
 
     }
 }

@@ -18,6 +18,8 @@ namespace LAMA
             InitializeComponent();
             Instance = this;
             ProfileContent.FlyoutItemIsVisible = false;
+            MPDashboardContent.FlyoutItemIsVisible = false;
+            MPInboxContent.FlyoutItemIsVisible = false;
 
             Routing.RegisterRoute(nameof(MedFactsPage), typeof(MedFactsPage));
             Routing.RegisterRoute(nameof(CategoryPage), typeof(CategoryPage));
@@ -39,7 +41,9 @@ namespace LAMA
         }
 
         public ShellContent ProfileContent => ProfileShellContent;
+        public ShellContent MPDashboardContent => MPDashboardShellContent;
+        public ShellContent MPInboxContent => MPInboxShellContent;
 
- 
+
     }
 }
