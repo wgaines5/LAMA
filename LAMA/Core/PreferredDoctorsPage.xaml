@@ -5,14 +5,32 @@
              Title="PreferredDoctorsPage">
     <VerticalStackLayout Padding="20" Spacing="10">
 
-        <!-- Search Box (For adding new doctors) -->
+        <!-- Search Box -->
         <Label Text="Search and Add a Doctor:" FontSize="18" FontAttributes="Bold"/>
         <Entry x:Name="SearchEntry"
                Placeholder="Search for a doctor..."
-               TextChanged="OnSearchTextChanged"/>
+               TextChanged="OnSearchTextChanged" />
+
+        <!-- Autocomplete Dropdown -->
+        <CollectionView x:Name="SearchSuggestionsList"
+                        ItemsSource="{Binding FilteredDoctors}"
+                        IsVisible="{Binding IsSuggestionsVisible}"
+                        SelectionMode="Single"
+                        BackgroundColor="White"
+                        Margin="0,0,0,10"
+                        HeightRequest="200">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Frame Padding="10" Margin="5" BorderColor="LightGray" CornerRadius="8">
+                        <Label Text="{Binding FullName}" FontSize="16"/>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
         <Button Text="Add Doctor" Clicked="OnAddDoctorClicked"/>
 
-        <!-- Selected Doctors Section -->
+        <!-- Preferred Doctors List -->
         <Label Text="Your Preferred Doctors:" FontSize="18" FontAttributes="Bold"/>
         <CollectionView x:Name="PreferredDoctorsList"
                         ItemsSource="{Binding PreferredDoctors}"
@@ -25,15 +43,18 @@
                            Margin="5">
                         <HorizontalStackLayout>
                             <CheckBox IsChecked="{Binding IsSelected, Mode=TwoWay}"/>
-                            <Label Text="{Binding Name}" FontSize="16" VerticalOptions="Center"/>
+                            <Label Text="{Binding FullName}" FontSize="16" VerticalOptions="Center"/>
                         </HorizontalStackLayout>
                     </Frame>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
 
-        <!-- Remove Selected Doctors Button -->
-        <Button Text="Remove Selected" Clicked="OnRemoveSelectedDoctorsClicked" BackgroundColor="Red" TextColor="White"/>
+        <!-- Remove Selected -->
+        <Button Text="Remove Selected"
+                Clicked="OnRemoveSelectedDoctorsClicked"
+                BackgroundColor="Red"
+                TextColor="White"/>
 
     </VerticalStackLayout>
 </ContentPage>
