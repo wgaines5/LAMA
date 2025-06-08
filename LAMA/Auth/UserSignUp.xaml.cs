@@ -135,7 +135,7 @@ public partial class UserSignUp : ContentPage
             UserSession.CurrentUser = newUser;
 
             // Toggle visibiility of Profile Flybar Menu Item on auth 
-            AppShell.Instance.ProfileContent.FlyoutItemIsVisible = true;
+            AuthServices.AuthorizedFlyoutMenuConfig();
 
             await Shell.Current.GoToAsync("//ProfilePage");
         }
