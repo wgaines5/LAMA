@@ -62,17 +62,17 @@ namespace LAMA.Core
         {
             Console.WriteLine("Fetching doctors via REST...");
 
-            // ✅ Check if user is signed in and token is available
+            //Check if user is signed in and token is available
             if (UserSession.Token == null)
             {
                 await DisplayAlert("Error", "You must be signed in to load doctors.", "OK");
                 return;
             }
 
-            // ✅ Use the cached token for Firestore REST access
+            //Use the cached token for Firestore REST access
             string idToken = UserSession.Token;
 
-            // 🔁 Call the REST-based Firestore fetch method
+            //Call the REST-based Firestore fetch method
             var doctors = await _firestoreService.GetAllMedicalProvidersViaRestAsync(idToken);
 
             Console.WriteLine($"Fetched {doctors.Count} doctors");
@@ -95,7 +95,8 @@ namespace LAMA.Core
             {
                 var matches = AllDoctors
                     .Where(d => d.FullName.ToLower().Contains(searchQuery.ToLower()))
-                    .Take(5); // limit
+                    .OrderBy(d => d.FullName) // ✅ alphabetical sort
+                    .Take(5);
 
                 foreach (var doctor in matches)
                     FilteredDoctors.Add(doctor);
@@ -138,7 +139,7 @@ namespace LAMA.Core
             {
                 PreferredDoctors.Remove(doctor);
                 // Remove from Firestore by name (assuming name is unique)
-                await _firestoreService.DeleteMedicalProviderByIdAsync(doctor.Id);
+                //await _firestoreService.DeleteMedicalProviderByIdAsync(doctor.Id);
             }
         }
 
