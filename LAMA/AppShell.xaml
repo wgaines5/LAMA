@@ -34,11 +34,10 @@
      />
 
     <!--CORE-->
-    <ShellContent
+    <!--<ShellContent
         Title="💬 Messages"
         ContentTemplate="{DataTemplate messages:MessagePage}"
-        Route="MessagePage"/>
-
+        Route="MessagePage"/>-->
 
     <ShellContent
         x:Name="MPDashboardShellContent"
@@ -64,13 +63,13 @@
     </ShellSection>
 
 
-    <ShellSection Title="📂 Categories" >
-        <ShellContent
-Title="Categories"
-ContentTemplate="{DataTemplate core:CategoryPage}"
-Route="CategoryPage" />
 
-    </ShellSection>
+     <ShellContent
+         Title="📂 Categories"
+         ContentTemplate="{DataTemplate core:CategoryPage}"
+         Route="CategoryPage" />
+
+
 
 
     <ShellSection Title="⚙️ Settings" >

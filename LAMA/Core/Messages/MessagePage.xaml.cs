@@ -281,6 +281,11 @@ public partial class MessagePage : ContentPage
             await Task.Delay(1000);
         }
     }
+
+    private async void OnBack(object sender, EventArgs e)
+    {
+        await Shell.Current.GoToAsync(".."); // Navigates back
+    }
 }
   
 

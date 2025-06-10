@@ -31,21 +31,27 @@ namespace LAMA.Core
                 switch (categoryName)
                 {
                     case "General Health":
-                        await Shell.Current.GoToAsync(nameof(GeneralHPage));
+                        await Shell.Current.GoToAsync("//MainPage");
+                        await Shell.Current.GoToAsync($"{nameof(GeneralHPage)}");
                         break;
                     case "Mental Health":
+                        await Shell.Current.GoToAsync("//MainPage");
                         await Shell.Current.GoToAsync(nameof(MentalHPage));
                         break;
                     case "Sexual & Reproductive Health":
+                        await Shell.Current.GoToAsync("//MainPage");
                         await Shell.Current.GoToAsync(nameof(SexualRPage));
                         break;
                     case "Chronic Conditions & Autoimmune":
+                        await Shell.Current.GoToAsync("//MainPage");
                         await Shell.Current.GoToAsync(nameof(ChronicAPage));
                         break;
                     case "Medication & Drug Interactions":
+                        await Shell.Current.GoToAsync("//MainPage");
                         await Shell.Current.GoToAsync(nameof(MedicationDPage));
                         break;
                     case "Alternative & Holistic Medicine":
+                        await Shell.Current.GoToAsync("//MainPage");
                         await Shell.Current.GoToAsync(nameof(AlternativeHPage));
                         break;
                 }
