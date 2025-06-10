@@ -61,7 +61,7 @@ namespace LAMA.Core.Categories
 
             QuestionEntry.Text = string.Empty;
 
-            await Shell.Current.GoToAsync($"MessagePage?SenderId={Uri.EscapeDataString(idSender)}&SessionId={Uri.EscapeDataString(idSession)}&Category={Uri.EscapeDataString(selectedCategory)}");
+            await Shell.Current.GoToAsync($"{nameof(MessagePage)}?SenderId={Uri.EscapeDataString(idSender)}&SessionId={Uri.EscapeDataString(idSession)}&Category={Uri.EscapeDataString(selectedCategory)}");
         }
     }
 }

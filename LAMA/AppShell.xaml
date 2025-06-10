@@ -34,11 +34,10 @@
      />
 
     <!--CORE-->
-    <ShellContent
+    <!--<ShellContent
         Title="💬 Messages"
         ContentTemplate="{DataTemplate messages:MessagePage}"
-        Route="MessagePage"/>
-
+        Route="MessagePage"/>-->
 
     <ShellContent
         Title="🥼 Medical Provider Dashboard"
@@ -63,13 +62,13 @@
     </ShellSection>
 
 
-    <ShellSection Title="📂 Categories" >
-        <ShellContent
-Title="Categories"
-ContentTemplate="{DataTemplate core:CategoryPage}"
-Route="CategoryPage" />
 
-    </ShellSection>
+     <ShellContent
+         Title="📂 Categories"
+         ContentTemplate="{DataTemplate core:CategoryPage}"
+         Route="CategoryPage" />
+
+
 
 
     <ShellSection Title="⚙️ Settings" >
