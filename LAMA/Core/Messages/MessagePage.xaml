@@ -73,8 +73,6 @@
                 <Button Text="Send"
                     Clicked="OnSendMessage"
                    />
-                <Button Text="Back"
-                        Clicked="OnBack"/>
             </StackLayout>
         </Grid>
     </ScrollView>

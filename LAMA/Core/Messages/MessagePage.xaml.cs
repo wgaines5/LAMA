@@ -120,7 +120,7 @@ public partial class MessagePage : ContentPage
     {
         try
         {
-            var response = await new HttpClient().GetStringAsync($"https://lama-60ddc-default-rtdb.firebaseio.com/{sessionId}/messages.json");
+            var response = await new HttpClient().GetStringAsync($"https://lama-60ddc-default-rtdb.firebaseio.com/conversations/{sessionId}/messages.json");
 
             var allMessages = JsonConvert.DeserializeObject<Dictionary<string, MessageItem>>(response);
 
@@ -181,7 +181,7 @@ public partial class MessagePage : ContentPage
             {
                 // No user ID — treat as a new unassigned message
                 string unassignedUrl = $"https://lama-60ddc-default-rtdb.firebaseio.com/queries.json";
-                string queryConvoUrl = $"https://lama-60ddc-default-rtdb.firebaseio.com/{SessionId}/messages.json";
+                string queryConvoUrl = $"https://lama-60ddc-default-rtdb.firebaseio.com/conversations/{SessionId}/messages.json";
                 await PostToRealtimeDatabaseAsync(unassignedUrl, jsonRealtimeBody);
                 await PostToRealtimeDatabaseAsync(queryConvoUrl, jsonRealtimeBody);
 
@@ -195,7 +195,7 @@ public partial class MessagePage : ContentPage
             else
             {
                 // Existing conversation — append to conversation path
-                string conversationUrl = $"https://lama-60ddc-default-rtdb.firebaseio.com/{SessionId}/messages.json";
+                string conversationUrl = $"https://lama-60ddc-default-rtdb.firebaseio.com/conversations/{SessionId}/messages.json";
                 await PostToRealtimeDatabaseAsync(conversationUrl, jsonRealtimeBody);
 
                 Messages.Clear();
@@ -280,11 +280,6 @@ public partial class MessagePage : ContentPage
 
             await Task.Delay(1000);
         }
-    }
-
-    private async void OnBack(object sender, EventArgs e)
-    {
-        await Shell.Current.GoToAsync(".."); // Navigates back
     }
 }
   

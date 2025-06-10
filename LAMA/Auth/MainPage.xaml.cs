@@ -252,13 +252,14 @@ namespace LAMA.Auth
 
 
 
-            var newMessage = new MessageItem
+            var newMessage = new
             {
-                Message = questionText,
-                Timestamp = DateTime.UtcNow.ToString("o"),
-                SenderId = idSender,
-                Category = selectedCategory,
-                IsAssigned = false
+                message = questionText,
+                timestamp = DateTime.UtcNow.ToString("o"),
+                senderId = idSender,
+                isAssigned = false,
+                sessionId = idSession,
+                category = selectedCategory
             };
 
 
@@ -268,7 +269,7 @@ namespace LAMA.Auth
             var response = await new HttpClient().PutAsync($"https://lama-60ddc-default-rtdb.firebaseio.com/queries/{idSession}.json", content);
             response.EnsureSuccessStatusCode();
 
-            var secondResponse = await new HttpClient().PostAsync($"https://lama-60ddc-default-rtdb.firebaseio.com/{idSession}/messages.json", content);
+            var secondResponse = await new HttpClient().PostAsync($"https://lama-60ddc-default-rtdb.firebaseio.com/conversations/{idSession}/messages.json", content);
             secondResponse.EnsureSuccessStatusCode();
 
             QuestionEntry.Text = string.Empty;

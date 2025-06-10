@@ -56,7 +56,7 @@ namespace LAMA.Core.Categories
             var response = await new HttpClient().PutAsync($"https://lama-60ddc-default-rtdb.firebaseio.com/queries/{idSession}.json", content);
             response.EnsureSuccessStatusCode();
 
-            var secondResponse = await new HttpClient().PostAsync($"https://lama-60ddc-default-rtdb.firebaseio.com/{idSession}/messages.json", content);
+            var secondResponse = await new HttpClient().PostAsync($"https://lama-60ddc-default-rtdb.firebaseio.com/conversations/{idSession}/messages.json", content);
             secondResponse.EnsureSuccessStatusCode();
 
             QuestionEntry.Text = string.Empty;
