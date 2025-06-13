@@ -105,7 +105,8 @@ public partial class SignUpPage : ContentPage
                 licenseNumber = LicNumber.Text,
                 ProfilePic = base64Image,
                 isVerified = false,
-                createdAt = DateTime.UtcNow.ToString("o")
+                createdAt = DateTime.UtcNow.ToString("o"),
+                messageCount = ""
             };
 
             string json = ConvertToFirestoreJson(profile);

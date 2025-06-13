@@ -91,6 +91,15 @@ namespace LAMA.Core
                             WelcomeMessage.Text = $"Welcome, Dr. {firstName} (Not Verified)";
                             WelcomeMessage.TextColor = Colors.OrangeRed;
                         }
+                        if (fields.TryGetProperty("messageCount", out JsonElement msgCountEl) &&
+                            msgCountEl.TryGetProperty("integerValue", out JsonElement msgCountVal))
+                        {
+                            if (int.TryParse(msgCountVal.GetString(), out int count))
+                            {
+                                UsersAnswered = count;
+                                UsersAnsweredCount.Text = count.ToString();
+                            }
+                        }
                         if (fields.TryGetProperty("categories", out JsonElement categoryField))
                         {
                             if (categoryField.TryGetProperty("arrayValue", out JsonElement arrayValue) &&
@@ -188,20 +197,56 @@ namespace LAMA.Core
                     if (!response.IsSuccessStatusCode)
                     {
                         await DisplayAlert("Database Error", "Failed to remove message from queue.", "OK");
+                        return;
                     }
 
-                    await Shell.Current.GoToAsync(navigationUrl);
                     PendingMessages.Remove(message);
+                    UsersAnswered++;
+
+                    UsersAnsweredCount.Text = UsersAnswered.ToString(); // Update
+                    await UpdateMessageCountInFirestoreAsync(UsersAnswered); // Save to Firestore
+
+                    await Shell.Current.GoToAsync(navigationUrl);
                 }
                 catch (Exception ex)
                 {
                     await DisplayAlert("Error", $"Error processing: {ex.Message}", "OK");
                 }
-
-                
-
             }
 
+        }
+
+        private async Task UpdateMessageCountInFirestoreAsync(int count)
+        {
+            if (UserSession.Credential == null || UserSession.Credential.User == null)
+                return;
+
+            string uid = UserSession.Credential.User.Uid;
+            string idToken = await UserSession.Credential.User.GetIdTokenAsync();
+
+            var updateBody = new
+            {
+                fields = new Dictionary<string, object>
+        {
+            { "messageCount", new { integerValue = count.ToString() } }
+        }
+            };
+
+            string json = JsonSerializer.Serialize(updateBody);
+
+            string url = $"https://firestore.googleapis.com/v1/projects/lama-60ddc/databases/(default)/documents/medical_providers/{uid}?updateMask.fieldPaths=messageCount&access_token={idToken}";
+
+            using HttpClient client = new HttpClient();
+            var request = new HttpRequestMessage(HttpMethod.Patch, url)
+            {
+                Content = new StringContent(json, Encoding.UTF8, "application/json")
+            };
+
+            HttpResponseMessage response = await client.SendAsync(request);
+            if (!response.IsSuccessStatusCode)
+            {
+                Console.WriteLine($"Failed to update messageCount. Status: {response.StatusCode}");
+            }
         }
 
         private async Task UpdateSelectedCategoriesInFirestore()
@@ -252,7 +297,14 @@ namespace LAMA.Core
                 var messages = JsonConvert.DeserializeObject<Dictionary<string, MessageItem>>(response);
 
                 // Update the ObservableCollection (this will notify the UI automatically)
-                PendingMessages = new ObservableCollection<MessageItem>(messages.Values);
+                if (messages != null)
+                {
+                    PendingMessages = new ObservableCollection<MessageItem>(messages.Values);
+                }
+                else
+                {
+                    PendingMessages = new ObservableCollection<MessageItem>();
+                }
 
                 // Bind to the ListView (in case you need to explicitly set the ItemsSource)
                 PendingMessagesList.ItemsSource = PendingMessages;
