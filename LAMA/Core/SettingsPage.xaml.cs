@@ -1,11 +1,22 @@
+using Firebase.Auth;
 using Microsoft.Maui.Controls;
 using System;
 using System.Threading.Tasks;
+using LAMA.Auth;
+using Firebase.Auth;
+
 
 namespace LAMA.Core
 {
     public partial class SettingsPage : ContentPage
     {
+        private readonly FirebaseAuthClient _authClient;
+
+        public SettingsPage(FirebaseAuthClient authClient)
+        {
+            InitializeComponent();
+            _authClient = authClient;
+        }
         public SettingsPage()
         {
             InitializeComponent();
@@ -68,11 +79,8 @@ namespace LAMA.Core
 
         private async void OnLogoutClicked(object sender, EventArgs e)
         {
-            var animationTask = this.TranslateTo(-500, 0, 300, Easing.SinInOut);
-            var navigationDelay = Task.Delay(500); // slight overlap
-
-            await Task.WhenAll(animationTask, navigationDelay);
-            await Shell.Current.GoToAsync("//UsrSignUp");
+            var signInVM = new SignInViewModel(_authClient);
+            await signInVM.Logout();
         }
 
         protected override async void OnAppearing()

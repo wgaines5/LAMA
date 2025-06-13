@@ -74,5 +74,29 @@ namespace LAMA.Auth
             UserSession.Credential = uCredential;
             UserSession.Token = await uCredential.User.GetIdTokenAsync();
         }
+
+        [RelayCommand]
+        public async Task Logout()
+        {
+            try
+            {
+                // Clear local session state
+                UserSession.Credential = null;
+                UserSession.UserId = null;
+                UserSession.Role = "guest";
+                UserSession.Token = null;
+
+                // Optional: clear saved login
+                Preferences.Remove("userEmail");
+                Preferences.Remove("userPassword");
+
+                // Navigate to sign-in or main page
+                await Shell.Current.GoToAsync("//SignInPage");
+            }
+            catch (Exception ex)
+            {
+                await Shell.Current.DisplayAlert("Logout Failed", ex.Message, "OK");
+            }
+        }
     }
 }
