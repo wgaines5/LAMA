@@ -71,7 +71,4 @@ Security & Compliance
  ![Screenshot 2025-03-09 180100](https://github.com/user-attachments/assets/67daf3ab-6f37-4f59-bcb3-b2c45a7d4904)
 
 
- 📧 Contact
-📩 Developer: Willie Gaines
-🔗 GitHub: github.com/wgaines5
-📚 College Student 
+📧 Contact 📩 Developers: Willie Gaines, David Street, Mason Haire, Jaxon Chalfant 🔗 GitHub: github.com/wgaines5 📚 College Students
