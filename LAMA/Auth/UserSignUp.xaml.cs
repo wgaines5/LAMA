@@ -37,7 +37,7 @@ public partial class UserSignUp : ContentPage
 
     private async void OnPickImageTapped(object sender, EventArgs e)
     {
-        string action = await DisplayActionSheet("Choose Profile Picture", "Cancel", null,null, "Pick from Gallery");
+        string action = await DisplayActionSheet("Choose Profile Picture", "Cancel", null,null, "Pick from Gallery"); //Gives option on new or existing Picture
 
         FileResult photo = null;
 
@@ -49,7 +49,8 @@ public partial class UserSignUp : ContentPage
             });
         }
 
-        if (photo != null)
+        //Converts picture base64 which keeps file size under 1mb
+        if (photo != null) 
         {
             using Stream stream = await photo.OpenReadAsync();
             using MemoryStream memoryStream = new MemoryStream();
@@ -135,7 +136,7 @@ public partial class UserSignUp : ContentPage
             UserSession.CurrentUser = newUser;
 
             // Toggle visibiility of Profile Flybar Menu Item on auth 
-            AppShell.Instance.ProfileContent.FlyoutItemIsVisible = true;
+            AuthServices.AuthorizedFlyoutMenuConfig();
 
             await Shell.Current.GoToAsync("//ProfilePage");
         }

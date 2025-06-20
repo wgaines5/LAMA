@@ -3,22 +3,26 @@ using System.Text.Json;
 using System.IO;
 using Microsoft.Maui.Controls;
 using System.Net.Http;
+using System.Threading;
 using System.Threading.Tasks;
 using System;
 using System.Linq;
 using LAMA.Core;
 using System.Text;
 
+
 namespace LAMA.Auth
 {
     public partial class MainPage : ContentPage
     {
+        // Stores a list of categories for health-related questions
         public ObservableCollection<string> Categories { get; set; }
+        private CancellationTokenSource _refreshToken = new CancellationTokenSource();
 
         public MainPage()
         {
             InitializeComponent();
-
+            // These are the default question categories
             Categories = new ObservableCollection<string>
             {
                 "General Health",
@@ -31,17 +35,54 @@ namespace LAMA.Auth
 
             BindingContext = this;
 
+            // Load health tips from Firestore when the app starts
             _ = LoadTipsFromFirestoreAsync();
-            _ = LoadMProvidersAsync();
         }
 
+        //Restart real-time updates when page opens each time 
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            _refreshToken = new CancellationTokenSource();
+            _ = RefreshMProviders(_refreshToken.Token);
+        }
+
+        //Stops real-time updates
+        protected override void OnDisappearing()
+        {
+            base.OnDisappearing();
+            _refreshToken.Cancel();
+        }
+
+        //Refreshes the list of online medical providers every 20 seconds
+        private async Task RefreshMProviders(CancellationToken token)
+        {
+            while (!token.IsCancellationRequested)
+            {
+                await MainThread.InvokeOnMainThreadAsync(async () =>
+                {
+                    MPLayout.Children.Clear();
+                    await LoadMProvidersAsync();
+                });
+
+                try
+                {
+                    await Task.Delay(20000, token);
+                }
+                catch (TaskCanceledException)
+                {
+                    break;
+                }
+            }
+        }
+
+        // Loads static medical advice tips from Firestore and displays them
         private async Task LoadTipsFromFirestoreAsync()
         {
             HttpClient client = new HttpClient();
             string url = "https://firestore.googleapis.com/v1/projects/lama-60ddc/databases/(default)/documents/medicaladvice/fcL8qgVXnlVeY7DIfiNk";
 
             HttpResponseMessage response = await client.GetAsync(url);
-
             if (response.IsSuccessStatusCode)
             {
                 string json = await response.Content.ReadAsStringAsync();
@@ -55,7 +96,7 @@ namespace LAMA.Auth
                         {
                             string tip = value.GetString();
 
-                            Frame tipFrame = new Frame
+                            Frame tipFrame = new Frame // Build a UI card
                             {
                                 CornerRadius = 10,
                                 BackgroundColor = Color.FromArgb("#30cfcb"),
@@ -98,6 +139,7 @@ namespace LAMA.Auth
                     {
                         if (docItem.TryGetProperty("fields", out JsonElement fields))
                         {
+                            // Check if the provider is verified and currently online
                             bool isVerified = fields.TryGetProperty("isVerified", out JsonElement verifiedEl) &&
                                               verifiedEl.TryGetProperty("booleanValue", out JsonElement verifiedVal) &&
                                               verifiedVal.GetBoolean();
@@ -116,8 +158,8 @@ namespace LAMA.Auth
                                 {
                                     fullName = $"Dr. {firstNameVal.GetString()}";
                                 }
-
-                                if (fields.TryGetProperty("profileImageBase64", out JsonElement imageEl) &&
+                                //Gets existing profile picture 
+                                if (fields.TryGetProperty("ProfilePic", out JsonElement imageEl) &&
                                     imageEl.TryGetProperty("stringValue", out JsonElement imageVal))
                                 {
                                     base64Image = imageVal.GetString();
@@ -171,16 +213,40 @@ namespace LAMA.Auth
 
         private async void OnMPSignupClicked(object sender, EventArgs e)
         {
+            var animationTask = this.TranslateTo(-500, 0, 300, Easing.SinInOut);
+            var navigationDelay = Task.Delay(500); // slight overlap
+
+            await Task.WhenAll(animationTask, navigationDelay);
             await Shell.Current.GoToAsync("//SignUpPage");
         }
 
         private async void OnUserSignupClicked(object sender, EventArgs e)
         {
+            var animationTask = this.TranslateTo(-500, 0, 300, Easing.SinInOut);
+            var navigationDelay = Task.Delay(500); // slight overlap
+
+            await Task.WhenAll(animationTask, navigationDelay);
             await Shell.Current.GoToAsync("//UsrSignUp");
         }
 
         private async void OnAskQuestion(object sender, EventArgs e)
         {
+
+
+            if (UserSession.CurrentUser == null)
+            {
+
+                UserSession.CurrentUser = await AuthServices.SignInAnonymouslyAsync();
+
+
+                if (UserSession.CurrentUser == null)
+                {
+                    await Microsoft.Maui.Controls.Application.Current.MainPage.DisplayAlert("Error",
+                        "Could not sign in anonymously. Please try again.",
+                        "Ok");
+                }
+            }
+
             string questionText = QuestionEntry.Text;
             string selectedCategory = CategoryPicker.SelectedItem as string;
             string idSender = UserSession.CurrentUser.Uid;
@@ -192,14 +258,8 @@ namespace LAMA.Auth
                 return;
             }
 
-            //var newMessage = new MessageItem
-            //{
-            //    Message = questionText,
-            //    Timestamp = DateTime.UtcNow.ToString("o"),
-            //    SenderId = senderId,
-            //    Category = selectedCategory,
-            //    IsAssigned = false
-            //};
+
+
             var newMessage = new
             {
                 message = questionText,
@@ -210,14 +270,14 @@ namespace LAMA.Auth
                 category = selectedCategory
             };
 
-            // Send to firebase
+
             var json = JsonSerializer.Serialize(newMessage);
             var content = new StringContent(json, Encoding.UTF8, "application/json");
 
             var response = await new HttpClient().PutAsync($"https://lama-60ddc-default-rtdb.firebaseio.com/queries/{idSession}.json", content);
             response.EnsureSuccessStatusCode();
 
-            var secondResponse = await new HttpClient().PostAsync($"https://lama-60ddc-default-rtdb.firebaseio.com/{idSession}/messages.json", content);
+            var secondResponse = await new HttpClient().PostAsync($"https://lama-60ddc-default-rtdb.firebaseio.com/conversations/{idSession}/messages.json", content);
             secondResponse.EnsureSuccessStatusCode();
 
             QuestionEntry.Text = string.Empty;

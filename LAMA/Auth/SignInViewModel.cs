@@ -7,12 +7,16 @@ using CommunityToolkit.Mvvm;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Firebase.Auth;
+using Google.Cloud.Firestore;
+using LAMA.Core;
 
 namespace LAMA.Auth
 {
     public partial class SignInViewModel : ObservableObject
     {
         private readonly FirebaseAuthClient _authClient;
+
+        public static string Token { get; set; }
 
         [ObservableProperty]
         private string _email;
@@ -28,8 +32,28 @@ namespace LAMA.Auth
         [RelayCommand]
         private async Task SignIn()
         {
-        await   _authClient.SignInWithEmailAndPasswordAsync(Email, Password);
+            var credential = await _authClient.SignInWithEmailAndPasswordAsync(Email, Password);
+
+            UserSession.Credential = credential;
+            UserSession.UserId = credential.User.Uid;
+            UserSession.Token = await credential.User.GetIdTokenAsync();
+
+            // Optional: Load Firestore role
+            FirestoreDb db = FirestoreDb.Create("lama-60ddc");
+            var doc = await db.Collection("users").Document(credential.User.Uid).GetSnapshotAsync();
+
+            if (doc.Exists && doc.TryGetValue("role", out string role))
+                UserSession.Role = role;
+            else
+                UserSession.Role = "guest";
+
+            // Navigate based on role
+            if (UserSession.Role == "user")
+                await Shell.Current.GoToAsync($"//{nameof(MainPage)}");
+            else
+                await Shell.Current.GoToAsync($"//{nameof(MPDashBoard)}");
         }
+
 
         [RelayCommand]
         private async Task NavigateSignUp()
