@@ -278,7 +278,7 @@ public partial class MessagePage : ContentPage
                 }
             }
 
-            await Task.Delay(1000);
+            await Task.Delay(1000, token);
         }
     }
 }

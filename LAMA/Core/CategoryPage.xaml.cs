@@ -24,6 +24,7 @@ namespace LAMA.Core
             BindingContext = this;
         }
 
+        //Allows user to visit the specific cat page
         private async void OnCategorySelected(object sender, EventArgs e)
         {
             if (sender is Button button && button.CommandParameter is string categoryName)

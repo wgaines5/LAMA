@@ -56,10 +56,10 @@
                 x:Name="NPIE"
                 Placeholder="NPI"
             ></Entry>
-            <Entry
-                x:Name="StateE"
-             Placeholder="State"   
-            ></Entry>
+            <Picker x:Name="StatePicker"
+                    Title="Select State"
+                    TitleColor="Gray"
+                    ItemsSource="{Binding States}" />
             <Entry
                 x:Name="LicNumber"
              Placeholder="License Number"   
