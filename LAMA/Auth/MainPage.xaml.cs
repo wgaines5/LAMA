@@ -10,17 +10,19 @@ using System.Linq;
 using LAMA.Core;
 using System.Text;
 
+
 namespace LAMA.Auth
 {
     public partial class MainPage : ContentPage
     {
+        // Stores a list of categories for health-related questions
         public ObservableCollection<string> Categories { get; set; }
         private CancellationTokenSource _refreshToken = new CancellationTokenSource();
 
         public MainPage()
         {
             InitializeComponent();
-
+            // These are the default question categories
             Categories = new ObservableCollection<string>
             {
                 "General Health",
@@ -33,9 +35,11 @@ namespace LAMA.Auth
 
             BindingContext = this;
 
+            // Load health tips from Firestore when the app starts
             _ = LoadTipsFromFirestoreAsync();
         }
 
+        //Restart real-time updates when page opens each time 
         protected override void OnAppearing()
         {
             base.OnAppearing();
@@ -43,12 +47,14 @@ namespace LAMA.Auth
             _ = RefreshMProviders(_refreshToken.Token);
         }
 
+        //Stops real-time updates
         protected override void OnDisappearing()
         {
             base.OnDisappearing();
             _refreshToken.Cancel();
         }
 
+        //Refreshes the list of online medical providers every 20 seconds
         private async Task RefreshMProviders(CancellationToken token)
         {
             while (!token.IsCancellationRequested)
@@ -70,6 +76,7 @@ namespace LAMA.Auth
             }
         }
 
+        // Loads static medical advice tips from Firestore and displays them
         private async Task LoadTipsFromFirestoreAsync()
         {
             HttpClient client = new HttpClient();
@@ -89,7 +96,7 @@ namespace LAMA.Auth
                         {
                             string tip = value.GetString();
 
-                            Frame tipFrame = new Frame
+                            Frame tipFrame = new Frame // Build a UI card
                             {
                                 CornerRadius = 10,
                                 BackgroundColor = Color.FromArgb("#30cfcb"),
@@ -132,6 +139,7 @@ namespace LAMA.Auth
                     {
                         if (docItem.TryGetProperty("fields", out JsonElement fields))
                         {
+                            // Check if the provider is verified and currently online
                             bool isVerified = fields.TryGetProperty("isVerified", out JsonElement verifiedEl) &&
                                               verifiedEl.TryGetProperty("booleanValue", out JsonElement verifiedVal) &&
                                               verifiedVal.GetBoolean();
@@ -150,7 +158,7 @@ namespace LAMA.Auth
                                 {
                                     fullName = $"Dr. {firstNameVal.GetString()}";
                                 }
-
+                                //Gets existing profile picture 
                                 if (fields.TryGetProperty("ProfilePic", out JsonElement imageEl) &&
                                     imageEl.TryGetProperty("stringValue", out JsonElement imageVal))
                                 {

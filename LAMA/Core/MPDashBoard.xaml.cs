@@ -14,6 +14,7 @@ namespace LAMA.Core
 {
     public partial class MPDashBoard : ContentPage
     {
+        // ObservableCollections are used here to dynamically bind UI elements
         public ObservableCollection<CategoryItem> Categories { get; set; }
         public ObservableCollection<MessageItem> PendingMessages { get; set; }
         public ObservableCollection<Conversation> UnassignedMessages { get; set; }
@@ -24,8 +25,9 @@ namespace LAMA.Core
         public MPDashBoard()
         {
             InitializeComponent();
-            BindingContext = this;
+            BindingContext = this; // Sets up data-binding for the page.
 
+            // We initialize the categories that the medical provider can select.
             Categories =
             [
                 new() { Name = "General Health", IsSelected = false },
@@ -38,6 +40,7 @@ namespace LAMA.Core
 
             UsersAnswered = 0; // example count
 
+            // Each category has an event handler to update Firestore when selected/unselected.
             foreach (CategoryItem categoryI in Categories)
             {
                 categoryI.OnSelectionChanged = async (item) => await UpdateSelectedCategoriesInFirestore();
@@ -52,6 +55,7 @@ namespace LAMA.Core
             _ = LoadMessagesFromFirebaseAsync();
         }
 
+        // This method loads the user profile asynchronously from Firestore using the user's credentials.
         private async Task LoadUserProfileAsync()
         {
             try
@@ -63,6 +67,7 @@ namespace LAMA.Core
                     return;
                 }
 
+                // Retrieves the user's UID and ID token for authorization.
                 string uid = UserSession.Credential.User.Uid;
                 string idToken = await UserSession.Credential.User.GetIdTokenAsync();
 
@@ -73,15 +78,15 @@ namespace LAMA.Core
 
                 if (response.IsSuccessStatusCode)
                 {
-
+                    // Deserialize the response into a JSON document
                     string json = await response.Content.ReadAsStringAsync();
                     using JsonDocument doc = JsonDocument.Parse(json);
                     JsonElement fields;
-                    if (doc.RootElement.TryGetProperty("fields", out fields))
+                    if (doc.RootElement.TryGetProperty("fields", out fields))// Check if the "fields" property exists in the JSON response
                     {
                         bool isVerified = fields.GetProperty("isVerified").GetProperty("booleanValue").GetBoolean();
                         string firstName = fields.GetProperty("firstName").GetProperty("stringValue").GetString();
-                        if (isVerified)
+                        if (isVerified) // Update the welcome message based on verification stat
                         {
                             WelcomeMessage.Text = $"Welcome, Dr. {firstName} ";
                             WelcomeMessage.TextColor = Colors.Green;
@@ -124,7 +129,7 @@ namespace LAMA.Core
                 WelcomeMessage.TextColor = Colors.Red;
             }
         }
-
+        // This is the method for logging out the user and removing the saved credentials
         private void OnLogoutClicked(object sender, EventArgs e)
         {
             Preferences.Remove("userEmail");
@@ -132,6 +137,7 @@ namespace LAMA.Core
             Shell.Current.GoToAsync("//SignInPage");
         }
 
+        // This method toggles the user's online status in Firestore
         private async void OnOnlineToggleChanged(object sender, ToggledEventArgs e)
         {
             bool isOnline = e.Value;
@@ -154,6 +160,7 @@ namespace LAMA.Core
                     }
                 };
 
+                // Send the request to update the status
                 Dictionary<string, object> requestBody = new Dictionary<string, object>
                 {
                     ["fields"] = isOnlineField
@@ -173,7 +180,7 @@ namespace LAMA.Core
                     await DisplayAlert("Error", "Failed to update online status.", "OK");
                 }
 
-                await LoadUserProfileAsync();
+                await LoadUserProfileAsync();  // After updating, refresh the profile with the new data
             }
             catch
             {
