@@ -23,8 +23,22 @@ public partial class SignUpPage : ContentPage
     {
         InitializeComponent();
 
-        _authClient = new FirebaseAuthClient(fbConfig);
+        StatePicker.ItemsSource = new List<string>
+        {
+            "Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado",
+            "Connecticut", "Delaware", "Florida", "Georgia", "Hawaii", "Idaho",
+            "Illinois", "Indiana", "Iowa", "Kansas", "Kentucky", "Louisiana",
+            "Maine", "Maryland", "Massachusetts", "Michigan", "Minnesota",
+            "Mississippi", "Missouri", "Montana", "Nebraska", "Nevada",
+            "New Hampshire", "New Jersey", "New Mexico", "New York",
+            "North Carolina", "North Dakota", "Ohio", "Oklahoma", "Oregon",
+            "Pennsylvania", "Rhode Island", "South Carolina", "South Dakota",
+            "Tennessee", "Texas", "Utah", "Vermont", "Virginia", "Washington",
+            "West Virginia", "Wisconsin", "Wyoming"
+        };
 
+        _authClient = new FirebaseAuthClient(fbConfig);
+       
     }
     private string _base64Image = string.Empty;
 
@@ -101,11 +115,12 @@ public partial class SignUpPage : ContentPage
                 firstName = FirstNameE.Text,
                 lastName = LastNameE.Text,
                 npi = NPIE.Text,
-                state = StateE.Text,
+                state = StatePicker.SelectedItem?.ToString() ?? "",
                 licenseNumber = LicNumber.Text,
                 ProfilePic = base64Image,
                 isVerified = false,
-                createdAt = DateTime.UtcNow.ToString("o")
+                createdAt = DateTime.UtcNow.ToString("o"),
+                messageCount = ""
             };
 
             string json = ConvertToFirestoreJson(profile);
