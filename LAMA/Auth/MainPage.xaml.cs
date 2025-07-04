@@ -252,15 +252,16 @@ namespace LAMA.Auth
 
 
 
-            //var newMessage = new MessageItem
-            //{
-            //    Message = questionText,
-            //    Timestamp = DateTime.UtcNow.ToString("o"),
-            //    SenderId = senderId,
-            //    Category = selectedCategory,
-            //    IsAssigned = false
-            //};
-           
+            var newMessage = new
+            {
+                message = questionText,
+                timestamp = DateTime.UtcNow.ToString("o"),
+                senderId = idSender,
+                isAssigned = false,
+                sessionId = idSession,
+                category = selectedCategory
+            };
+
 
             var json = JsonSerializer.Serialize(newMessage);
             var content = new StringContent(json, Encoding.UTF8, "application/json");
