@@ -1,3 +1,13 @@
+
+![License: All Rights Reserved](https://img.shields.io/badge/license-All%20Rights%20Reserved-red)
+
+⚠️ **Notice:**  
+This project is published publicly **for portfolio and skill demonstration purposes only**.  
+
+- ✅ Employers and recruiters are welcome to view the code.  
+- ❌ The code is **not licensed for copying, reuse, modification, or distribution**.  
+- 📄 See the [LICENSE](./LICENSE) file for full details. 
+
 LAMA - Live Anonymous Medical Advice
 ![lama_logo](https://github.com/user-attachments/assets/f6e952d3-d60e-44b5-bc82-19db39e34430)
 
